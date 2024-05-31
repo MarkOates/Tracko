@@ -33,6 +33,10 @@ namespace Tracko
       int get_cursor_x() const;
       int get_cursor_y() const;
       std::vector<std::vector<Tracko::Piece>> &get_pieces_ref();
+      void move_cursor_up();
+      void move_cursor_down();
+      void move_cursor_left();
+      void move_cursor_right();
       void swap();
       bool can_swap();
       bool cursor_is_in_valid_position();

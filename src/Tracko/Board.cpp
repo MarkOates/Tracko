@@ -76,6 +76,34 @@ std::vector<std::vector<Tracko::Piece>> &Board::get_pieces_ref()
 }
 
 
+void Board::move_cursor_up()
+{
+   cursor_y -= 1;
+   if (cursor_y < 0) cursor_y = 0;
+   return;
+}
+
+void Board::move_cursor_down()
+{
+   cursor_y += 1;
+   if (cursor_y >= num_rows) cursor_y = (num_rows - 1);
+   return;
+}
+
+void Board::move_cursor_left()
+{
+   cursor_x -= 1;
+   if (cursor_x < 0) cursor_x = 0;
+   return;
+}
+
+void Board::move_cursor_right()
+{
+   cursor_x += 1;
+   if (cursor_x >= num_columns) cursor_x = (num_columns - 1);
+   return;
+}
+
 void Board::swap()
 {
    if (!(can_swap()))

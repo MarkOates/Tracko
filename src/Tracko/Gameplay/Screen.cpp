@@ -312,6 +312,58 @@ void Screen::primary_render_func()
    return;
 }
 
+void Screen::key_char_func(ALLEGRO_EVENT* ev)
+{
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::key_char_func]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::key_char_func: error: guard \"ev\" not met");
+   }
+   switch (ev->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_UP:
+         current_board->move_cursor_up();
+      break;
+
+      case ALLEGRO_KEY_DOWN:
+         current_board->move_cursor_down();
+      break;
+
+      case ALLEGRO_KEY_LEFT:
+         current_board->move_cursor_left();
+      break;
+
+      case ALLEGRO_KEY_RIGHT:
+         current_board->move_cursor_right();
+      break;
+
+      case ALLEGRO_KEY_ENTER:
+         if (current_board->can_swap()) current_board->swap();
+         //universe.move_camera_left();
+      break;
+
+      //case ALLEGRO_KEY_S: {
+         //bool command_pressed = ev->keyboard.modifiers & ALLEGRO_KEYMOD_COMMAND;
+         //if (command_pressed)
+         //{
+            //universe.save_score_to_filename();
+            //handled = true;
+         //}
+      //} break;
+      //case ALLEGRO_KEY_L: {
+         //bool command_pressed = ev->keyboard.modifiers & ALLEGRO_KEYMOD_COMMAND;
+         //if (command_pressed)
+         //{
+            //universe.load_score_from_filename();
+            //handled = true;
+         //}
+      //} break;
+   }
+   return;
+}
+
 void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
    if (!(initialized))

@@ -42,6 +42,34 @@ properties:
 methods:
 
 
+  - name: move_cursor_up
+    body: |
+      cursor_y -= 1;
+      if (cursor_y < 0) cursor_y = 0;
+      return;
+
+
+  - name: move_cursor_down
+    body: |
+      cursor_y += 1;
+      if (cursor_y >= num_rows) cursor_y = (num_rows - 1);
+      return;
+
+
+  - name: move_cursor_left
+    body: |
+      cursor_x -= 1;
+      if (cursor_x < 0) cursor_x = 0;
+      return;
+
+
+  - name: move_cursor_right
+    body: |
+      cursor_x += 1;
+      if (cursor_x >= num_columns) cursor_x = (num_columns - 1);
+      return;
+
+
   - name: swap
     guards: [ can_swap() ]
     body: |
