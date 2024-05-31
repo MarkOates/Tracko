@@ -1,0 +1,113 @@
+{
+  "AllegroFlare/GameConfigurations/Complete": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/Levels/Base": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/Gameplay/Level"
+  ],
+  "AllegroFlare/DialogTree/NodeBank": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeBankFactory": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/Wait": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/ExitProgram": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "Tracko/Gameplay/Level": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/Achievement": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/Elements/StoryboardPages/Base": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/GameSession": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/GameProgressAndStateInfos/Base": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/GameProgressAndStateInfo"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "Tracko/Gameplay/Screen": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/Screens/Gameplay": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/Runners/Complete": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/AudioController": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/EventNames": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/GameEventDatas/AchievementUnlocked": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/GameEvent": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/JSONLoaders/Tracko/GameProgressAndStateInfo": [
+    "Tracko/GameProgressAndStateInfo"
+  ],
+  "ALLEGRO_FONT": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "ALLEGRO_EVENT": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/BitmapBin": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/FontBin": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/ModelBin": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "al_is_primitives_addon_initialized": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/Player": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/VirtualControllers/Base": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/VirtualControllers/GenericController": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/GameConfigurations/Main": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/AssetStudio/Database": [
+    "Tracko/Gameplay/Screen"
+  ]
+}
