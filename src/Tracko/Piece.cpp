@@ -98,6 +98,7 @@ void Piece::set_entrance_connecting_position(Tracko::Piece::ConnectingPosition e
 
 Tracko::Piece::ConnectingPosition Piece::infer_exit_connecting_position()
 {
+   // TODO: Test this
    std::map<TileType, std::pair<ConnectingPosition, ConnectingPosition>> piece_connection_edges = {
       { TILE_TYPE_HORIZONTAL_BAR, { CONNECTING_POSITION_LEFT, CONNECTING_POSITION_RIGHT } },
       { TILE_TYPE_VERTICAL_BAR, { CONNECTING_POSITION_TOP, CONNECTING_POSITION_BOTTOM } },
