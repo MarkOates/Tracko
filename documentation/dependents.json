@@ -27,11 +27,17 @@
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer"
   ],
+  "AllegroFlare/Placement2D": [
+    "Tracko/BoardRenderer"
+  ],
   "AllegroFlare/Vec2D": [
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer"
   ],
   "Tracko/Board": [
+    "Tracko/BoardRenderer"
+  ],
+  "Tracko/PieceRenderer": [
     "Tracko/BoardRenderer"
   ],
   "AllegroFlare/GameConfigurations/Complete": [

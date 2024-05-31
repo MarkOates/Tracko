@@ -89,3 +89,25 @@ TEST_F(Tracko_BoardRendererTestWithAllegroRenderingFixture, CAPTURE__render__wil
 }
 
 
+TEST_F(Tracko_BoardRendererTestWithAllegroRenderingFixture, CAPTURE__render__with_pieces__will_not_blow_up)
+{
+   AllegroFlare::Camera2D camera;
+   camera.size = { 1920, 1080 };
+   Tracko::Board board;
+   board.resize(7, 5);
+   board.random_fill_types();
+
+   camera.start_reverse_transform();
+   Tracko::BoardRenderer board_renderer(&get_font_bin_ref(), &board);
+   AllegroFlare::Placement2D subject_placement;
+   subject_placement.size = { board_renderer.infer_width(), board_renderer.infer_height() };
+   subject_placement.start_transform();
+   board_renderer.render();
+   subject_placement.restore_transform();
+   camera.restore_transform();
+
+   al_flip_display();
+   sleep_for(1);
+}
+
+

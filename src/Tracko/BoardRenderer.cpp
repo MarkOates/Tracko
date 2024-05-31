@@ -2,7 +2,9 @@
 
 #include <Tracko/BoardRenderer.hpp>
 
+#include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
+#include <Tracko/PieceRenderer.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -117,6 +119,7 @@ void BoardRenderer::render()
    int num_columns = board->get_num_columns();
    ALLEGRO_COLOR grid_color = ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22};
 
+   // Draw the empty board lines
    for (int column=0; column<num_columns; column++)
    {
       for (int row=0; row<num_rows; row++)
@@ -131,6 +134,27 @@ void BoardRenderer::render()
          al_draw_rectangle(x1, y1, x2, y2, grid_color, 1.0);
       }
    }
+
+   // Draw the actual pieces
+   AllegroFlare::Placement2D piece_placement;
+   for (int x=0; x<num_columns; x++)
+   {
+      for (int y=0; y<num_rows; y++)
+      {
+         Tracko::Piece* piece = board->get_piece(x, y);
+         float center_x = x * column_width + column_width * 0.5;
+         float center_y = y * row_height + row_height * 0.5;
+
+         Tracko::PieceRenderer piece_renderer(font_bin, piece);
+
+         piece_placement.position = { center_x, center_y };
+         piece_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
+         piece_placement.start_transform();
+         piece_renderer.render();
+         piece_placement.restore_transform();
+      }
+   }
+
    return;
 }
 

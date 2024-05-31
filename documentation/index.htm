@@ -173,10 +173,16 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Board&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Board.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::PieceRenderer&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/PieceRenderer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -764,11 +770,17 @@ table td
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer"
   ],
+  "AllegroFlare/Placement2D": [
+    "Tracko/BoardRenderer"
+  ],
   "AllegroFlare/Vec2D": [
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer"
   ],
   "Tracko/Board": [
+    "Tracko/BoardRenderer"
+  ],
+  "Tracko/PieceRenderer": [
     "Tracko/BoardRenderer"
   ],
   "AllegroFlare/GameConfigurations/Complete": [

@@ -54,6 +54,7 @@ methods:
       int num_columns = board->get_num_columns();
       ALLEGRO_COLOR grid_color = ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22};
 
+      // Draw the empty board lines
       for (int column=0; column<num_columns; column++)
       {
          for (int row=0; row<num_rows; row++)
@@ -68,12 +69,35 @@ methods:
             al_draw_rectangle(x1, y1, x2, y2, grid_color, 1.0);
          }
       }
+
+      // Draw the actual pieces
+      AllegroFlare::Placement2D piece_placement;
+      for (int x=0; x<num_columns; x++)
+      {
+         for (int y=0; y<num_rows; y++)
+         {
+            Tracko::Piece* piece = board->get_piece(x, y);
+            float center_x = x * column_width + column_width * 0.5;
+            float center_y = y * row_height + row_height * 0.5;
+
+            Tracko::PieceRenderer piece_renderer(font_bin, piece);
+
+            piece_placement.position = { center_x, center_y };
+            piece_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
+            piece_placement.start_transform();
+            piece_renderer.render();
+            piece_placement.restore_transform();
+         }
+      }
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
+      - AllegroFlare::Placement2D
       - al_draw_rounded_rectangle
       - al_draw_circle
       - al_draw_text
+      - Tracko::PieceRenderer
 
 
   - name: obtain_font
@@ -97,9 +121,13 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_rounded_rectangle
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: Tracko::Board
     headers: [ Tracko/Board.hpp ]
+  - symbol: Tracko::PieceRenderer
+    headers: [ Tracko/PieceRenderer.hpp ]
 
 
