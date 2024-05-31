@@ -20,7 +20,13 @@
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer"
   ],
+  "al_color_name": [
+    "Tracko/BoardRenderer"
+  ],
   "al_draw_circle": [
+    "Tracko/BoardRenderer"
+  ],
+  "al_draw_rectangle": [
     "Tracko/BoardRenderer"
   ],
   "al_draw_rounded_rectangle": [

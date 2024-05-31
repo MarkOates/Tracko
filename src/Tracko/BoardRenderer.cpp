@@ -5,6 +5,7 @@
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <Tracko/PieceRenderer.hpp>
+#include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -154,6 +155,18 @@ void BoardRenderer::render()
          piece_placement.restore_transform();
       }
    }
+
+   // Draw the position of the cursor
+   float cursor_column = board->get_cursor_x();
+   float cursor_row = board->get_cursor_y();
+   float x1 = cursor_column * column_width;
+   float y1 = cursor_row * row_height;
+   float x2 = cursor_column * column_width + column_width;
+   float y2 = cursor_row * row_height + row_height;
+   float center_x = x1 + column_width * 0.5;
+   float center_y = y1 + row_height * 0.5;
+   al_draw_rectangle(x1, y1, x2, y2, al_color_name("dodgerblue"), 7.0);
+
 
    return;
 }
