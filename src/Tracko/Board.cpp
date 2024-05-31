@@ -196,6 +196,23 @@ void Board::fill_with_random_types(uint32_t seed)
    return;
 }
 
+void Board::initialize_pieces()
+{
+   // Initialize the pieces on the board
+   for (int x=0; x<num_columns; x++)
+   {
+      for (int y=0; y<num_rows; y++)
+      {
+         Tracko::Piece* piece = get_piece(x, y);
+         piece->initialize();
+      }
+   }
+
+   // Initialize the swap piece (and reveal it)
+   swap_piece.initialize();
+   swap_piece.reveal();
+}
+
 Tracko::Piece* Board::get_piece_at_cursor()
 {
    if (!(cursor_is_in_valid_position()))

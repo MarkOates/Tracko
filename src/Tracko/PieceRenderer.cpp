@@ -115,6 +115,13 @@ void PieceRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("PieceRenderer::render: error: guard \"piece\" not met");
    }
+   if (!(piece->get_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[PieceRenderer::render]: error: guard \"piece->get_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PieceRenderer::render: error: guard \"piece->get_initialized()\" not met");
+   }
    std::string quote = "piece";
    // float x = 1920/2;
    // float y = 1080/3;
@@ -141,25 +148,35 @@ void PieceRenderer::render()
    float center_y = height * 0.5;
    float dist = width * 0.5 * 0.6;
 
+   // Draw some tile type undefined warning
    if (piece->get_tile_type() == Tracko::Piece::TILE_TYPE_UNDEF)
    {
-      // Draw some tile type undefined warning
       int font_line_height = al_get_font_line_height(font);
       al_draw_text(font, ALLEGRO_COLOR{1, 1, 0.5, 1}, 0, 0-font_line_height * 0.5f, ALLEGRO_ALIGN_CENTER,
          "undefined type");
    }
+
+   if (piece->is_hidden())
+   {
+      // Draw hidden appearance
+   }
    else
    {
-      std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> connection_coords =
-         get_connecting_coords_for_type(piece->get_tile_type());
-
-      std::vector<AllegroFlare::Vec2D> connection_coords_vec = { connection_coords.first, connection_coords.second };
-
-      for (auto &connection_coord : connection_coords_vec)
+      // Draw connection points
+      if (piece->get_tile_type() != Tracko::Piece::TILE_TYPE_UNDEF)
       {
-         float x = center_x + connection_coord.x * dist;
-         float y = center_y + connection_coord.y * dist;
-         al_draw_filled_circle(x, y, 8, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
+         // DEVELOPMENT: Draw connection points
+         std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> connection_coords =
+            get_connecting_coords_for_type(piece->get_tile_type());
+
+         std::vector<AllegroFlare::Vec2D> connection_coords_vec = { connection_coords.first, connection_coords.second };
+
+         for (auto &connection_coord : connection_coords_vec)
+         {
+            float x = center_x + connection_coord.x * dist;
+            float y = center_y + connection_coord.y * dist;
+            al_draw_filled_circle(x, y, 8, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
+         }
       }
    }
 

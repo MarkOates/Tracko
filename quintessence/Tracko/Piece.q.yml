@@ -33,6 +33,12 @@ properties:
     type: float
     init_with: 0.0f
 
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
 
 enums:
 
@@ -72,6 +78,16 @@ enums:
 methods:
 
 
+  - name: initialize
+    guards:
+      - (!initialized)
+      - (tile_type != TILE_TYPE_UNDEF)
+    body: |
+      initialized = true;
+      set_state(STATE_HIDDEN);
+      return;
+
+
   - name: infer_can_swap
     type: bool
     body: |
@@ -100,6 +116,33 @@ methods:
          //STATE_FILLED,
       };
       return (fillable_states.count(state) > 0);
+
+
+  - name: infer_can_reveal
+    type: bool
+    body: |
+      // TODO: Test this
+      std::set<uint32_t> revealable_states =
+      {
+         //STATE_UNDEF,
+         STATE_HIDDEN,
+         //STATE_REVEALED,
+         //STATE_FILLING,
+         //STATE_FILLED,
+      };
+      return (revealable_states.count(state) > 0);
+
+
+  - name: reveal
+    guards: [ infer_can_reveal() ]
+    body: |
+      set_state(STATE_REVEALED);
+
+
+  - name: is_hidden
+    type: bool
+    body: |
+      return is_state(STATE_HIDDEN);
 
 
   - name: set_tile_type

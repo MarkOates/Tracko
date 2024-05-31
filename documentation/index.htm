@@ -136,6 +136,10 @@ table td
   <td class="method"><b>fill_with_random_types</b>(uint32_t seed=76414 /*TRAIN*/)</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize_pieces</b>()</td>
+</tr>
+<tr>
   <td class="method">Tracko::Piece*</td>
   <td class="method"><b>get_piece_at_cursor</b>()</td>
 </tr>
@@ -564,6 +568,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>perform_primary_board_action</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>key_char_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
 </tr>
 <tr>
@@ -683,9 +691,17 @@ table td
   <td class="property">state_changed_at</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>infer_can_swap</b>()</td>
@@ -693,6 +709,18 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>infer_can_fill</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>infer_can_reveal</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>reveal</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_hidden</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>

@@ -23,6 +23,7 @@ Piece::Piece()
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
+   , initialized(false)
 {
 }
 
@@ -56,6 +57,33 @@ uint32_t Piece::get_state() const
 }
 
 
+bool Piece::get_initialized() const
+{
+   return initialized;
+}
+
+
+void Piece::initialize()
+{
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::initialize: error: guard \"(!initialized)\" not met");
+   }
+   if (!((tile_type != TILE_TYPE_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::initialize]: error: guard \"(tile_type != TILE_TYPE_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::initialize: error: guard \"(tile_type != TILE_TYPE_UNDEF)\" not met");
+   }
+   initialized = true;
+   set_state(STATE_HIDDEN);
+   return;
+}
+
 bool Piece::infer_can_swap()
 {
    // TODO: Test this
@@ -82,6 +110,37 @@ bool Piece::infer_can_fill()
       //STATE_FILLED,
    };
    return (fillable_states.count(state) > 0);
+}
+
+bool Piece::infer_can_reveal()
+{
+   // TODO: Test this
+   std::set<uint32_t> revealable_states =
+   {
+      //STATE_UNDEF,
+      STATE_HIDDEN,
+      //STATE_REVEALED,
+      //STATE_FILLING,
+      //STATE_FILLED,
+   };
+   return (revealable_states.count(state) > 0);
+}
+
+void Piece::reveal()
+{
+   if (!(infer_can_reveal()))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::reveal]: error: guard \"infer_can_reveal()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::reveal: error: guard \"infer_can_reveal()\" not met");
+   }
+   set_state(STATE_REVEALED);
+}
+
+bool Piece::is_hidden()
+{
+   return is_state(STATE_HIDDEN);
 }
 
 void Piece::set_tile_type(Tracko::Piece::TileType tile_type)

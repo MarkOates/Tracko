@@ -42,6 +42,7 @@ namespace Tracko
       bool cursor_is_in_valid_position();
       void resize(int num_columns=8, int num_rows=8);
       void fill_with_random_types(uint32_t seed=76414 /*TRAIN*/);
+      void initialize_pieces();
       Tracko::Piece* get_piece_at_cursor();
       Tracko::Piece* get_piece(int x=8, int y=8);
       Tracko::Piece* get_swap_piece();

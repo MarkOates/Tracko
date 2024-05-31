@@ -140,6 +140,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    current_board = new Tracko::Board;
    current_board->resize(7, 5);
    current_board->fill_with_random_types();
+   current_board->initialize_pieces();
 
    // Load the new level
    AllegroFlare::Levels::Base *loaded_level = game_configuration->load_level_by_identifier(level_identifier);
@@ -331,6 +332,21 @@ void Screen::primary_render_func()
    return;
 }
 
+void Screen::perform_primary_board_action()
+{
+   Tracko::Piece *piece_at_cursor = current_board->get_piece_at_cursor();
+
+   if (piece_at_cursor->infer_can_reveal())
+   {
+      piece_at_cursor->reveal();
+   }
+   else if (current_board->can_swap())
+   {
+      current_board->swap();
+   }
+   return;
+}
+
 void Screen::key_char_func(ALLEGRO_EVENT* ev)
 {
    if (!(ev))
@@ -359,7 +375,7 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
       break;
 
       case ALLEGRO_KEY_ENTER:
-         if (current_board->can_swap()) current_board->swap();
+         perform_primary_board_action();
          //universe.move_camera_left();
       break;
 
