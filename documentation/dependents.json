@@ -121,5 +121,8 @@
   ],
   "Tracko/Piece/TileType": [
     "Tracko/Piece"
+  ],
+  "Tracko/Piece/ConnectingPosition": [
+    "Tracko/Piece"
   ]
 }

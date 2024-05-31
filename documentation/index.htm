@@ -498,6 +498,10 @@ table td
   <td class="property">uint32_t</td>
 </tr>
 <tr>
+  <td class="property">entrance_connecting_position</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
   <td class="property">state</td>
   <td class="property">uint32_t</td>
 </tr>
@@ -515,6 +519,14 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>set_tile_type</b>(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_entrance_connecting_position</b>(Tracko::Piece::ConnectingPosition entrance_connecting_position=CONNECTING_POSITION_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">Tracko::Piece::ConnectingPosition</td>
+  <td class="method"><b>infer_exit_connecting_position</b>()</td>
 </tr>
 <tr>
   <td class="method">bool</td>
@@ -555,6 +567,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::TileType&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::ConnectingPosition&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -683,6 +698,9 @@ table td
     "Tracko/Piece"
   ],
   "Tracko/Piece/TileType": [
+    "Tracko/Piece"
+  ],
+  "Tracko/Piece/ConnectingPosition": [
     "Tracko/Piece"
   ]
 }

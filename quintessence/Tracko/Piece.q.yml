@@ -13,6 +13,12 @@ properties:
     getter: true
     setter: explicit
 
+  - name: entrance_connecting_position
+    type: uint32_t
+    init_with: CONNECTING_POSITION_UNDEF
+    getter: true
+    setter: explicit
+
   - name: state
     type: uint32_t
     init_with: STATE_UNDEF
@@ -42,6 +48,15 @@ enums:
       - TILE_TYPE_LEFT_TOP_CURVE
 
 
+  - name: ConnectingPosition
+    enumerators:
+      - CONNECTING_POSITION_UNDEF
+      - CONNECTING_POSITION_LEFT
+      - CONNECTING_POSITION_TOP
+      - CONNECTING_POSITION_RIGHT
+      - CONNECTING_POSITION_BOTTOM
+
+
   - name: State
     enumerators:
       - STATE_UNDEF
@@ -63,6 +78,41 @@ methods:
     body: |
       this->tile_type = tile_type;
       return;
+
+
+  - name: set_entrance_connecting_position
+    parameters:
+      - name: entrance_connecting_position
+        type: Tracko::Piece::ConnectingPosition
+        default_argument: CONNECTING_POSITION_UNDEF
+    guards:
+      - (entrance_connecting_position != CONNECTING_POSITION_UNDEF)
+      - (is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))
+    body: |
+      this->entrance_connecting_position = entrance_connecting_position;
+      return;
+
+
+  - name: infer_exit_connecting_position
+    type: Tracko::Piece::ConnectingPosition
+    body: |
+      std::map<TileType, std::pair<ConnectingPosition, ConnectingPosition>> connection_edges = {
+         { TILE_TYPE_HORIZONTAL_BAR, { CONNECTING_POSITION_LEFT, CONNECTING_POSITION_RIGHT } },
+         { TILE_TYPE_VERTICAL_BAR, { CONNECTING_POSITION_TOP, CONNECTING_POSITION_BOTTOM } },
+         // TODO: Add more connections here
+      };
+
+
+      //TILE_TYPE_VERTICAL_BAR
+      //TILE_TYPE_TOP_RIGHT_CURVE
+      //TILE_TYPE_RIGHT_BOTTOM_CURVE
+      //TILE_TYPE_BOTTOM_LEFT_CURVE
+      //TILE_TYPE_LEFT_TOP_CURVE
+      //this->entrance_connecting_position = entrance_connecting_position;
+      return CONNECTING_POSITION_UNDEF;
+    body_dependency_symbols:
+      - std::map
+      - std::pair
 
 
   - name: is_filled
@@ -225,6 +275,8 @@ dependencies:
   - symbol: al_get_time
     headers: [ allegro5/allegro.h ]
   - symbol: Tracko::Piece::TileType
+    headers: [ Tracko/Piece.hpp ]
+  - symbol: Tracko::Piece::ConnectingPosition
     headers: [ Tracko/Piece.hpp ]
 
 

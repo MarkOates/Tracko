@@ -5,9 +5,11 @@
 #include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro.h>
 #include <iostream>
+#include <map>
 #include <set>
 #include <sstream>
 #include <stdexcept>
+#include <utility>
 
 
 namespace Tracko
@@ -17,6 +19,7 @@ namespace Tracko
 Piece::Piece()
    : fill_counter(0.0f)
    , tile_type(TILE_TYPE_UNDEF)
+   , entrance_connecting_position(CONNECTING_POSITION_UNDEF)
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
@@ -38,6 +41,12 @@ float Piece::get_fill_counter() const
 uint32_t Piece::get_tile_type() const
 {
    return tile_type;
+}
+
+
+uint32_t Piece::get_entrance_connecting_position() const
+{
+   return entrance_connecting_position;
 }
 
 
@@ -65,6 +74,44 @@ void Piece::set_tile_type(Tracko::Piece::TileType tile_type)
    }
    this->tile_type = tile_type;
    return;
+}
+
+void Piece::set_entrance_connecting_position(Tracko::Piece::ConnectingPosition entrance_connecting_position)
+{
+   if (!((entrance_connecting_position != CONNECTING_POSITION_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::set_entrance_connecting_position]: error: guard \"(entrance_connecting_position != CONNECTING_POSITION_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"(entrance_connecting_position != CONNECTING_POSITION_UNDEF)\" not met");
+   }
+   if (!((is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::set_entrance_connecting_position]: error: guard \"(is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"(is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))\" not met");
+   }
+   this->entrance_connecting_position = entrance_connecting_position;
+   return;
+}
+
+Tracko::Piece::ConnectingPosition Piece::infer_exit_connecting_position()
+{
+   std::map<TileType, std::pair<ConnectingPosition, ConnectingPosition>> connection_edges = {
+      { TILE_TYPE_HORIZONTAL_BAR, { CONNECTING_POSITION_LEFT, CONNECTING_POSITION_RIGHT } },
+      { TILE_TYPE_VERTICAL_BAR, { CONNECTING_POSITION_TOP, CONNECTING_POSITION_BOTTOM } },
+      // TODO: Add more connections here
+   };
+
+
+   //TILE_TYPE_VERTICAL_BAR
+   //TILE_TYPE_TOP_RIGHT_CURVE
+   //TILE_TYPE_RIGHT_BOTTOM_CURVE
+   //TILE_TYPE_BOTTOM_LEFT_CURVE
+   //TILE_TYPE_LEFT_TOP_CURVE
+   //this->entrance_connecting_position = entrance_connecting_position;
+   return CONNECTING_POSITION_UNDEF;
 }
 
 bool Piece::is_filled()
