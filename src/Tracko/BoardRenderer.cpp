@@ -17,8 +17,8 @@ namespace Tracko
 BoardRenderer::BoardRenderer(AllegroFlare::FontBin* font_bin, Tracko::Board* board)
    : font_bin(font_bin)
    , board(board)
-   , column_width(80.0f)
-   , row_height(80.0f)
+   , column_width(120.0f)
+   , row_height(120.0f)
 {
 }
 
