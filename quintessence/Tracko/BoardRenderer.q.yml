@@ -11,8 +11,34 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
+  - name: column_width
+    type: float
+    init_with: 80.0f
+    getter: true
+    setter: true
+
+  - name: row_height
+    type: float
+    init_with: 80.0f
+    getter: true
+    setter: true
+
 
 methods:
+
+
+  - name: infer_width
+    type: float
+    guards: [ board ]
+    body: |
+      return board->get_num_columns() * column_width;
+
+
+  - name: infer_height
+    type: float
+    guards: [ board ]
+    body: |
+      return board->get_num_rows() * row_height;
 
 
   - name: render
@@ -26,16 +52,20 @@ methods:
     body: |
       int num_rows = board->get_num_rows();
       int num_columns = board->get_num_columns();
-      float row_height = 80;
-      float column_width = 80;
+      ALLEGRO_COLOR grid_color = ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22};
 
-      for (int row=0; row<num_rows; row++)
+      for (int column=0; column<num_columns; column++)
       {
-         for (int column=0; column<num_columns; column++)
+         for (int row=0; row<num_rows; row++)
          {
-            float x = row * row_height;
-            float y = column * column_width;
-            al_draw_filled_circle(x, y, 4, ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22});
+            float x1 = column * column_width;
+            float y1 = row * row_height;
+            float x2 = column * column_width + column_width;
+            float y2 = row * row_height + row_height;
+            float center_x = x1 + column_width * 0.5;
+            float center_y = y1 + row_height * 0.5;
+            al_draw_filled_circle(center_x, center_y, 4, grid_color);
+            al_draw_rectangle(x1, y1, x2, y2, grid_color, 1.0);
          }
       }
       return;

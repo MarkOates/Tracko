@@ -17,6 +17,8 @@ namespace Tracko
 BoardRenderer::BoardRenderer(AllegroFlare::FontBin* font_bin, Tracko::Board* board)
    : font_bin(font_bin)
    , board(board)
+   , column_width(80.0f)
+   , row_height(80.0f)
 {
 }
 
@@ -25,6 +27,54 @@ BoardRenderer::~BoardRenderer()
 {
 }
 
+
+void BoardRenderer::set_column_width(float column_width)
+{
+   this->column_width = column_width;
+}
+
+
+void BoardRenderer::set_row_height(float row_height)
+{
+   this->row_height = row_height;
+}
+
+
+float BoardRenderer::get_column_width() const
+{
+   return column_width;
+}
+
+
+float BoardRenderer::get_row_height() const
+{
+   return row_height;
+}
+
+
+float BoardRenderer::infer_width()
+{
+   if (!(board))
+   {
+      std::stringstream error_message;
+      error_message << "[BoardRenderer::infer_width]: error: guard \"board\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BoardRenderer::infer_width: error: guard \"board\" not met");
+   }
+   return board->get_num_columns() * column_width;
+}
+
+float BoardRenderer::infer_height()
+{
+   if (!(board))
+   {
+      std::stringstream error_message;
+      error_message << "[BoardRenderer::infer_height]: error: guard \"board\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BoardRenderer::infer_height: error: guard \"board\" not met");
+   }
+   return board->get_num_rows() * row_height;
+}
 
 void BoardRenderer::render()
 {
@@ -65,16 +115,20 @@ void BoardRenderer::render()
    }
    int num_rows = board->get_num_rows();
    int num_columns = board->get_num_columns();
-   float row_height = 80;
-   float column_width = 80;
+   ALLEGRO_COLOR grid_color = ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22};
 
-   for (int row=0; row<num_rows; row++)
+   for (int column=0; column<num_columns; column++)
    {
-      for (int column=0; column<num_columns; column++)
+      for (int row=0; row<num_rows; row++)
       {
-         float x = row * row_height;
-         float y = column * column_width;
-         al_draw_filled_circle(x, y, 4, ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22});
+         float x1 = column * column_width;
+         float y1 = row * row_height;
+         float x2 = column * column_width + column_width;
+         float y2 = row * row_height + row_height;
+         float center_x = x1 + column_width * 0.5;
+         float center_y = y1 + row_height * 0.5;
+         al_draw_filled_circle(center_x, center_y, 4, grid_color);
+         al_draw_rectangle(x1, y1, x2, y2, grid_color, 1.0);
       }
    }
    return;
