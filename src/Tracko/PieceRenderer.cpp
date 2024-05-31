@@ -2,10 +2,12 @@
 
 #include <Tracko/PieceRenderer.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <stdexcept>
 
@@ -128,6 +130,28 @@ void PieceRenderer::render()
    );
    //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0-h_text_height, ALLEGRO_ALIGN_CENTER, quote.c_str());
    return;
+}
+
+AllegroFlare::Vec2D PieceRenderer::get_connecting_coords(Tracko::Piece::ConnectingPosition connecting_position)
+{
+   std::map<Tracko::Piece::ConnectingPosition, AllegroFlare::Vec2D> connecting_position_coords = {
+      { Tracko::Piece::CONNECTING_POSITION_LEFT, { -0.5, 0.0 } },
+      { Tracko::Piece::CONNECTING_POSITION_TOP, { 0.0, -0.5 } },
+      { Tracko::Piece::CONNECTING_POSITION_RIGHT, { 0.5, 0.0 } },
+      { Tracko::Piece::CONNECTING_POSITION_BOTTOM, { 0.0, 0.5 } },
+   };
+
+   if (connecting_position_coords.find(connecting_position) == connecting_position_coords.end())
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::PieceRenderer::get_connecting_coors",
+         "Unable to handle case for the Tracko::Piece::ConnectingPosition \""
+            + std::to_string(connecting_position) + "\""
+      );
+   }
+   AllegroFlare::Vec2D connecting_coords = connecting_position_coords[connecting_position];
+
+   return connecting_coords;
 }
 
 ALLEGRO_FONT* PieceRenderer::obtain_font()

@@ -38,6 +38,7 @@ enums:
 
 
   - name: TileType
+    scope: public
     enumerators:
       - TILE_TYPE_UNDEF
       - TILE_TYPE_HORIZONTAL_BAR
@@ -49,6 +50,7 @@ enums:
 
 
   - name: ConnectingPosition
+    scope: public
     enumerators:
       - CONNECTING_POSITION_UNDEF
       - CONNECTING_POSITION_LEFT
@@ -58,6 +60,7 @@ enums:
 
 
   - name: State
+    scope: public
     enumerators:
       - STATE_UNDEF
       - STATE_HIDDEN

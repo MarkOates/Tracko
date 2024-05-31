@@ -11,7 +11,8 @@ namespace Tracko
 {
    class Piece
    {
-   private:
+   public:
+
       enum TileType
       {
          TILE_TYPE_UNDEF = 0,
@@ -38,6 +39,7 @@ namespace Tracko
          STATE_FILLING,
          STATE_FILLED,
       };
+   private:
       float fill_counter;
       Tracko::Piece::TileType tile_type;
       uint32_t entrance_connecting_position;

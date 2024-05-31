@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <Tracko/Piece.hpp>
 #include <allegro5/allegro_font.h>
 
@@ -33,6 +34,7 @@ namespace Tracko
       float get_width() const;
       float get_height() const;
       void render();
+      AllegroFlare::Vec2D get_connecting_coords(Tracko::Piece::ConnectingPosition connecting_position=Tracko::Piece::CONNECTING_POSITION_UNDEF);
    };
 }
 

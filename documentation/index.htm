@@ -678,6 +678,10 @@ table td
   <td class="method"><b>render</b>()</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Vec2D</td>
+  <td class="method"><b>get_connecting_coords</b>(Tracko::Piece::ConnectingPosition connecting_position=Tracko::Piece::CONNECTING_POSITION_UNDEF)</td>
+</tr>
+<tr>
   <td class="private_method">ALLEGRO_FONT*</td>
   <td class="private_method"><b>obtain_font</b>()</td>
 </tr>
@@ -701,6 +705,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::ConnectingPosition&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -846,7 +856,8 @@ table td
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Logger": [
-    "Tracko/Piece"
+    "Tracko/Piece",
+    "Tracko/PieceRenderer"
   ],
   "al_get_time": [
     "Tracko/Piece"
@@ -855,7 +866,8 @@ table td
     "Tracko/Piece"
   ],
   "Tracko/Piece/ConnectingPosition": [
-    "Tracko/Piece"
+    "Tracko/Piece",
+    "Tracko/PieceRenderer"
   ]
 }
 </pre>

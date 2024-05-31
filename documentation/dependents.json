@@ -137,7 +137,8 @@
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Logger": [
-    "Tracko/Piece"
+    "Tracko/Piece",
+    "Tracko/PieceRenderer"
   ],
   "al_get_time": [
     "Tracko/Piece"
@@ -146,6 +147,7 @@
     "Tracko/Piece"
   ],
   "Tracko/Piece/ConnectingPosition": [
-    "Tracko/Piece"
+    "Tracko/Piece",
+    "Tracko/PieceRenderer"
   ]
 }

@@ -66,6 +66,36 @@ methods:
       - al_draw_text
 
 
+  - name: get_connecting_coords
+    type: AllegroFlare::Vec2D
+    parameters:
+      - name: connecting_position
+        type: Tracko::Piece::ConnectingPosition
+        default_argument: Tracko::Piece::CONNECTING_POSITION_UNDEF
+    body: |
+      std::map<Tracko::Piece::ConnectingPosition, AllegroFlare::Vec2D> connecting_position_coords = {
+         { Tracko::Piece::CONNECTING_POSITION_LEFT, { -0.5, 0.0 } },
+         { Tracko::Piece::CONNECTING_POSITION_TOP, { 0.0, -0.5 } },
+         { Tracko::Piece::CONNECTING_POSITION_RIGHT, { 0.5, 0.0 } },
+         { Tracko::Piece::CONNECTING_POSITION_BOTTOM, { 0.0, 0.5 } },
+      };
+
+      if (connecting_position_coords.find(connecting_position) == connecting_position_coords.end())
+      {
+         AllegroFlare::Logger::throw_error(
+            "Tracko::PieceRenderer::get_connecting_coors",
+            "Unable to handle case for the Tracko::Piece::ConnectingPosition \""
+               + std::to_string(connecting_position) + "\""
+         );
+      }
+      AllegroFlare::Vec2D connecting_coords = connecting_position_coords[connecting_position];
+
+      return connecting_coords;
+    body_dependency_symbols:
+      - std::map
+      - AllegroFlare::Logger
+
+
   - name: obtain_font
     private: true
     type: ALLEGRO_FONT*
@@ -89,5 +119,9 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: Tracko::Piece
     headers: [ Tracko/Piece.hpp ]
+  - symbol: Tracko::Piece::ConnectingPosition
+    headers: [ Tracko/Piece.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
