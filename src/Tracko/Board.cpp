@@ -2,6 +2,7 @@
 
 #include <Tracko/Board.hpp>
 
+#include <AllegroFlare/Random.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -75,6 +76,30 @@ void Board::resize(int num_columns, int num_rows)
 
    pieces.resize(num_columns);
    for (auto &piece : pieces) piece.resize(num_rows);
+   return;
+}
+
+void Board::random_fill_types(uint32_t seed)
+{
+   static AllegroFlare::Random random(seed);
+
+   std::vector<Tracko::Piece::TileType> tile_types = {
+      Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR,
+      Tracko::Piece::TILE_TYPE_VERTICAL_BAR,
+      Tracko::Piece::TILE_TYPE_TOP_RIGHT_CURVE,
+      Tracko::Piece::TILE_TYPE_RIGHT_BOTTOM_CURVE,
+      Tracko::Piece::TILE_TYPE_BOTTOM_LEFT_CURVE,
+      Tracko::Piece::TILE_TYPE_LEFT_TOP_CURVE,
+   };
+
+   for (int x=0; x<num_columns; x++)
+   {
+      for (int y=0; y<num_rows; y++)
+      {
+         Tracko::Piece* piece = get_piece(x, y);
+         piece->set_tile_type(random.get_random_element(tile_types));
+      }
+   }
    return;
 }
 

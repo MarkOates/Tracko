@@ -3,6 +3,9 @@
     "Tracko/Board",
     "Tracko/PieceRenderer"
   ],
+  "AllegroFlare/Random": [
+    "Tracko/Board"
+  ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",

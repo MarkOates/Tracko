@@ -92,6 +92,10 @@ table td
   <td class="method"><b>resize</b>(int num_columns=8, int num_rows=8)</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>random_fill_types</b>(uint32_t seed=76414 /*TRAIN*/)</td>
+</tr>
+<tr>
   <td class="method">Tracko::Piece*</td>
   <td class="method"><b>get_piece</b>(int x=8, int y=8)</td>
 </tr>
@@ -100,6 +104,9 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Random&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Random.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -732,6 +739,9 @@ table td
   "Tracko/Piece": [
     "Tracko/Board",
     "Tracko/PieceRenderer"
+  ],
+  "AllegroFlare/Random": [
+    "Tracko/Board"
   ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",

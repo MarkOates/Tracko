@@ -42,6 +42,36 @@ methods:
       return;
 
 
+  - name: random_fill_types
+    parameters:
+      - name: seed
+        type: uint32_t
+        default_argument: 76414 /*TRAIN*/
+    body: |
+      static AllegroFlare::Random random(seed);
+
+      std::vector<Tracko::Piece::TileType> tile_types = {
+         Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR,
+         Tracko::Piece::TILE_TYPE_VERTICAL_BAR,
+         Tracko::Piece::TILE_TYPE_TOP_RIGHT_CURVE,
+         Tracko::Piece::TILE_TYPE_RIGHT_BOTTOM_CURVE,
+         Tracko::Piece::TILE_TYPE_BOTTOM_LEFT_CURVE,
+         Tracko::Piece::TILE_TYPE_LEFT_TOP_CURVE,
+      };
+
+      for (int x=0; x<num_columns; x++)
+      {
+         for (int y=0; y<num_rows; y++)
+         {
+            Tracko::Piece* piece = get_piece(x, y);
+            piece->set_tile_type(random.get_random_element(tile_types));
+         }
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Random
+
+
   - name: get_piece
     type: Tracko::Piece*
     parameters:
@@ -61,5 +91,7 @@ dependencies:
 
   - symbol: Tracko::Piece
     headers: [ Tracko/Piece.hpp ]
+  - symbol: AllegroFlare::Random
+    headers: [ AllegroFlare/Random.hpp ]
 
 
