@@ -118,6 +118,7 @@ Tracko::Piece::ConnectingPosition Piece::infer_exit_connecting_position()
    }
    std::pair<ConnectingPosition, ConnectingPosition> connections_on_this_piece = piece_connection_edges[tile_type];
 
+   // Find the "other" connecting piece, given the entrance connecting position
    Tracko::Piece::ConnectingPosition inferred_exit_position = CONNECTING_POSITION_UNDEF;
    if (connections_on_this_piece.first == entrance_connecting_position)
    {
