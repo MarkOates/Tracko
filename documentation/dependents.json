@@ -2,6 +2,29 @@
   "Tracko/Piece": [
     "Tracko/Board"
   ],
+  "AllegroFlare/FontBin": [
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
+  ],
+  "ALLEGRO_FONT": [
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
+  ],
+  "al_draw_text": [
+    "Tracko/BoardRenderer"
+  ],
+  "al_draw_circle": [
+    "Tracko/BoardRenderer"
+  ],
+  "al_draw_rounded_rectangle": [
+    "Tracko/BoardRenderer"
+  ],
+  "AllegroFlare/Vec2D": [
+    "Tracko/BoardRenderer"
+  ],
+  "Tracko/Board": [
+    "Tracko/BoardRenderer"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "Tracko/GameConfigurations/Main"
   ],
@@ -77,9 +100,6 @@
   "Tracko/JSONLoaders/Tracko/GameProgressAndStateInfo": [
     "Tracko/GameProgressAndStateInfo"
   ],
-  "ALLEGRO_FONT": [
-    "Tracko/Gameplay/Screen"
-  ],
   "ALLEGRO_EVENT": [
     "Tracko/Gameplay/Screen"
   ],
@@ -87,9 +107,6 @@
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/EventEmitter": [
-    "Tracko/Gameplay/Screen"
-  ],
-  "AllegroFlare/FontBin": [
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/ModelBin": [

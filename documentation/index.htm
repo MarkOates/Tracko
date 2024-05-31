@@ -55,6 +55,7 @@ table td
 <h1>Table of Contents</h1>
 <ul>
   <li><a href="#quintessence/Tracko/Board.q.yml">quintessence/Tracko/Board.q.yml</a></li>
+  <li><a href="#quintessence/Tracko/BoardRenderer.q.yml">quintessence/Tracko/BoardRenderer.q.yml</a></li>
   <li><a href="#quintessence/Tracko/GameConfigurations/Main.q.yml">quintessence/Tracko/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Tracko/GameProgressAndStateInfo.q.yml">quintessence/Tracko/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/Tracko/Gameplay/Level.q.yml">quintessence/Tracko/Gameplay/Level.q.yml</a></li>
@@ -98,6 +99,60 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tracko/BoardRenderer.q.yml">quintessence/Tracko/BoardRenderer.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">board</td>
+  <td class="property">Tracko::Board*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_circle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Board&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Board.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -580,6 +635,29 @@ table td
   "Tracko/Piece": [
     "Tracko/Board"
   ],
+  "AllegroFlare/FontBin": [
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
+  ],
+  "ALLEGRO_FONT": [
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
+  ],
+  "al_draw_text": [
+    "Tracko/BoardRenderer"
+  ],
+  "al_draw_circle": [
+    "Tracko/BoardRenderer"
+  ],
+  "al_draw_rounded_rectangle": [
+    "Tracko/BoardRenderer"
+  ],
+  "AllegroFlare/Vec2D": [
+    "Tracko/BoardRenderer"
+  ],
+  "Tracko/Board": [
+    "Tracko/BoardRenderer"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "Tracko/GameConfigurations/Main"
   ],
@@ -655,9 +733,6 @@ table td
   "Tracko/JSONLoaders/Tracko/GameProgressAndStateInfo": [
     "Tracko/GameProgressAndStateInfo"
   ],
-  "ALLEGRO_FONT": [
-    "Tracko/Gameplay/Screen"
-  ],
   "ALLEGRO_EVENT": [
     "Tracko/Gameplay/Screen"
   ],
@@ -665,9 +740,6 @@ table td
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/EventEmitter": [
-    "Tracko/Gameplay/Screen"
-  ],
-  "AllegroFlare/FontBin": [
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/ModelBin": [
