@@ -112,5 +112,11 @@
   ],
   "AllegroFlare/AssetStudio/Database": [
     "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/Logger": [
+    "Tracko/Piece"
+  ],
+  "al_get_time": [
+    "Tracko/Piece"
   ]
 }
