@@ -3,6 +3,7 @@
 
 #include <allegro5/allegro.h>
 #include <cstdint>
+#include <utility>
 
 
 namespace Tracko
@@ -18,6 +19,7 @@ namespace Tracko
          STATE_FILLING,
          STATE_FILLED,
       };
+      float fill_counter;
       uint32_t state;
       bool state_is_busy;
       float state_changed_at;
@@ -29,7 +31,10 @@ namespace Tracko
       Piece();
       ~Piece();
 
+      float get_fill_counter() const;
       uint32_t get_state() const;
+      bool is_filled();
+      std::pair<bool, float> fill_with_amount(float amount=0.025f);
       void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
       void update_state(float time_now=al_get_time());
       static bool is_valid_state(uint32_t state=STATE_UNDEF);

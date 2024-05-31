@@ -1,6 +1,12 @@
 properties:
 
 
+  - name: fill_counter
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: false
+
   - name: state
     type: uint32_t
     init_with: STATE_UNDEF
@@ -29,6 +35,35 @@ enums:
 
 
 methods:
+
+
+  - name: is_filled
+    type: bool
+    body: |
+      return is_state(STATE_FILLED);
+
+
+  - name: fill_with_amount
+    type: std::pair<bool, float>
+    parameters:
+      - name: amount
+        type: float
+        default_argument: 0.025f
+    guards: [ (!is_filled()) ]
+    body: |
+      fill_counter += amount;
+      float remainder = 0.0f;
+      bool was_filled = false;
+      if (fill_counter >= 1.0) 
+      {
+         remainder = (fill_counter - 1.0);
+         was_filled = true;
+
+         set_state(STATE_FILLED);
+         was_filled = true;
+         fill_counter = 1.0f;
+      }
+      return { was_filled, remainder };
 
 
   - name: set_state

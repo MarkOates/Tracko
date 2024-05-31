@@ -15,7 +15,8 @@ namespace Tracko
 
 
 Piece::Piece()
-   : state(STATE_UNDEF)
+   : fill_counter(0.0f)
+   , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
 {
@@ -27,11 +28,46 @@ Piece::~Piece()
 }
 
 
+float Piece::get_fill_counter() const
+{
+   return fill_counter;
+}
+
+
 uint32_t Piece::get_state() const
 {
    return state;
 }
 
+
+bool Piece::is_filled()
+{
+   return is_state(STATE_FILLED);
+}
+
+std::pair<bool, float> Piece::fill_with_amount(float amount)
+{
+   if (!((!is_filled())))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::fill_with_amount]: error: guard \"(!is_filled())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::fill_with_amount: error: guard \"(!is_filled())\" not met");
+   }
+   fill_counter += amount;
+   float remainder = 0.0f;
+   bool was_filled = false;
+   if (fill_counter >= 1.0) 
+   {
+      remainder = (fill_counter - 1.0);
+      was_filled = true;
+
+      set_state(STATE_FILLED);
+      was_filled = true;
+      fill_counter = 1.0f;
+   }
+   return { was_filled, remainder };
+}
 
 void Piece::set_state(uint32_t state, bool override_if_busy)
 {
