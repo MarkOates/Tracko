@@ -1,0 +1,64 @@
+properties:
+
+
+  - name: pieces
+    type: std::vector<std::vector<Tracko::Piece>>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: num_rows
+    type: int
+    init_with: 0
+    getter: true
+    setter: false
+
+  - name: num_columns
+    type: int
+    init_with: 0
+    getter: true
+    setter: false
+
+
+methods:
+
+
+  - name: resize
+    parameters:
+      - name: num_columns
+        type: int
+        default_argument: 8
+      - name: num_rows
+        type: int
+        default_argument: 8
+    guards: [ (num_rows > 0), (num_columns > 0) ]
+    body: |
+      this->num_rows = num_rows;
+      this->num_columns = num_columns;
+      
+      pieces.resize(num_columns);
+      for (auto &piece : pieces) piece.resize(num_rows);
+      return;
+
+
+  - name: get_piece
+    type: Tracko::Piece*
+    parameters:
+      - name: x
+        type: int
+        default_argument: 8
+      - name: y
+        type: int
+        default_argument: 8
+    guards: [ (x >= 0), (x < num_columns), (y >= 0), (x < num_rows) ]
+    body: |
+      return &pieces[x][y];
+
+
+dependencies:
+
+
+  - symbol: Tracko::Piece
+    headers: [ Tracko/Piece.hpp ]
+
+
