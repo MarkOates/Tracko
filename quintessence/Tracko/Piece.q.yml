@@ -51,16 +51,16 @@ methods:
         default_argument: 0.025f
     guards: [ (!is_filled()) ]
     body: |
-      fill_counter += amount;
       float remainder = 0.0f;
       bool was_filled = false;
+
+      fill_counter += amount;
       if (fill_counter >= 1.0) 
       {
          remainder = (fill_counter - 1.0);
          was_filled = true;
 
          set_state(STATE_FILLED);
-         was_filled = true;
          fill_counter = 1.0f;
       }
       return { was_filled, remainder };
@@ -74,7 +74,7 @@ methods:
       - name: override_if_busy
         type: bool
         default_argument: false
-    guards: [ is_valid_state(state) ]
+    guards: [ al_is_system_installed(), is_valid_state(state) ]
     body: |
       if (this->state == state) return;
       if (!override_if_busy && state_is_busy) return;

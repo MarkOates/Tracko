@@ -54,16 +54,16 @@ std::pair<bool, float> Piece::fill_with_amount(float amount)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Piece::fill_with_amount: error: guard \"(!is_filled())\" not met");
    }
-   fill_counter += amount;
    float remainder = 0.0f;
    bool was_filled = false;
+
+   fill_counter += amount;
    if (fill_counter >= 1.0) 
    {
       remainder = (fill_counter - 1.0);
       was_filled = true;
 
       set_state(STATE_FILLED);
-      was_filled = true;
       fill_counter = 1.0f;
    }
    return { was_filled, remainder };
@@ -71,6 +71,13 @@ std::pair<bool, float> Piece::fill_with_amount(float amount)
 
 void Piece::set_state(uint32_t state, bool override_if_busy)
 {
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::set_state]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::set_state: error: guard \"al_is_system_installed()\" not met");
+   }
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
