@@ -1,26 +1,32 @@
 {
   "Tracko/Piece": [
-    "Tracko/Board"
+    "Tracko/Board",
+    "Tracko/PieceRenderer"
   ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/PieceRenderer"
   ],
   "ALLEGRO_FONT": [
     "Tracko/BoardRenderer",
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/PieceRenderer"
   ],
   "al_draw_text": [
-    "Tracko/BoardRenderer"
+    "Tracko/BoardRenderer",
+    "Tracko/PieceRenderer"
   ],
   "al_draw_circle": [
     "Tracko/BoardRenderer"
   ],
   "al_draw_rounded_rectangle": [
-    "Tracko/BoardRenderer"
+    "Tracko/BoardRenderer",
+    "Tracko/PieceRenderer"
   ],
   "AllegroFlare/Vec2D": [
-    "Tracko/BoardRenderer"
+    "Tracko/BoardRenderer",
+    "Tracko/PieceRenderer"
   ],
   "Tracko/Board": [
     "Tracko/BoardRenderer"

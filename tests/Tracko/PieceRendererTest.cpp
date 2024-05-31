@@ -3,6 +3,7 @@
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <Tracko/PieceRenderer.hpp>
+#include <AllegroFlare/Camera2D.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 
 
@@ -69,11 +70,21 @@ TEST_F(Tracko_PieceRendererTest, render__without_a_font_bin__raises_an_error)
 
 TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
+   AllegroFlare::Camera2D camera;
+   camera.size = { 1920, 1080 };
    Tracko::Piece piece;
+
+   camera.start_reverse_transform();
+   AllegroFlare::Placement2D subject_placement;
+   Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
    piece_renderer.set_piece(&piece);
 
+   subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
+   subject_placement.start_transform();
    piece_renderer.render();
+   subject_placement.restore_transform();
+   camera.restore_transform();
+
    al_flip_display();
 
    sleep_for(1);

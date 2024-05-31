@@ -13,6 +13,8 @@ namespace Tracko
    private:
       AllegroFlare::FontBin* font_bin;
       Tracko::Piece* piece;
+      float width;
+      float height;
       ALLEGRO_FONT* obtain_font();
 
    protected:
@@ -24,8 +26,12 @@ namespace Tracko
 
       void set_font_bin(AllegroFlare::FontBin* font_bin);
       void set_piece(Tracko::Piece* piece);
+      void set_width(float width);
+      void set_height(float height);
       AllegroFlare::FontBin* get_font_bin() const;
       Tracko::Piece* get_piece() const;
+      float get_width() const;
+      float get_height() const;
       void render();
    };
 }
