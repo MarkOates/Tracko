@@ -48,6 +48,12 @@ int Board::get_num_columns() const
 }
 
 
+std::vector<std::vector<Tracko::Piece>> &Board::get_pieces_ref()
+{
+   return pieces;
+}
+
+
 void Board::resize(int num_columns, int num_rows)
 {
    if (!((num_rows > 0)))
@@ -95,12 +101,12 @@ Tracko::Piece* Board::get_piece(int x, int y)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Board::get_piece: error: guard \"(y >= 0)\" not met");
    }
-   if (!((x < num_rows)))
+   if (!((y < num_rows)))
    {
       std::stringstream error_message;
-      error_message << "[Board::get_piece]: error: guard \"(x < num_rows)\" not met.";
+      error_message << "[Board::get_piece]: error: guard \"(y < num_rows)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Board::get_piece: error: guard \"(x < num_rows)\" not met");
+      throw std::runtime_error("Board::get_piece: error: guard \"(y < num_rows)\" not met");
    }
    return &pieces[x][y];
 }

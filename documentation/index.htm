@@ -54,12 +54,54 @@ table td
 <body>
 <h1>Table of Contents</h1>
 <ul>
+  <li><a href="#quintessence/Tracko/Board.q.yml">quintessence/Tracko/Board.q.yml</a></li>
   <li><a href="#quintessence/Tracko/GameConfigurations/Main.q.yml">quintessence/Tracko/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Tracko/GameProgressAndStateInfo.q.yml">quintessence/Tracko/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/Tracko/Gameplay/Level.q.yml">quintessence/Tracko/Gameplay/Level.q.yml</a></li>
   <li><a href="#quintessence/Tracko/Gameplay/Screen.q.yml">quintessence/Tracko/Gameplay/Screen.q.yml</a></li>
+  <li><a href="#quintessence/Tracko/Piece.q.yml">quintessence/Tracko/Piece.q.yml</a></li>
 </ul>
 <h1>Components</h1>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tracko/Board.q.yml">quintessence/Tracko/Board.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">pieces</td>
+  <td class="property">std::vector&lt;std::vector&lt;Tracko::Piece&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>resize</b>(int num_columns=8, int num_rows=8)</td>
+</tr>
+<tr>
+  <td class="method">Tracko::Piece*</td>
+  <td class="method"><b>get_piece</b>(int x=8, int y=8)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
 <br><br><br>
 <br><br><br>
 <ul>
@@ -439,9 +481,29 @@ table td
     </table>
 </div>  </div>
 </ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tracko/Piece.q.yml">quintessence/Tracko/Piece.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>run</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
 <h1>Dependents</h1>
 <pre>
 {
+  "Tracko/Piece": [
+    "Tracko/Board"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "Tracko/GameConfigurations/Main"
   ],

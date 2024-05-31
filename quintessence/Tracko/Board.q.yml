@@ -5,6 +5,7 @@ properties:
     type: std::vector<std::vector<Tracko::Piece>>
     init_with: '{}'
     getter: true
+    getter_ref: true
     setter: true
 
   - name: num_rows
@@ -50,7 +51,7 @@ methods:
       - name: y
         type: int
         default_argument: 8
-    guards: [ (x >= 0), (x < num_columns), (y >= 0), (x < num_rows) ]
+    guards: [ (x >= 0), (x < num_columns), (y >= 0), (y < num_rows) ]
     body: |
       return &pieces[x][y];
 

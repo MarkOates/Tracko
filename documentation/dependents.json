@@ -1,4 +1,7 @@
 {
+  "Tracko/Piece": [
+    "Tracko/Board"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "Tracko/GameConfigurations/Main"
   ],
