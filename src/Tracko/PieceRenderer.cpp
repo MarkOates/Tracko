@@ -133,13 +133,13 @@ void PieceRenderer::render()
       8.0f,
       8.0f,
       ALLEGRO_COLOR{1, 1, 1, 1},
-      8.0f
+      6.0f
    );
 
    // Draw the connection points
    float center_x = width * 0.5;
    float center_y = height * 0.5;
-   float dist = width * 0.5 * 0.8;
+   float dist = width * 0.5 * 0.75;
 
    if (piece->get_tile_type() == Tracko::Piece::TILE_TYPE_UNDEF)
    {
@@ -159,7 +159,7 @@ void PieceRenderer::render()
       {
          float x = center_x + connection_coord.x * dist;
          float y = center_y + connection_coord.y * dist;
-         al_draw_filled_circle(x, y, 6, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
+         al_draw_filled_circle(x, y, 8, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
       }
    }
 
@@ -176,10 +176,10 @@ std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> PieceRenderer::get_connectin
 AllegroFlare::Vec2D PieceRenderer::get_connecting_coords(Tracko::Piece::ConnectingPosition connecting_position)
 {
    std::map<Tracko::Piece::ConnectingPosition, AllegroFlare::Vec2D> connecting_position_coords = {
-      { Tracko::Piece::CONNECTING_POSITION_LEFT, { -0.5, 0.0 } },
-      { Tracko::Piece::CONNECTING_POSITION_TOP, { 0.0, -0.5 } },
-      { Tracko::Piece::CONNECTING_POSITION_RIGHT, { 0.5, 0.0 } },
-      { Tracko::Piece::CONNECTING_POSITION_BOTTOM, { 0.0, 0.5 } },
+      { Tracko::Piece::CONNECTING_POSITION_LEFT, { -1.0, 0.0 } },
+      { Tracko::Piece::CONNECTING_POSITION_TOP, { 0.0, -1.0 } },
+      { Tracko::Piece::CONNECTING_POSITION_RIGHT, { 1.0, 0.0 } },
+      { Tracko::Piece::CONNECTING_POSITION_BOTTOM, { 0.0, 1.0 } },
    };
 
    if (connecting_position_coords.find(connecting_position) == connecting_position_coords.end())

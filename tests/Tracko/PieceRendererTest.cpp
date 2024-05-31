@@ -68,7 +68,8 @@ TEST_F(Tracko_PieceRendererTest, render__without_a_font_bin__raises_an_error)
 }   
 
 
-TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
+   CAPTURE__render__with_an_undefined_tile_type__will_render_as_expected)
 {
    AllegroFlare::Camera2D camera;
    camera.size = { 1920, 1080 };
@@ -117,7 +118,7 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
 
    float spacing = 200;
    int num_subjects = tile_types_to_render.size();
-   float x = -num_subjects * 0.5 * spacing;
+   float x = -((num_subjects - 1) * spacing) * 0.5;
    for (auto &tile_type_to_render : tile_types_to_render)
    {
       piece.set_tile_type(tile_type_to_render);
