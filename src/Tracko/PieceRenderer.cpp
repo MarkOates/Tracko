@@ -126,20 +126,20 @@ void PieceRenderer::render()
    AllegroFlare::Vec2D padding = {30, 20};
 
    al_draw_rounded_rectangle(
-      0,
-      0,
-      width,
-      height,
+      4,
+      4,
+      width-4,
+      height-4,
       8.0f,
       8.0f,
       ALLEGRO_COLOR{1, 1, 1, 1},
-      6.0f
+      4.0f
    );
 
    // Draw the connection points
    float center_x = width * 0.5;
    float center_y = height * 0.5;
-   float dist = width * 0.5 * 0.75;
+   float dist = width * 0.5 * 0.6;
 
    if (piece->get_tile_type() == Tracko::Piece::TILE_TYPE_UNDEF)
    {
