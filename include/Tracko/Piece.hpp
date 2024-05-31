@@ -39,7 +39,7 @@ namespace Tracko
          STATE_FILLED,
       };
       float fill_counter;
-      uint32_t tile_type;
+      Tracko::Piece::TileType tile_type;
       uint32_t entrance_connecting_position;
       uint32_t state;
       bool state_is_busy;
@@ -53,7 +53,7 @@ namespace Tracko
       ~Piece();
 
       float get_fill_counter() const;
-      uint32_t get_tile_type() const;
+      Tracko::Piece::TileType get_tile_type() const;
       uint32_t get_entrance_connecting_position() const;
       uint32_t get_state() const;
       void set_tile_type(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF);

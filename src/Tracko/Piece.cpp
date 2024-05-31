@@ -38,7 +38,7 @@ float Piece::get_fill_counter() const
 }
 
 
-uint32_t Piece::get_tile_type() const
+Tracko::Piece::TileType Piece::get_tile_type() const
 {
    return tile_type;
 }
@@ -98,20 +98,47 @@ void Piece::set_entrance_connecting_position(Tracko::Piece::ConnectingPosition e
 
 Tracko::Piece::ConnectingPosition Piece::infer_exit_connecting_position()
 {
-   std::map<TileType, std::pair<ConnectingPosition, ConnectingPosition>> connection_edges = {
+   std::map<TileType, std::pair<ConnectingPosition, ConnectingPosition>> piece_connection_edges = {
       { TILE_TYPE_HORIZONTAL_BAR, { CONNECTING_POSITION_LEFT, CONNECTING_POSITION_RIGHT } },
       { TILE_TYPE_VERTICAL_BAR, { CONNECTING_POSITION_TOP, CONNECTING_POSITION_BOTTOM } },
-      // TODO: Add more connections here
+      { TILE_TYPE_TOP_RIGHT_CURVE, { CONNECTING_POSITION_TOP, CONNECTING_POSITION_RIGHT } },
+      { TILE_TYPE_RIGHT_BOTTOM_CURVE, { CONNECTING_POSITION_RIGHT, CONNECTING_POSITION_BOTTOM } },
+      { TILE_TYPE_BOTTOM_LEFT_CURVE, { CONNECTING_POSITION_BOTTOM, CONNECTING_POSITION_LEFT } },
+      { TILE_TYPE_LEFT_TOP_CURVE, { CONNECTING_POSITION_LEFT, CONNECTING_POSITION_TOP } },
    };
 
+   // Lookup the connections on this piece type
+   if (piece_connection_edges.find(tile_type) == piece_connection_edges.end())
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::Piece::infer_exit_connection_position",
+         "Unable to handle case for the tile_type \""
+            + std::to_string(tile_type) + "\""
+      );
+   }
+   std::pair<ConnectingPosition, ConnectingPosition> connections_on_this_piece = piece_connection_edges[tile_type];
 
-   //TILE_TYPE_VERTICAL_BAR
-   //TILE_TYPE_TOP_RIGHT_CURVE
-   //TILE_TYPE_RIGHT_BOTTOM_CURVE
-   //TILE_TYPE_BOTTOM_LEFT_CURVE
-   //TILE_TYPE_LEFT_TOP_CURVE
-   //this->entrance_connecting_position = entrance_connecting_position;
-   return CONNECTING_POSITION_UNDEF;
+   Tracko::Piece::ConnectingPosition inferred_exit_position = CONNECTING_POSITION_UNDEF;
+   if (connections_on_this_piece.first == entrance_connecting_position)
+   {
+      inferred_exit_position = connections_on_this_piece.first;
+   }
+   else if (connections_on_this_piece.second == entrance_connecting_position)
+   {
+      inferred_exit_position = connections_on_this_piece.first;
+   }
+
+   if (inferred_exit_position == CONNECTING_POSITION_UNDEF)
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::Piece::infer_exit_connection_position",
+         "When looking at the connection pieces for this piece type \"" + std::to_string(tile_type) + "\", there "
+            "was no connecting edge that matched the \"entrance_connecting_position\" of \""
+            + std::to_string(entrance_connecting_position) + "\""
+      );
+   }
+
+   return inferred_exit_position;
 }
 
 bool Piece::is_filled()
