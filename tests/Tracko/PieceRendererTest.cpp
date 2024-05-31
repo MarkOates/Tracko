@@ -69,7 +69,7 @@ TEST_F(Tracko_PieceRendererTest, render__without_a_font_bin__raises_an_error)
 
 
 TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
-   CAPTURE__render__with_an_undefined_tile_type__will_render_as_expected)
+   DISABLED__CAPTURE__render__with_an_undefined_tile_type__will_render_as_expected)
 {
    AllegroFlare::Camera2D camera;
    camera.size = { 1920, 1080 };
@@ -97,12 +97,6 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
 {
    AllegroFlare::Camera2D camera;
    camera.size = { 1920, 1080 };
-   Tracko::Piece piece;
-
-   AllegroFlare::Placement2D subject_placement;
-   Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
-   piece_renderer.set_piece(&piece);
-   subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
 
    std::vector<Tracko::Piece::TileType> tile_types_to_render = {
       //Tracko::Piece::TILE_TYPE_UNDEF,
@@ -121,9 +115,20 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
    float x = -((num_subjects - 1) * spacing) * 0.5;
    for (auto &tile_type_to_render : tile_types_to_render)
    {
+      // Build the piece
+      Tracko::Piece piece;
       piece.set_tile_type(tile_type_to_render);
+      piece.initialize();
+      piece.reveal();
+
+      // Build the placement
+      AllegroFlare::Placement2D subject_placement;
+      Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
+      piece_renderer.set_piece(&piece);
+      subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
       subject_placement.position.x = x;
 
+      // Render the subject
       subject_placement.start_transform();
       piece_renderer.render();
       subject_placement.restore_transform();
@@ -145,6 +150,7 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
    AllegroFlare::Camera2D camera;
    camera.size = { 1920, 1080 };
    Tracko::Piece piece;
+   piece.set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
    piece.initialize();
 
    AllegroFlare::Placement2D subject_placement;

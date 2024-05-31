@@ -132,36 +132,43 @@ void PieceRenderer::render()
    //float h_text_height = height;
    AllegroFlare::Vec2D padding = {30, 20};
 
-   al_draw_rounded_rectangle(
-      4,
-      4,
-      width-4,
-      height-4,
-      8.0f,
-      8.0f,
-      ALLEGRO_COLOR{1, 1, 1, 1},
-      4.0f
-   );
-
    // Draw the connection points
    float center_x = width * 0.5;
    float center_y = height * 0.5;
    float dist = width * 0.5 * 0.6;
 
-   // Draw some tile type undefined warning
-   if (piece->get_tile_type() == Tracko::Piece::TILE_TYPE_UNDEF)
-   {
-      int font_line_height = al_get_font_line_height(font);
-      al_draw_text(font, ALLEGRO_COLOR{1, 1, 0.5, 1}, 0, 0-font_line_height * 0.5f, ALLEGRO_ALIGN_CENTER,
-         "undefined type");
-   }
-
    if (piece->is_hidden())
    {
       // Draw hidden appearance
+      al_draw_rounded_rectangle(
+         4,
+         4,
+         width-4,
+         height-4,
+         8.0f,
+         8.0f,
+         ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22},
+         4.0f
+      );
+
+      int font_line_height = al_get_font_line_height(font);
+      al_draw_text(font, ALLEGRO_COLOR{0.4, 0.4, 0.2, 0.4}, center_x, center_y-font_line_height * 0.5f,
+         ALLEGRO_ALIGN_CENTER, "?");
    }
    else
    {
+      // Draw revealed appearance
+      al_draw_rounded_rectangle(
+         4,
+         4,
+         width-4,
+         height-4,
+         8.0f,
+         8.0f,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         4.0f
+      );
+
       // Draw connection points
       if (piece->get_tile_type() != Tracko::Piece::TILE_TYPE_UNDEF)
       {
@@ -178,6 +185,14 @@ void PieceRenderer::render()
             al_draw_filled_circle(x, y, 8, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
          }
       }
+   }
+
+   // Draw some tile type undefined warning
+   if (piece->get_tile_type() == Tracko::Piece::TILE_TYPE_UNDEF)
+   {
+      int font_line_height = al_get_font_line_height(font);
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 0.5, 1}, center_x, center_y-font_line_height * 0.5f, ALLEGRO_ALIGN_CENTER,
+         "undefined type");
    }
 
    return;

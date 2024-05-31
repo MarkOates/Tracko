@@ -121,18 +121,22 @@ void BoardRenderer::render()
    ALLEGRO_COLOR grid_color = ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22};
 
    // Draw the empty board lines
-   for (int column=0; column<num_columns; column++)
+   bool draw_board_grid_lines_and_cell_points = false;
+   if (draw_board_grid_lines_and_cell_points)
    {
-      for (int row=0; row<num_rows; row++)
+      for (int column=0; column<num_columns; column++)
       {
-         float x1 = column * column_width;
-         float y1 = row * row_height;
-         float x2 = column * column_width + column_width;
-         float y2 = row * row_height + row_height;
-         float center_x = x1 + column_width * 0.5;
-         float center_y = y1 + row_height * 0.5;
-         al_draw_filled_circle(center_x, center_y, 4, grid_color);
-         al_draw_rectangle(x1, y1, x2, y2, grid_color, 1.0);
+         for (int row=0; row<num_rows; row++)
+         {
+            float x1 = column * column_width;
+            float y1 = row * row_height;
+            float x2 = column * column_width + column_width;
+            float y2 = row * row_height + row_height;
+            float center_x = x1 + column_width * 0.5;
+            float center_y = y1 + row_height * 0.5;
+            al_draw_filled_circle(center_x, center_y, 4, grid_color);
+            al_draw_rectangle(x1, y1, x2, y2, grid_color, 1.0);
+         }
       }
    }
 
