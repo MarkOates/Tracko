@@ -72,6 +72,36 @@ enums:
 methods:
 
 
+  - name: infer_can_swap
+    type: bool
+    body: |
+      // TODO: Test this
+      std::set<uint32_t> swapable_states =
+      {
+         STATE_UNDEF,
+         STATE_HIDDEN,
+         STATE_REVEALED,
+         //STATE_FILLING,
+         //STATE_FILLED,
+      };
+      return (swapable_states.count(state) > 0);
+
+
+  - name: infer_can_fill
+    type: bool
+    body: |
+      // TODO: Test this
+      std::set<uint32_t> fillable_states =
+      {
+         //STATE_UNDEF,
+         //STATE_HIDDEN,
+         STATE_REVEALED,
+         STATE_FILLING,
+         //STATE_FILLED,
+      };
+      return (fillable_states.count(state) > 0);
+
+
   - name: set_tile_type
     parameters:
       - name: tile_type
@@ -177,6 +207,8 @@ methods:
         default_argument: 0.025f
     guards: [ (!is_filled()) ]
     body: |
+      if (is_state(STATE_REVEALED)) set_state(STATE_FILLING);
+
       float remainder = 0.0f;
       bool was_filled = false;
 

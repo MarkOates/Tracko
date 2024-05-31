@@ -56,6 +56,34 @@ uint32_t Piece::get_state() const
 }
 
 
+bool Piece::infer_can_swap()
+{
+   // TODO: Test this
+   std::set<uint32_t> swapable_states =
+   {
+      STATE_UNDEF,
+      STATE_HIDDEN,
+      STATE_REVEALED,
+      //STATE_FILLING,
+      //STATE_FILLED,
+   };
+   return (swapable_states.count(state) > 0);
+}
+
+bool Piece::infer_can_fill()
+{
+   // TODO: Test this
+   std::set<uint32_t> fillable_states =
+   {
+      //STATE_UNDEF,
+      //STATE_HIDDEN,
+      STATE_REVEALED,
+      STATE_FILLING,
+      //STATE_FILLED,
+   };
+   return (fillable_states.count(state) > 0);
+}
+
 void Piece::set_tile_type(Tracko::Piece::TileType tile_type)
 {
    if (!((tile_type != TILE_TYPE_UNDEF)))
@@ -164,6 +192,8 @@ std::pair<bool, float> Piece::fill_with_amount(float amount)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Piece::fill_with_amount: error: guard \"(!is_filled())\" not met");
    }
+   if (is_state(STATE_REVEALED)) set_state(STATE_FILLING);
+
    float remainder = 0.0f;
    bool was_filled = false;
 

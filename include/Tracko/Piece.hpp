@@ -58,6 +58,8 @@ namespace Tracko
       Tracko::Piece::TileType get_tile_type() const;
       uint32_t get_entrance_connecting_position() const;
       uint32_t get_state() const;
+      bool infer_can_swap();
+      bool infer_can_fill();
       void set_tile_type(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF);
       void set_entrance_connecting_position(Tracko::Piece::ConnectingPosition entrance_connecting_position=CONNECTING_POSITION_UNDEF);
       static std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition> get_connecting_positions(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF);
