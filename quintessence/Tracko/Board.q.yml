@@ -20,6 +20,18 @@ properties:
     getter: true
     setter: false
 
+  - name: cursor_x
+    type: int
+    init_with: 0
+    getter: true
+    setter: false
+
+  - name: cursor_y
+    type: int
+    init_with: 0
+    getter: true
+    setter: false
+
 
 methods:
 
@@ -39,10 +51,14 @@ methods:
       
       pieces.resize(num_columns);
       for (auto &piece : pieces) piece.resize(num_rows);
+
+      cursor_x = 0;
+      cursor_y = 0;
+
       return;
 
 
-  - name: random_fill_types
+  - name: fill_with_random_types
     parameters:
       - name: seed
         type: uint32_t

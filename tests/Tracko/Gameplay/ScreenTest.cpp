@@ -78,6 +78,8 @@ TEST_F(Tracko_Gameplay_ScreenTestWithAllegroFrameworksFullFixture,
 
    framework_register_and_activate_screen("screen", &screen);
 
+   screen.load_level_by_identifier("this-is-an-uused-variable");
+
    framework_run_loop(3);
 }
 

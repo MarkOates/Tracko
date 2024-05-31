@@ -16,6 +16,8 @@ Board::Board()
    : pieces({})
    , num_rows(0)
    , num_columns(0)
+   , cursor_x(0)
+   , cursor_y(0)
 {
 }
 
@@ -49,6 +51,18 @@ int Board::get_num_columns() const
 }
 
 
+int Board::get_cursor_x() const
+{
+   return cursor_x;
+}
+
+
+int Board::get_cursor_y() const
+{
+   return cursor_y;
+}
+
+
 std::vector<std::vector<Tracko::Piece>> &Board::get_pieces_ref()
 {
    return pieces;
@@ -76,10 +90,14 @@ void Board::resize(int num_columns, int num_rows)
 
    pieces.resize(num_columns);
    for (auto &piece : pieces) piece.resize(num_rows);
+
+   cursor_x = 0;
+   cursor_y = 0;
+
    return;
 }
 
-void Board::random_fill_types(uint32_t seed)
+void Board::fill_with_random_types(uint32_t seed)
 {
    static AllegroFlare::Random random(seed);
 

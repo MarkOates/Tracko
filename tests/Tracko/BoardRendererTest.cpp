@@ -95,7 +95,7 @@ TEST_F(Tracko_BoardRendererTestWithAllegroRenderingFixture, CAPTURE__render__wit
    camera.size = { 1920, 1080 };
    Tracko::Board board;
    board.resize(7, 5);
-   board.random_fill_types();
+   board.fill_with_random_types();
 
    camera.start_reverse_transform();
    Tracko::BoardRenderer board_renderer(&get_font_bin_ref(), &board);

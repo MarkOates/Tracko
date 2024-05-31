@@ -28,14 +28,16 @@
     "Tracko/PieceRenderer"
   ],
   "AllegroFlare/Placement2D": [
-    "Tracko/BoardRenderer"
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Vec2D": [
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer"
   ],
   "Tracko/Board": [
-    "Tracko/BoardRenderer"
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
   ],
   "Tracko/PieceRenderer": [
     "Tracko/BoardRenderer"
@@ -143,6 +145,12 @@
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/AssetStudio/Database": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/BoardRenderer": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/Camera2D": [
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Logger": [

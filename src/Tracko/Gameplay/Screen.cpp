@@ -3,6 +3,7 @@
 #include <Tracko/Gameplay/Screen.hpp>
 
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
+#include <Tracko/BoardRenderer.hpp>
 #include <Tracko/GameConfigurations/Main.hpp>
 #include <Tracko/Gameplay/Level.hpp>
 #include <allegro5/allegro_primitives.h>
@@ -28,6 +29,9 @@ Screen::Screen()
    , game_configuration(nullptr)
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
+   , camera({})
+   , current_board(nullptr)
+   , current_board_placement({})
    , initialized(false)
 {
 }
@@ -127,6 +131,15 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       delete current_level;
    }
 
+   // Reset the camera position
+   camera.position = { 0, 0 };
+
+   // DEVELOPMENT: build random board
+   if (current_board) delete current_board;
+   current_board = new Tracko::Board;
+   current_board->resize(7, 5);
+   current_board->fill_with_random_types();
+
    // Load the new level
    AllegroFlare::Levels::Base *loaded_level = game_configuration->load_level_by_identifier(level_identifier);
    if (loaded_level)
@@ -202,6 +215,7 @@ void Screen::initialize()
       throw std::runtime_error("Screen::initialize: error: guard \"model_bin\" not met");
    }
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
+   camera.size = { 1920, 1080 };
    initialized = true;
    return;
 }
@@ -240,8 +254,20 @@ void Screen::update()
 
 void Screen::render()
 {
-   ALLEGRO_FONT *font = obtain_font();
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 30, ALLEGRO_ALIGN_CENTER, "Hello");
+   // Draw world
+   Tracko::BoardRenderer board_renderer(font_bin, current_board);
+   current_board_placement.size = { board_renderer.infer_width(), board_renderer.infer_height() }; // ??
+
+   camera.start_reverse_transform();
+   current_board_placement.start_transform();
+   board_renderer.render();
+   current_board_placement.restore_transform();
+   camera.restore_transform();
+
+   // Draw hud
+   //ALLEGRO_FONT *font = obtain_font();
+   //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 30, ALLEGRO_ALIGN_CENTER, "Hello");
+
    return;
 }
 

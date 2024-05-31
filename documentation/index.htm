@@ -84,6 +84,14 @@ table td
   <td class="property">num_columns</td>
   <td class="property">int</td>
 </tr>
+<tr>
+  <td class="property">cursor_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cursor_y</td>
+  <td class="property">int</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -93,7 +101,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>random_fill_types</b>(uint32_t seed=76414 /*TRAIN*/)</td>
+  <td class="method"><b>fill_with_random_types</b>(uint32_t seed=76414 /*TRAIN*/)</td>
 </tr>
 <tr>
   <td class="method">Tracko::Piece*</td>
@@ -446,6 +454,18 @@ table td
   <td class="property">Tracko::Gameplay::Level*</td>
 </tr>
 <tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera2D</td>
+</tr>
+<tr>
+  <td class="property">current_board</td>
+  <td class="property">Tracko::Board*</td>
+</tr>
+<tr>
+  <td class="property">current_board_placement</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -562,6 +582,18 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Database&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Database.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::BoardRenderer&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/BoardRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Board&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Board.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -771,14 +803,16 @@ table td
     "Tracko/PieceRenderer"
   ],
   "AllegroFlare/Placement2D": [
-    "Tracko/BoardRenderer"
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Vec2D": [
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer"
   ],
   "Tracko/Board": [
-    "Tracko/BoardRenderer"
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
   ],
   "Tracko/PieceRenderer": [
     "Tracko/BoardRenderer"
@@ -886,6 +920,12 @@ table td
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/AssetStudio/Database": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/BoardRenderer": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/Camera2D": [
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Logger": [

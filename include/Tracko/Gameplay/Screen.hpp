@@ -3,13 +3,16 @@
 
 #include <AllegroFlare/AssetStudio/Database.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEvent.hpp>
 #include <AllegroFlare/ModelBin.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
+#include <Tracko/Board.hpp>
 #include <Tracko/GameConfigurations/Main.hpp>
 #include <Tracko/Gameplay/Level.hpp>
 #include <allegro5/allegro.h>
@@ -36,6 +39,9 @@ namespace Tracko
          Tracko::GameConfigurations::Main* game_configuration;
          std::string current_level_identifier;
          Tracko::Gameplay::Level* current_level;
+         AllegroFlare::Camera2D camera;
+         Tracko::Board* current_board;
+         AllegroFlare::Placement2D current_board_placement;
          bool initialized;
 
       protected:
