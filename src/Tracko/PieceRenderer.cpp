@@ -108,6 +108,13 @@ void PieceRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("PieceRenderer::render: error: guard \"font_bin\" not met");
    }
+   if (!(piece))
+   {
+      std::stringstream error_message;
+      error_message << "[PieceRenderer::render]: error: guard \"piece\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PieceRenderer::render: error: guard \"piece\" not met");
+   }
    std::string quote = "piece";
    // float x = 1920/2;
    // float y = 1080/3;
@@ -128,21 +135,41 @@ void PieceRenderer::render()
       ALLEGRO_COLOR{1, 1, 1, 1},
       8.0f
    );
-   //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0-h_text_height, ALLEGRO_ALIGN_CENTER, quote.c_str());
+
+   // Draw the connection points
+   float center_x = width * 0.5;
+   float center_y = height * 0.5;
+   float dist = width * 0.5 * 0.8;
+
+   if (piece->get_tile_type() == Tracko::Piece::TILE_TYPE_UNDEF)
+   {
+      // Draw some tile type undefined warning
+      int font_line_height = al_get_font_line_height(font);
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 0.5, 1}, 0, 0-font_line_height * 0.5f, ALLEGRO_ALIGN_CENTER,
+         "undefined type");
+   }
+   else
+   {
+      std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> connection_coords =
+         get_connecting_coords_for_type(piece->get_tile_type());
+
+      std::vector<AllegroFlare::Vec2D> connection_coords_vec = { connection_coords.first, connection_coords.second };
+
+      for (auto &connection_coord : connection_coords_vec)
+      {
+         float x = center_x + connection_coord.x * dist;
+         float y = center_y + connection_coord.y * dist;
+         al_draw_filled_circle(x, y, 6, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
+      }
+   }
+
    return;
 }
 
 std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> PieceRenderer::get_connecting_coords_for_type(Tracko::Piece::TileType tile_type)
 {
-   if (!(piece))
-   {
-      std::stringstream error_message;
-      error_message << "[PieceRenderer::get_connecting_coords_for_type]: error: guard \"piece\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PieceRenderer::get_connecting_coords_for_type: error: guard \"piece\" not met");
-   }
    std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition> connecting_positions =
-      Tracko::Piece::get_connecting_positions(piece->get_tile_type());
+      Tracko::Piece::get_connecting_positions(tile_type);
    return { get_connecting_coords(connecting_positions.first), get_connecting_coords(connecting_positions.second) };
 }
 

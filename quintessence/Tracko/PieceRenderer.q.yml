@@ -37,6 +37,7 @@ methods:
       - al_is_primitives_addon_initialized()
       - al_is_font_addon_initialized()
       - font_bin
+      - piece
     body: |
       std::string quote = "piece";
       // float x = 1920/2;
@@ -58,7 +59,34 @@ methods:
          ALLEGRO_COLOR{1, 1, 1, 1},
          8.0f
       );
-      //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, 0-h_text_height, ALLEGRO_ALIGN_CENTER, quote.c_str());
+
+      // Draw the connection points
+      float center_x = width * 0.5;
+      float center_y = height * 0.5;
+      float dist = width * 0.5 * 0.8;
+
+      if (piece->get_tile_type() == Tracko::Piece::TILE_TYPE_UNDEF)
+      {
+         // Draw some tile type undefined warning
+         int font_line_height = al_get_font_line_height(font);
+         al_draw_text(font, ALLEGRO_COLOR{1, 1, 0.5, 1}, 0, 0-font_line_height * 0.5f, ALLEGRO_ALIGN_CENTER,
+            "undefined type");
+      }
+      else
+      {
+         std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> connection_coords =
+            get_connecting_coords_for_type(piece->get_tile_type());
+
+         std::vector<AllegroFlare::Vec2D> connection_coords_vec = { connection_coords.first, connection_coords.second };
+
+         for (auto &connection_coord : connection_coords_vec)
+         {
+            float x = center_x + connection_coord.x * dist;
+            float y = center_y + connection_coord.y * dist;
+            al_draw_filled_circle(x, y, 6, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
+         }
+      }
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
@@ -68,19 +96,20 @@ methods:
 
   - name: get_connecting_coords_for_type
     type: std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D>
+    static: true
     parameters:
       - name: tile_type
         type: Tracko::Piece::TileType
         default_argument: Tracko::Piece::TILE_TYPE_UNDEF
-    guards: [ piece ]
     body: |
       std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition> connecting_positions =
-         Tracko::Piece::get_connecting_positions(piece->get_tile_type());
+         Tracko::Piece::get_connecting_positions(tile_type);
       return { get_connecting_coords(connecting_positions.first), get_connecting_coords(connecting_positions.second) };
 
 
   - name: get_connecting_coords
     type: AllegroFlare::Vec2D
+    static: true
     parameters:
       - name: connecting_position
         type: Tracko::Piece::ConnectingPosition
