@@ -6,6 +6,7 @@
 #include <Tracko/BoardRenderer.hpp>
 #include <Tracko/GameConfigurations/Main.hpp>
 #include <Tracko/Gameplay/Level.hpp>
+#include <Tracko/PieceRenderer.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -254,17 +255,35 @@ void Screen::update()
 
 void Screen::render()
 {
+   //
    // Draw world
+   //
+
    Tracko::BoardRenderer board_renderer(font_bin, current_board);
    current_board_placement.size = { board_renderer.infer_width(), board_renderer.infer_height() }; // ??
 
+   // Draw the board
    camera.start_reverse_transform();
    current_board_placement.start_transform();
    board_renderer.render();
    current_board_placement.restore_transform();
    camera.restore_transform();
 
+   //
    // Draw hud
+   //
+
+   // Draw the swap piece
+   AllegroFlare::Placement2D swap_piece_placement;
+   swap_piece_placement.position = { 320, 1080 - 200 };
+
+   Tracko::PieceRenderer piece_renderer(font_bin, current_board->get_swap_piece());
+   swap_piece_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
+
+   swap_piece_placement.start_transform();
+   piece_renderer.render();
+   swap_piece_placement.restore_transform();
+
    //ALLEGRO_FONT *font = obtain_font();
    //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 30, ALLEGRO_ALIGN_CENTER, "Hello");
 

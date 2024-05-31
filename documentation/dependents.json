@@ -46,7 +46,8 @@
     "Tracko/Gameplay/Screen"
   ],
   "Tracko/PieceRenderer": [
-    "Tracko/BoardRenderer"
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
     "Tracko/GameConfigurations/Main"
