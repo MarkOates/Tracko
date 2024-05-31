@@ -132,6 +132,20 @@ void PieceRenderer::render()
    return;
 }
 
+std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> PieceRenderer::get_connecting_coords_for_type(Tracko::Piece::TileType tile_type)
+{
+   if (!(piece))
+   {
+      std::stringstream error_message;
+      error_message << "[PieceRenderer::get_connecting_coords_for_type]: error: guard \"piece\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PieceRenderer::get_connecting_coords_for_type: error: guard \"piece\" not met");
+   }
+   std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition> connecting_positions =
+      Tracko::Piece::get_connecting_positions(piece->get_tile_type());
+   return { get_connecting_coords(connecting_positions.first), get_connecting_coords(connecting_positions.second) };
+}
+
 AllegroFlare::Vec2D PieceRenderer::get_connecting_coords(Tracko::Piece::ConnectingPosition connecting_position)
 {
    std::map<Tracko::Piece::ConnectingPosition, AllegroFlare::Vec2D> connecting_position_coords = {

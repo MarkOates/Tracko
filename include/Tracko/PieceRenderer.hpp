@@ -5,6 +5,7 @@
 #include <AllegroFlare/Vec2D.hpp>
 #include <Tracko/Piece.hpp>
 #include <allegro5/allegro_font.h>
+#include <utility>
 
 
 namespace Tracko
@@ -34,6 +35,7 @@ namespace Tracko
       float get_width() const;
       float get_height() const;
       void render();
+      std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> get_connecting_coords_for_type(Tracko::Piece::TileType tile_type=Tracko::Piece::TILE_TYPE_UNDEF);
       AllegroFlare::Vec2D get_connecting_coords(Tracko::Piece::ConnectingPosition connecting_position=Tracko::Piece::CONNECTING_POSITION_UNDEF);
    };
 }

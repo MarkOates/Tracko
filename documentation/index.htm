@@ -597,6 +597,10 @@ table td
   <td class="method"><b>set_entrance_connecting_position</b>(Tracko::Piece::ConnectingPosition entrance_connecting_position=CONNECTING_POSITION_UNDEF)</td>
 </tr>
 <tr>
+  <td class="method">std::pair&lt;Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition&gt;</td>
+  <td class="method"><b>get_connecting_positions</b>(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF)</td>
+</tr>
+<tr>
   <td class="method">Tracko::Piece::ConnectingPosition</td>
   <td class="method"><b>infer_exit_connecting_position</b>()</td>
 </tr>
@@ -678,6 +682,10 @@ table td
   <td class="method"><b>render</b>()</td>
 </tr>
 <tr>
+  <td class="method">std::pair&lt;AllegroFlare::Vec2D, AllegroFlare::Vec2D&gt;</td>
+  <td class="method"><b>get_connecting_coords_for_type</b>(Tracko::Piece::TileType tile_type=Tracko::Piece::TILE_TYPE_UNDEF)</td>
+</tr>
+<tr>
   <td class="method">AllegroFlare::Vec2D</td>
   <td class="method"><b>get_connecting_coords</b>(Tracko::Piece::ConnectingPosition connecting_position=Tracko::Piece::CONNECTING_POSITION_UNDEF)</td>
 </tr>
@@ -711,6 +719,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::TileType&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -863,7 +874,8 @@ table td
     "Tracko/Piece"
   ],
   "Tracko/Piece/TileType": [
-    "Tracko/Piece"
+    "Tracko/Piece",
+    "Tracko/PieceRenderer"
   ],
   "Tracko/Piece/ConnectingPosition": [
     "Tracko/Piece",

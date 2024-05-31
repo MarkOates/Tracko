@@ -66,6 +66,19 @@ methods:
       - al_draw_text
 
 
+  - name: get_connecting_coords_for_type
+    type: std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D>
+    parameters:
+      - name: tile_type
+        type: Tracko::Piece::TileType
+        default_argument: Tracko::Piece::TILE_TYPE_UNDEF
+    guards: [ piece ]
+    body: |
+      std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition> connecting_positions =
+         Tracko::Piece::get_connecting_positions(piece->get_tile_type());
+      return { get_connecting_coords(connecting_positions.first), get_connecting_coords(connecting_positions.second) };
+
+
   - name: get_connecting_coords
     type: AllegroFlare::Vec2D
     parameters:
@@ -123,5 +136,7 @@ dependencies:
     headers: [ Tracko/Piece.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: Tracko::Piece::TileType
+    headers: [ Tracko/Piece.hpp ]
 
 

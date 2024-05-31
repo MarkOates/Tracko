@@ -96,8 +96,13 @@ methods:
       return;
 
 
-  - name: infer_exit_connecting_position
-    type: Tracko::Piece::ConnectingPosition
+  - name: get_connecting_positions
+    static: true
+    type: std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition>
+    parameters:
+      - name: tile_type
+        type: Tracko::Piece::TileType
+        default_argument: TILE_TYPE_UNDEF
     body: |
       // TODO: Test this
       std::map<TileType, std::pair<ConnectingPosition, ConnectingPosition>> piece_connection_edges = {
@@ -113,12 +118,23 @@ methods:
       if (piece_connection_edges.find(tile_type) == piece_connection_edges.end())
       {
          AllegroFlare::Logger::throw_error(
-            "Tracko::Piece::infer_exit_connection_position",
+            "Tracko::Piece::get_connecting_positions",
             "Unable to handle case for the tile_type \""
                + std::to_string(tile_type) + "\""
          );
       }
-      std::pair<ConnectingPosition, ConnectingPosition> connections_on_this_piece = piece_connection_edges[tile_type];
+      std::pair<ConnectingPosition, ConnectingPosition> connecting_positions = piece_connection_edges[tile_type];
+
+      return connecting_positions;
+    body_dependency_symbols:
+      - std::map
+      - std::pair
+
+
+  - name: infer_exit_connecting_position
+    type: Tracko::Piece::ConnectingPosition
+    body: |
+      std::pair<ConnectingPosition, ConnectingPosition> connections_on_this_piece = get_connecting_positions(tile_type);
 
       // Find the "other" connecting piece, given the entrance connecting position
       Tracko::Piece::ConnectingPosition inferred_exit_position = CONNECTING_POSITION_UNDEF;

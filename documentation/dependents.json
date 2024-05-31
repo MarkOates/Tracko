@@ -144,7 +144,8 @@
     "Tracko/Piece"
   ],
   "Tracko/Piece/TileType": [
-    "Tracko/Piece"
+    "Tracko/Piece",
+    "Tracko/PieceRenderer"
   ],
   "Tracko/Piece/ConnectingPosition": [
     "Tracko/Piece",
