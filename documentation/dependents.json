@@ -118,5 +118,8 @@
   ],
   "al_get_time": [
     "Tracko/Piece"
+  ],
+  "Tracko/Piece/TileType": [
+    "Tracko/Piece"
   ]
 }

@@ -25,6 +25,19 @@ TEST(Tracko_PieceTest, fill_with_amount__will_fill_the_fill_counter_by_the_amoun
 }
 
 
+TEST(Tracko_PieceTest, fill_with_amount__when_the_fill_does_not_overflow__will_return_false_with_no_overflow_amount)
+{
+   Tracko::Piece piece;
+   bool was_filled = false;
+   float overflow = 0.0f;
+   std::tie(was_filled, overflow) = piece.fill_with_amount(0.8);
+
+   EXPECT_EQ(false, was_filled);
+   EXPECT_FLOAT_EQ(0.0f, overflow);
+   EXPECT_FLOAT_EQ(0.8f, piece.get_fill_counter());
+}
+
+
 TEST(Tracko_PieceTest, fill_with_amount__when_the_fill_amount_overflows__will_return_true_with_the_overflow_amount)
 {
    al_init();

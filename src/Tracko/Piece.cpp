@@ -16,6 +16,7 @@ namespace Tracko
 
 Piece::Piece()
    : fill_counter(0.0f)
+   , tile_type(TILE_TYPE_UNDEF)
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
@@ -34,11 +35,37 @@ float Piece::get_fill_counter() const
 }
 
 
+uint32_t Piece::get_tile_type() const
+{
+   return tile_type;
+}
+
+
 uint32_t Piece::get_state() const
 {
    return state;
 }
 
+
+void Piece::set_tile_type(Tracko::Piece::TileType tile_type)
+{
+   if (!((tile_type != TILE_TYPE_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::set_tile_type]: error: guard \"(tile_type != TILE_TYPE_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::set_tile_type: error: guard \"(tile_type != TILE_TYPE_UNDEF)\" not met");
+   }
+   if (!((is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::set_tile_type]: error: guard \"(is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::set_tile_type: error: guard \"(is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))\" not met");
+   }
+   this->tile_type = tile_type;
+   return;
+}
 
 bool Piece::is_filled()
 {

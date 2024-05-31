@@ -7,6 +7,12 @@ properties:
     getter: true
     setter: false
 
+  - name: tile_type
+    type: uint32_t
+    init_with: TILE_TYPE_UNDEF
+    getter: true
+    setter: explicit
+
   - name: state
     type: uint32_t
     init_with: STATE_UNDEF
@@ -25,6 +31,17 @@ properties:
 enums:
 
 
+  - name: TileType
+    enumerators:
+      - TILE_TYPE_UNDEF
+      - TILE_TYPE_HORIZONTAL_BAR
+      - TILE_TYPE_VERTICAL_BAR
+      - TILE_TYPE_TOP_RIGHT_CURVE
+      - TILE_TYPE_RIGHT_BOTTOM_CURVE
+      - TILE_TYPE_BOTTOM_LEFT_CURVE
+      - TILE_TYPE_LEFT_TOP_CURVE
+
+
   - name: State
     enumerators:
       - STATE_UNDEF
@@ -35,6 +52,17 @@ enums:
 
 
 methods:
+
+
+  - name: set_tile_type
+    parameters:
+      - name: tile_type
+        type: Tracko::Piece::TileType
+        default_argument: TILE_TYPE_UNDEF
+    guards: [ (tile_type != TILE_TYPE_UNDEF), (is_state(STATE_UNDEF) || is_state(STATE_HIDDEN)) ]
+    body: |
+      this->tile_type = tile_type;
+      return;
 
 
   - name: is_filled
@@ -196,5 +224,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: al_get_time
     headers: [ allegro5/allegro.h ]
+  - symbol: Tracko::Piece::TileType
+    headers: [ Tracko/Piece.hpp ]
 
 
