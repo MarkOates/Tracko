@@ -94,6 +94,16 @@ methods:
          }
       }
 
+      // Draw the entrance
+      AllegroFlare::Int2D start_tile_coordinates = board->get_start_tile_coordinates();
+      Tracko::Piece::ConnectingPosition start_tile_start_connecting_position = 
+         board->get_start_tile_start_connecting_position();
+      AllegroFlare::Vec2D start_tile_connecting_edge =
+         Tracko::PieceRenderer::get_connecting_coords(start_tile_start_connecting_position);
+      //float start_tile_entrance_x = start_tile_coordinates.x * column- 
+      //float start_tile_entrance_y = start_tile_coordinates
+      //al_draw_circle(start_tile_entrance_x, start_tile_entrance_y
+
       // Draw the position of the cursor
       float cursor_column = board->get_cursor_x();
       float cursor_row = board->get_cursor_y();
@@ -104,7 +114,6 @@ methods:
       float center_x = x1 + column_width * 0.5;
       float center_y = y1 + row_height * 0.5;
       al_draw_rectangle(x1, y1, x2, y2, al_color_name("dodgerblue"), 7.0);
-      
 
       return;
     body_dependency_symbols:
