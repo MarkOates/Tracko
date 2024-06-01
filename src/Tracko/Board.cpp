@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Random.hpp>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -128,11 +129,30 @@ bool Board::can_swap()
    return piece_at_cursor->infer_can_swap();
 }
 
+std::pair<bool, std::pair<int, int>> Board::calculate_adjacency(int x1, int y1, int x2, int y2)
+{
+   std::pair<int, int> difference = { x1 - x2, y1 - y2 };
+   std::set<std::pair<int, int>> valid_adjacent_numbers = {
+      { -1, 0 },
+      { 0, -1 },
+      { 1, 0 },
+      { 0, 1 },
+   };
+   if (valid_adjacent_numbers.find(difference) == valid_adjacent_numbers.end()) return { false, difference };
+   return { true, difference };
+}
+
 bool Board::have_connecting_edges(int x1, int y1, int x2, int y2)
 {
    // Coordinates are on the board
    if (!is_valid_tile_coordinate(x1, y1)) return false;
    if (!is_valid_tile_coordinate(x2, y2)) return false;
+
+   // Check if pieces are adjacent
+   bool are_adjacent = false;
+   std::pair<int, int> adjacency = { 0, 0 };
+   std::tie(are_adjacent, adjacency) = calculate_adjacency(x1, y1, x2, y2);
+   if (!are_adjacent) return false;
 
    // Pieces are in a connectable state
    Tracko::Piece* piece_a = get_piece(x1, y1);

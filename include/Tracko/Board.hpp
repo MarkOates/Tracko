@@ -3,6 +3,7 @@
 
 #include <Tracko/Piece.hpp>
 #include <cstdint>
+#include <utility>
 #include <vector>
 
 
@@ -39,6 +40,7 @@ namespace Tracko
       void move_cursor_right();
       void swap();
       bool can_swap();
+      std::pair<bool, std::pair<int, int>> calculate_adjacency(int x1=0, int y1=0, int x2=0, int y2=0);
       bool have_connecting_edges(int x1=0, int y1=0, int x2=0, int y2=0);
       bool cursor_is_in_valid_position();
       void resize(int num_columns=8, int num_rows=8);
