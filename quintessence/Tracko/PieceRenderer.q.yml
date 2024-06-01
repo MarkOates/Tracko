@@ -1,8 +1,22 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: font_bin
     type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
     init_with: nullptr
     constructor_arg: true
     getter: true
@@ -104,6 +118,19 @@ methods:
                float y = center_y + connection_coord.y * dist;
                al_draw_filled_circle(x, y, 8, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
             }
+
+            if (model_bin && bitmap_bin)
+            {
+               ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("tiles_4x3-01-horizontal-01.png");
+               AllegroFlare::Model3D *model = model_bin->auto_get(
+                     get_model_identifier_for_type(piece->get_tile_type())
+                  );
+               if (model)
+               {
+                  model->set_texture(texture);
+                  model->draw();
+               }
+            }
          }
 
          // Draw fill_counter
@@ -124,6 +151,7 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
+      - AllegroFlare::Model3D
       - al_draw_rounded_rectangle
       - al_draw_text
       - al_color_name
@@ -233,5 +261,11 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: Tracko::Piece::TileType
     headers: [ Tracko/Piece.hpp ]
+  - symbol: AllegroFlare::Model3D
+    headers: [ AllegroFlare/Model3D.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
 
 

@@ -3,6 +3,7 @@
 #include <Tracko/PieceRenderer.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/Model3D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
@@ -17,8 +18,10 @@ namespace Tracko
 {
 
 
-PieceRenderer::PieceRenderer(AllegroFlare::FontBin* font_bin, Tracko::Piece* piece)
-   : font_bin(font_bin)
+PieceRenderer::PieceRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, Tracko::Piece* piece)
+   : bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
+   , model_bin(model_bin)
    , piece(piece)
    , width(120.0f)
    , height(120.0f)
@@ -31,9 +34,21 @@ PieceRenderer::~PieceRenderer()
 }
 
 
+void PieceRenderer::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
 void PieceRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
+}
+
+
+void PieceRenderer::set_model_bin(AllegroFlare::ModelBin* model_bin)
+{
+   this->model_bin = model_bin;
 }
 
 
@@ -55,9 +70,21 @@ void PieceRenderer::set_height(float height)
 }
 
 
+AllegroFlare::BitmapBin* PieceRenderer::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
 AllegroFlare::FontBin* PieceRenderer::get_font_bin() const
 {
    return font_bin;
+}
+
+
+AllegroFlare::ModelBin* PieceRenderer::get_model_bin() const
+{
+   return model_bin;
 }
 
 
@@ -186,6 +213,19 @@ void PieceRenderer::render()
             float x = center_x + connection_coord.x * dist;
             float y = center_y + connection_coord.y * dist;
             al_draw_filled_circle(x, y, 8, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
+         }
+
+         if (model_bin && bitmap_bin)
+         {
+            ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("tiles_4x3-01-horizontal-01.png");
+            AllegroFlare::Model3D *model = model_bin->auto_get(
+                  get_model_identifier_for_type(piece->get_tile_type())
+               );
+            if (model)
+            {
+               model->set_texture(texture);
+               model->draw();
+            }
          }
       }
 

@@ -77,7 +77,8 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
 
    camera.start_reverse_transform();
    AllegroFlare::Placement2D subject_placement;
-   Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
+   Tracko::PieceRenderer piece_renderer;
+   piece_renderer.set_font_bin(&get_font_bin_ref());
    piece_renderer.set_piece(&piece);
 
    subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
@@ -123,7 +124,8 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
 
       // Build the placement
       AllegroFlare::Placement2D subject_placement;
-      Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
+      Tracko::PieceRenderer piece_renderer;
+      piece_renderer.set_font_bin(&get_font_bin_ref());
       piece_renderer.set_piece(&piece);
       subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
       subject_placement.position.x = x;
@@ -170,7 +172,8 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
 
       // Build the placement
       AllegroFlare::Placement2D subject_placement;
-      Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
+      Tracko::PieceRenderer piece_renderer;
+      piece_renderer.set_font_bin(&get_font_bin_ref());
       piece_renderer.set_piece(&piece);
       subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
       subject_placement.position.x = x;
@@ -201,7 +204,8 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
    piece.initialize();
 
    AllegroFlare::Placement2D subject_placement;
-   Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
+   Tracko::PieceRenderer piece_renderer;
+   piece_renderer.set_font_bin(&get_font_bin_ref());
    piece_renderer.set_piece(&piece);
    subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
 

@@ -17,8 +17,10 @@ namespace Tracko
 {
 
 
-BoardRenderer::BoardRenderer(AllegroFlare::FontBin* font_bin, Tracko::Board* board)
-   : font_bin(font_bin)
+BoardRenderer::BoardRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, Tracko::Board* board)
+   : bitmap_bin(bitmap_bin)
+   , font_bin(font_bin)
+   , model_bin(model_bin)
    , board(board)
    , column_width(120.0f)
    , row_height(120.0f)
@@ -31,6 +33,30 @@ BoardRenderer::~BoardRenderer()
 }
 
 
+void BoardRenderer::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void BoardRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   this->font_bin = font_bin;
+}
+
+
+void BoardRenderer::set_model_bin(AllegroFlare::ModelBin* model_bin)
+{
+   this->model_bin = model_bin;
+}
+
+
+void BoardRenderer::set_board(Tracko::Board* board)
+{
+   this->board = board;
+}
+
+
 void BoardRenderer::set_column_width(float column_width)
 {
    this->column_width = column_width;
@@ -40,6 +66,30 @@ void BoardRenderer::set_column_width(float column_width)
 void BoardRenderer::set_row_height(float row_height)
 {
    this->row_height = row_height;
+}
+
+
+AllegroFlare::BitmapBin* BoardRenderer::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
+AllegroFlare::FontBin* BoardRenderer::get_font_bin() const
+{
+   return font_bin;
+}
+
+
+AllegroFlare::ModelBin* BoardRenderer::get_model_bin() const
+{
+   return model_bin;
+}
+
+
+Tracko::Board* BoardRenderer::get_board() const
+{
+   return board;
 }
 
 
@@ -150,7 +200,11 @@ void BoardRenderer::render()
          float center_x = x * column_width + column_width * 0.5;
          float center_y = y * row_height + row_height * 0.5;
 
-         Tracko::PieceRenderer piece_renderer(font_bin, piece);
+         Tracko::PieceRenderer piece_renderer;//(font_bin, model_bin, piece);
+         piece_renderer.set_bitmap_bin(bitmap_bin);
+         piece_renderer.set_font_bin(font_bin);
+         piece_renderer.set_model_bin(model_bin);
+         piece_renderer.set_piece(piece);
 
          piece_placement.position = { center_x, center_y };
          piece_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };

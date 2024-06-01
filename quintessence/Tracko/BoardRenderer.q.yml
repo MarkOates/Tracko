@@ -1,15 +1,33 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: model_bin
+    type: AllegroFlare::ModelBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
 
   - name: board
     type: Tracko::Board*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: column_width
     type: float
@@ -84,7 +102,11 @@ methods:
             float center_x = x * column_width + column_width * 0.5;
             float center_y = y * row_height + row_height * 0.5;
 
-            Tracko::PieceRenderer piece_renderer(font_bin, piece);
+            Tracko::PieceRenderer piece_renderer;//(font_bin, model_bin, piece);
+            piece_renderer.set_bitmap_bin(bitmap_bin);
+            piece_renderer.set_font_bin(font_bin);
+            piece_renderer.set_model_bin(model_bin);
+            piece_renderer.set_piece(piece);
 
             piece_placement.position = { center_x, center_y };
             piece_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
@@ -154,6 +176,8 @@ methods:
 dependencies:
 
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
@@ -176,5 +200,7 @@ dependencies:
     headers: [ Tracko/Board.hpp ]
   - symbol: Tracko::PieceRenderer
     headers: [ Tracko/PieceRenderer.hpp ]
+  - symbol: AllegroFlare::ModelBin
+    headers: [ AllegroFlare/ModelBin.hpp ]
 
 

@@ -82,7 +82,9 @@ TEST_F(Tracko_BoardRendererTestWithAllegroRenderingFixture, CAPTURE__render__wit
    board.initialize_pieces();
 
    camera.start_reverse_transform();
-   Tracko::BoardRenderer board_renderer(&get_font_bin_ref(), &board);
+   Tracko::BoardRenderer board_renderer;
+   board_renderer.set_font_bin(&get_font_bin_ref());
+   board_renderer.set_board(&board);
    AllegroFlare::Placement2D subject_placement;
    subject_placement.size = { board_renderer.infer_width(), board_renderer.infer_height() };
    subject_placement.start_transform();

@@ -23,6 +23,11 @@
     "Tracko/Board",
     "Tracko/Gameplay/Screen"
   ],
+  "AllegroFlare/BitmapBin": [
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen",
+    "Tracko/PieceRenderer"
+  ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
@@ -71,6 +76,11 @@
   "Tracko/PieceRenderer": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/ModelBin": [
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen",
+    "Tracko/PieceRenderer"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
     "Tracko/GameConfigurations/Main"
@@ -150,13 +160,7 @@
   "ALLEGRO_EVENT": [
     "Tracko/Gameplay/Screen"
   ],
-  "AllegroFlare/BitmapBin": [
-    "Tracko/Gameplay/Screen"
-  ],
   "AllegroFlare/EventEmitter": [
-    "Tracko/Gameplay/Screen"
-  ],
-  "AllegroFlare/ModelBin": [
     "Tracko/Gameplay/Screen"
   ],
   "al_is_primitives_addon_initialized": [
@@ -177,6 +181,9 @@
   "AllegroFlare/AssetStudio/Database": [
     "Tracko/Gameplay/Screen"
   ],
+  "AllegroFlare/Placement3D": [
+    "Tracko/Gameplay/Screen"
+  ],
   "Tracko/BoardRenderer": [
     "Tracko/Gameplay/Screen"
   ],
@@ -193,6 +200,9 @@
     "Tracko/Piece",
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
+  ],
+  "AllegroFlare/Model3D": [
+    "Tracko/PieceRenderer"
   ],
   "AllegroFlare/Path2D": [
     "Tracko/Visuals/TrackPath"

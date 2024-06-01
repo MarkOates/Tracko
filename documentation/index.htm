@@ -222,8 +222,16 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
 </tr>
 <tr>
   <td class="property">board</td>
@@ -260,6 +268,9 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -291,6 +302,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::PieceRenderer&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/PieceRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -712,6 +726,9 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Database&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Database.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::BoardRenderer&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/BoardRenderer.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -891,8 +908,16 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
 </tr>
 <tr>
   <td class="property">piece</td>
@@ -912,6 +937,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_model_identifier_for_type</b>(Tracko::Piece::TileType tile_type=Tracko::Piece::TILE_TYPE_UNDEF)</td>
 </tr>
 <tr>
   <td class="method">std::pair&lt;AllegroFlare::Vec2D, AllegroFlare::Vec2D&gt;</td>
@@ -957,6 +986,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::TileType&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1049,6 +1087,11 @@ table td
     "Tracko/Board",
     "Tracko/Gameplay/Screen"
   ],
+  "AllegroFlare/BitmapBin": [
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen",
+    "Tracko/PieceRenderer"
+  ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
@@ -1097,6 +1140,11 @@ table td
   "Tracko/PieceRenderer": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen"
+  ],
+  "AllegroFlare/ModelBin": [
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen",
+    "Tracko/PieceRenderer"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
     "Tracko/GameConfigurations/Main"
@@ -1176,13 +1224,7 @@ table td
   "ALLEGRO_EVENT": [
     "Tracko/Gameplay/Screen"
   ],
-  "AllegroFlare/BitmapBin": [
-    "Tracko/Gameplay/Screen"
-  ],
   "AllegroFlare/EventEmitter": [
-    "Tracko/Gameplay/Screen"
-  ],
-  "AllegroFlare/ModelBin": [
     "Tracko/Gameplay/Screen"
   ],
   "al_is_primitives_addon_initialized": [
@@ -1203,6 +1245,9 @@ table td
   "AllegroFlare/AssetStudio/Database": [
     "Tracko/Gameplay/Screen"
   ],
+  "AllegroFlare/Placement3D": [
+    "Tracko/Gameplay/Screen"
+  ],
   "Tracko/BoardRenderer": [
     "Tracko/Gameplay/Screen"
   ],
@@ -1219,6 +1264,9 @@ table td
     "Tracko/Piece",
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
+  ],
+  "AllegroFlare/Model3D": [
+    "Tracko/PieceRenderer"
   ],
   "AllegroFlare/Path2D": [
     "Tracko/Visuals/TrackPath"

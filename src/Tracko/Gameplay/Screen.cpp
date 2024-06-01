@@ -2,6 +2,7 @@
 
 #include <Tracko/Gameplay/Screen.hpp>
 
+#include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <Tracko/BoardRenderer.hpp>
 #include <Tracko/GameConfigurations/Main.hpp>
@@ -383,7 +384,7 @@ void Screen::render()
    // Draw world
    //
 
-   Tracko::BoardRenderer board_renderer(font_bin, current_board);
+   Tracko::BoardRenderer board_renderer(bitmap_bin, font_bin, model_bin, current_board);
    current_board_placement.size = { board_renderer.infer_width(), board_renderer.infer_height() }; // ??
    current_board_placement.scale = { 0.0075, -0.0075 };
 
@@ -394,7 +395,16 @@ void Screen::render()
    camera3.zoom = 2.0;
    camera3.setup_projection_on(al_get_target_bitmap()); // ???
    //AllegroFlare::Model3D *model = model_bin->auto_get("centered_unit_cube-02.obj");
-   //model->draw();
+   ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("tiles_4x3-01-horizontal-01.png");
+   AllegroFlare::Model3D *model = model_bin->auto_get("tiles_4x3-01-horizontal-01.obj");
+   AllegroFlare::Placement3D piece_placement;
+   piece_placement.scale = { 0.2, 0.2, 0.3 };
+   piece_placement.rotation = { 0.2, 0.0, 0.0 };
+   model->set_texture(texture);
+
+   piece_placement.start_transform();
+   model->draw();
+   piece_placement.restore_transform();
    //camera3.start_reverse_transform();
    // camera.start_reverse_transform();
    current_board_placement.start_transform();
@@ -413,7 +423,11 @@ void Screen::render()
    AllegroFlare::Placement2D swap_piece_placement;
    swap_piece_placement.position = { -1920 / 2 + 100, 1080 / 2 - 100 }; //320, 1080 - 200 };
 
-   Tracko::PieceRenderer piece_renderer(font_bin, current_board->get_swap_piece());
+   Tracko::PieceRenderer piece_renderer;
+   piece_renderer.set_font_bin(font_bin);
+   piece_renderer.set_bitmap_bin(bitmap_bin);
+   piece_renderer.set_model_bin(model_bin);
+   piece_renderer.set_piece(current_board->get_swap_piece());
    swap_piece_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
 
    swap_piece_placement.start_transform();
