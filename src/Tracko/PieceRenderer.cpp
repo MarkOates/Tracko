@@ -189,8 +189,8 @@ void PieceRenderer::render()
 
       // Draw fill_counter
       ALLEGRO_COLOR dial_color = al_color_name("gray");
-      if (piece->is_filled()) al_color_name("aquamarine");
-      if (piece->is_partially_filled()) al_color_name("chartreuce");
+      if (piece->is_filled()) dial_color = al_color_name("forestgreen");
+      if (piece->is_partially_filled()) dial_color = al_color_name("aquamarine");
       al_draw_arc(center_x, center_y, 20, 0, piece->get_fill_counter() * (ALLEGRO_PI * 2), dial_color, 12);
    }
 
