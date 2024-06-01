@@ -2,6 +2,9 @@
 
 
 #include <AllegroFlare/Path2D.hpp>
+#include <AllegroFlare/Vec2D.hpp>
+#include <Tracko/Piece.hpp>
+#include <vector>
 
 
 namespace Tracko
@@ -24,6 +27,7 @@ namespace Tracko
          AllegroFlare::Path2D get_path() const;
          AllegroFlare::Path2D &get_path_ref();
          void render();
+         std::vector<AllegroFlare::Vec2D> build_points_for_tile_type(Tracko::Piece::TileType tile_type=Tracko::Piece::TileType::TILE_TYPE_UNDEF);
          void render_point_at(float position=0.0f);
       };
    }

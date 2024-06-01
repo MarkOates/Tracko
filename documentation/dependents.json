@@ -16,7 +16,8 @@
   "AllegroFlare/Logger": [
     "Tracko/Board",
     "Tracko/Piece",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Visuals/TrackPath"
   ],
   "AllegroFlare/Int2D": [
     "Tracko/Board",
@@ -187,7 +188,8 @@
   ],
   "Tracko/Piece/TileType": [
     "Tracko/Piece",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Visuals/TrackPath"
   ],
   "AllegroFlare/Path2D": [
     "Tracko/Visuals/TrackPath"

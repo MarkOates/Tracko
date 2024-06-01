@@ -2,10 +2,13 @@
 
 #include <Tracko/Visuals/TrackPath.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Vec2D.hpp>
+#include <Tracko/Piece.hpp>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <stdexcept>
 
@@ -69,8 +72,53 @@ void TrackPath::render()
       throw std::runtime_error("TrackPath::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    ALLEGRO_COLOR line_color = ALLEGRO_COLOR{1, 1, 1, 1};
-   path.draw(true, true, true, true, line_color);
+   path.draw(true, true, false, true, line_color);
    return;
+}
+
+std::vector<AllegroFlare::Vec2D> TrackPath::build_points_for_tile_type(Tracko::Piece::TileType tile_type)
+{
+   if (!((tile_type != Tracko::Piece::TileType::TILE_TYPE_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[TrackPath::build_points_for_tile_type]: error: guard \"(tile_type != Tracko::Piece::TileType::TILE_TYPE_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TrackPath::build_points_for_tile_type: error: guard \"(tile_type != Tracko::Piece::TileType::TILE_TYPE_UNDEF)\" not met");
+   }
+   std::map<Tracko::Piece::TileType, std::vector<AllegroFlare::Vec2D>> path_coordinates = {
+      { Piece::TILE_TYPE_HORIZONTAL_BAR, {
+            { 0.0, 0.5 },
+            { 1.0, 0.5 },
+         },
+      },
+      { Piece::TILE_TYPE_VERTICAL_BAR, {
+            { 0.5, 0.0 },
+            { 0.5, 1.0 },
+         },
+      },
+      { Piece::TILE_TYPE_TOP_RIGHT_CURVE, {
+            { 0.5, 0.0 },
+            { 0.5, 0.5 },
+            { 1.0, 0.5 },
+         },
+      },
+      //- TILE_TYPE_VERTICAL_BAR
+      //- TILE_TYPE_TOP_RIGHT_CURVE
+      //- TILE_TYPE_RIGHT_BOTTOM_CURVE
+      //- TILE_TYPE_BOTTOM_LEFT_CURVE
+      //- TILE_TYPE_LEFT_TOP_CURVE
+   };
+
+
+   if (path_coordinates.find(tile_type) == path_coordinates.end())
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::Visuals::TrackPath::build_points_for_tile_type",
+         "Could not find path coordinates for tile type \"" + std::to_string(tile_type) + "\"."
+      );
+   }
+
+   return path_coordinates[tile_type];
 }
 
 void TrackPath::render_point_at(float position)

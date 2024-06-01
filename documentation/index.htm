@@ -974,6 +974,10 @@ table td
   <td class="method"><b>render</b>()</td>
 </tr>
 <tr>
+  <td class="method">std::vector&lt;AllegroFlare::Vec2D&gt;</td>
+  <td class="method"><b>build_points_for_tile_type</b>(Tracko::Piece::TileType tile_type=Tracko::Piece::TileType::TILE_TYPE_UNDEF)</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>render_point_at</b>(float position=0.0f)</td>
 </tr>
@@ -998,6 +1002,12 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Path2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Path2D.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::TileType&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -1021,7 +1031,8 @@ table td
   "AllegroFlare/Logger": [
     "Tracko/Board",
     "Tracko/Piece",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Visuals/TrackPath"
   ],
   "AllegroFlare/Int2D": [
     "Tracko/Board",
@@ -1192,7 +1203,8 @@ table td
   ],
   "Tracko/Piece/TileType": [
     "Tracko/Piece",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Visuals/TrackPath"
   ],
   "AllegroFlare/Path2D": [
     "Tracko/Visuals/TrackPath"

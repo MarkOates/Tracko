@@ -18,12 +18,60 @@ methods:
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized() ]
     body: |
       ALLEGRO_COLOR line_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      path.draw(true, true, true, true, line_color);
+      path.draw(true, true, false, true, line_color);
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
       - al_draw_rounded_rectangle
       - al_draw_text
+
+
+  - name: build_points_for_tile_type
+    type: std::vector<AllegroFlare::Vec2D>
+    parameters:
+      - name: tile_type
+        type: Tracko::Piece::TileType
+        default_argument: Tracko::Piece::TileType::TILE_TYPE_UNDEF
+    guards: [ '(tile_type != Tracko::Piece::TileType::TILE_TYPE_UNDEF)' ]
+    body: |
+      std::map<Tracko::Piece::TileType, std::vector<AllegroFlare::Vec2D>> path_coordinates = {
+         { Piece::TILE_TYPE_HORIZONTAL_BAR, {
+               { 0.0, 0.5 },
+               { 1.0, 0.5 },
+            },
+         },
+         { Piece::TILE_TYPE_VERTICAL_BAR, {
+               { 0.5, 0.0 },
+               { 0.5, 1.0 },
+            },
+         },
+         { Piece::TILE_TYPE_TOP_RIGHT_CURVE, {
+               { 0.5, 0.0 },
+               { 0.5, 0.5 },
+               { 1.0, 0.5 },
+            },
+         },
+         //- TILE_TYPE_VERTICAL_BAR
+         //- TILE_TYPE_TOP_RIGHT_CURVE
+         //- TILE_TYPE_RIGHT_BOTTOM_CURVE
+         //- TILE_TYPE_BOTTOM_LEFT_CURVE
+         //- TILE_TYPE_LEFT_TOP_CURVE
+      };
+
+
+      if (path_coordinates.find(tile_type) == path_coordinates.end())
+      {
+         AllegroFlare::Logger::throw_error(
+            "Tracko::Visuals::TrackPath::build_points_for_tile_type",
+            "Could not find path coordinates for tile type \"" + std::to_string(tile_type) + "\"."
+         );
+      }
+
+      return path_coordinates[tile_type];
+    body_dependency_symbols:
+      - std::map
+      - Tracko::Piece::TileType
+      - AllegroFlare::Logger
 
 
   - name: render_point_at
@@ -64,5 +112,9 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: AllegroFlare::Path2D
     headers: [ AllegroFlare/Path2D.hpp ]
+  - symbol: Tracko::Piece::TileType
+    headers: [ Tracko/Piece.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
