@@ -1,6 +1,7 @@
 {
   "Tracko/Piece": [
     "Tracko/Board",
+    "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer"
   ],
   "AllegroFlare/Random": [

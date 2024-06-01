@@ -33,7 +33,9 @@ Screen::Screen()
    , camera({})
    , current_board(nullptr)
    , current_board_start_tile({})
+   , current_board_current_filling_piece(nullptr)
    , current_board_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
+   , game_started(false)
    , current_board_placement({})
    , initialized(false)
 {
@@ -137,6 +139,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Reset the camera position
    camera.position = { 0, 0 };
 
+   // Reset the game started counter
+   game_started = false;
+
    // DEVELOPMENT: build random board
    if (current_board) delete current_board;
 
@@ -234,6 +239,21 @@ void Screen::initialize()
    return;
 }
 
+void Screen::start_game()
+{
+   if (!((!game_started)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::start_game]: error: guard \"(!game_started)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::start_game: error: guard \"(!game_started)\" not met");
+   }
+   game_started = true;
+   current_board_current_filling_piece =
+      current_board->get_piece(current_board_start_tile.x, current_board_start_tile.y);
+   return;
+}
+
 void Screen::on_activate()
 {
    if (!(initialized))
@@ -263,7 +283,19 @@ void Screen::on_deactivate()
 
 void Screen::update()
 {
+   double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
+   fill_rate *= 5.0f; // TODO: Use a bpm to sync with music(?)
+   if (current_board_current_filling_piece)
+   {
+      bool was_filled = false;
+      float overflow = 0.0f;
+      std::tie(was_filled, overflow) = current_board_current_filling_piece->fill_with_amount(fill_rate);
 
+      if (was_filled)
+      {
+         // TODO: Handle going to next piece
+      }
+   }
    return;
 }
 
@@ -390,6 +422,10 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
       case ALLEGRO_KEY_ENTER:
          perform_primary_board_action();
          //universe.move_camera_left();
+      break;
+
+      case ALLEGRO_KEY_SPACE:
+         if (!game_started) start_game();
       break;
 
       //case ALLEGRO_KEY_S: {

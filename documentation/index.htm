@@ -523,6 +523,10 @@ table td
   <td class="property">AllegroFlare::Int2D</td>
 </tr>
 <tr>
+  <td class="property">current_board_current_filling_piece</td>
+  <td class="property">Tracko::Piece*</td>
+</tr>
+<tr>
   <td class="property">current_board_start_tile_start_connecting_position</td>
   <td class="property">Tracko::Piece::ConnectingPosition</td>
 </tr>
@@ -552,6 +556,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>start_game</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -676,6 +684,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::ConnectingPosition&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -897,6 +908,7 @@ table td
 {
   "Tracko/Piece": [
     "Tracko/Board",
+    "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer"
   ],
   "AllegroFlare/Random": [

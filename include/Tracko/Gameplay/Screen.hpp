@@ -44,7 +44,9 @@ namespace Tracko
          AllegroFlare::Camera2D camera;
          Tracko::Board* current_board;
          AllegroFlare::Int2D current_board_start_tile;
+         Tracko::Piece* current_board_current_filling_piece;
          Tracko::Piece::ConnectingPosition current_board_start_tile_start_connecting_position;
+         bool game_started;
          AllegroFlare::Placement2D current_board_placement;
          bool initialized;
 
@@ -68,6 +70,7 @@ namespace Tracko
          AllegroFlare::AssetStudio::Database* &get_asset_studio_database_ref();
          virtual void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]") override;
          void initialize();
+         void start_game();
          virtual void on_activate() override;
          virtual void on_deactivate() override;
          void update();

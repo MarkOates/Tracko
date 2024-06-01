@@ -67,9 +67,17 @@ properties:
     type: AllegroFlare::Int2D
     init_with: '{}'
 
+  - name: current_board_current_filling_piece
+    type: Tracko::Piece*
+    init_with: nullptr
+
   - name: current_board_start_tile_start_connecting_position
     type: Tracko::Piece::ConnectingPosition
     init_with: Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF
+
+  - name: game_started
+    type: bool
+    init_with: false
 
   - name: current_board_placement
     type: AllegroFlare::Placement2D
@@ -114,6 +122,9 @@ methods:
 
       // Reset the camera position
       camera.position = { 0, 0 };
+
+      // Reset the game started counter
+      game_started = false;
 
       // DEVELOPMENT: build random board
       if (current_board) delete current_board;
@@ -170,6 +181,15 @@ methods:
       - al_is_primitives_addon_initialized
 
 
+  - name: start_game
+    guards: [ (!game_started) ]
+    body: |
+      game_started = true;
+      current_board_current_filling_piece =
+         current_board->get_piece(current_board_start_tile.x, current_board_start_tile.y);
+      return;
+
+
   - name: on_activate
     virtual: true
     override: true
@@ -191,7 +211,19 @@ methods:
 
   - name: update
     body: |
-      
+      double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
+      fill_rate *= 5.0f; // TODO: Use a bpm to sync with music(?)
+      if (current_board_current_filling_piece)
+      {
+         bool was_filled = false;
+         float overflow = 0.0f;
+         std::tie(was_filled, overflow) = current_board_current_filling_piece->fill_with_amount(fill_rate);
+
+         if (was_filled)
+         {
+            // TODO: Handle going to next piece
+         }
+      }
       return;
 
 
@@ -320,6 +352,10 @@ methods:
          case ALLEGRO_KEY_ENTER:
             perform_primary_board_action();
             //universe.move_camera_left();
+         break;
+
+         case ALLEGRO_KEY_SPACE:
+            if (!game_started) start_game();
          break;
 
          //case ALLEGRO_KEY_S: {
@@ -480,6 +516,8 @@ dependencies:
   - symbol: AllegroFlare::Int2D
     headers: [ AllegroFlare/Int2D.hpp ]
   - symbol: Tracko::Piece::ConnectingPosition
+    headers: [ Tracko/Piece.hpp ]
+  - symbol: Tracko::Piece
     headers: [ Tracko/Piece.hpp ]
 
 
