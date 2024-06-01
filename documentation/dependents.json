@@ -25,16 +25,19 @@
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Visuals/TrackPath"
   ],
   "ALLEGRO_FONT": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Visuals/TrackPath"
   ],
   "al_draw_text": [
     "Tracko/BoardRenderer",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Visuals/TrackPath"
   ],
   "al_color_name": [
     "Tracko/BoardRenderer",
@@ -48,7 +51,8 @@
   ],
   "al_draw_rounded_rectangle": [
     "Tracko/BoardRenderer",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Visuals/TrackPath"
   ],
   "AllegroFlare/Placement2D": [
     "Tracko/BoardRenderer",
@@ -56,7 +60,8 @@
   ],
   "AllegroFlare/Vec2D": [
     "Tracko/BoardRenderer",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Visuals/TrackPath"
   ],
   "Tracko/Board": [
     "Tracko/BoardRenderer",
@@ -183,5 +188,8 @@
   "Tracko/Piece/TileType": [
     "Tracko/Piece",
     "Tracko/PieceRenderer"
+  ],
+  "AllegroFlare/Path2D": [
+    "Tracko/Visuals/TrackPath"
   ]
 }

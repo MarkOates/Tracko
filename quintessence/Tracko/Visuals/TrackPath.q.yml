@@ -5,6 +5,7 @@ properties:
     type: AllegroFlare::Path2D
     init_with: '{}'
     constructor_arg: true
+    getter_ref: true
     getter: true
     setter: true
 
@@ -16,7 +17,7 @@ methods:
     type: void
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized() ]
     body: |
-      path.draw();
+      path.draw(true, true, true, true);
       /*
       float x = 1920/2;
       float y = 1080/3;

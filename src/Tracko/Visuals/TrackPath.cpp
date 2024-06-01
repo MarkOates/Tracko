@@ -39,6 +39,12 @@ AllegroFlare::Path2D TrackPath::get_path() const
 }
 
 
+AllegroFlare::Path2D &TrackPath::get_path_ref()
+{
+   return path;
+}
+
+
 void TrackPath::render()
 {
    if (!(al_is_system_installed()))
@@ -62,7 +68,7 @@ void TrackPath::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TrackPath::render: error: guard \"al_is_font_addon_initialized()\" not met");
    }
-   path.draw();
+   path.draw(true, true, true, true);
    /*
    float x = 1920/2;
    float y = 1080/3;

@@ -3,6 +3,7 @@
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <Tracko/Visuals/TrackPath.hpp>
+#include <AllegroFlare/Camera2D.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 
 
@@ -71,8 +72,19 @@ TEST_F(Tracko_Visuals_TrackPathTest, render__without_a_font_bin__raises_an_error
 
 TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
+   AllegroFlare::Camera2D camera;
+   camera.size = { 1920, 1080 };
+   //camera.set_zoom(2.0);
    Tracko::Visuals::TrackPath track_path;
+   AllegroFlare::Path2D &path = track_path.get_path_ref();
+
+   path.add_point(0.0f, 0.5f);
+   path.add_point(1.0f, 0.5f);
+    
+   camera.start_reverse_transform();
    track_path.render();
+   camera.restore_transform();
+ 
    al_flip_display();
    sleep_for(1);
 }

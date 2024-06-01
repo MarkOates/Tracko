@@ -22,6 +22,7 @@ namespace Tracko
 
          void set_path(AllegroFlare::Path2D path);
          AllegroFlare::Path2D get_path() const;
+         AllegroFlare::Path2D &get_path_ref();
          void render();
       };
    }
