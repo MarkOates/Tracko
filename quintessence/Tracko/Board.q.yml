@@ -105,7 +105,7 @@ methods:
         type: int
         default_argument: 0
     body: |
-      std::pair<int, int> difference = { x1 - x2, y1 - y2 };
+      std::pair<int, int> difference = { x2 - x1, y2 - y1 };
       std::set<std::pair<int, int>> valid_adjacent_numbers = {
          { -1, 0 },
          { 0, -1 },

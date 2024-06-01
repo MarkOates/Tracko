@@ -133,7 +133,7 @@ bool Board::can_swap()
 
 std::pair<bool, std::pair<int, int>> Board::calculate_adjacency(int x1, int y1, int x2, int y2)
 {
-   std::pair<int, int> difference = { x1 - x2, y1 - y2 };
+   std::pair<int, int> difference = { x2 - x1, y2 - y1 };
    std::set<std::pair<int, int>> valid_adjacent_numbers = {
       { -1, 0 },
       { 0, -1 },

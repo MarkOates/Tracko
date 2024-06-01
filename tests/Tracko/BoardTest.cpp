@@ -39,20 +39,41 @@ TEST(Tracko_BoardTest, get_piece__will_return_the_correct_piece)
 TEST(Tracko_BoardTest, have_connecting_edges__will_return_true_if_the_pieces_between_the_two_coordinates_connect)
 {
    al_init();
-   Tracko::Board board;
-   board.resize(5, 7);
-   board.fill_with_random_types();
-   Tracko::Piece* piece_a = board.get_piece(2, 3);
-   Tracko::Piece* piece_b = board.get_piece(3, 3);
-   ASSERT_NE(nullptr, piece_a);
-   ASSERT_NE(nullptr, piece_b);
 
-   piece_a->set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
-   piece_b->set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
+   std::vector<std::pair<
+      std::pair<std::pair<int, int>, Tracko::Piece::TileType>,
+      std::pair<std::pair<int, int>, Tracko::Piece::TileType>
+   >> valid_connections = {
+      {
+         { { 2, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+         { { 3, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+      }
+   };
 
-   board.initialize_pieces();
+   for (auto &valid_connection : valid_connections)
+   {
+      std::pair<std::pair<int, int>, Tracko::Piece::TileType> &piece_a_data = valid_connection.first;
+      std::pair<std::pair<int, int>, Tracko::Piece::TileType> &piece_b_data = valid_connection.second;
+      float piece_a_x = piece_a_data.first.first;
+      float piece_a_y = piece_a_data.first.second;
+      float piece_b_x = piece_b_data.first.first;
+      float piece_b_y = piece_b_data.first.second;
 
-   EXPECT_EQ(true, board.have_connecting_edges(2, 3, 3, 3));
+      Tracko::Board board;
+      board.resize(5, 7);
+      board.fill_with_random_types();
+
+      Tracko::Piece* piece_a = board.get_piece(piece_a_x, piece_a_y);
+      Tracko::Piece* piece_b = board.get_piece(piece_b_x, piece_b_y);
+      ASSERT_NE(nullptr, piece_a);
+      ASSERT_NE(nullptr, piece_b);
+      piece_a->set_tile_type(piece_a_data.second);
+      piece_b->set_tile_type(piece_b_data.second);
+
+      board.initialize_pieces();
+
+      EXPECT_EQ(true, board.have_connecting_edges(piece_a_x, piece_a_y, piece_b_x, piece_b_y));
+   }
 
    al_uninstall_system();
 }
@@ -62,20 +83,41 @@ TEST(Tracko_BoardTest, have_connecting_edges__will_return_false_if_the_pieces_be
 connect)
 {
    al_init();
-   Tracko::Board board;
-   board.resize(5, 7);
-   board.fill_with_random_types();
-   Tracko::Piece* piece_a = board.get_piece(2, 3);
-   Tracko::Piece* piece_b = board.get_piece(3, 3);
-   ASSERT_NE(nullptr, piece_a);
-   ASSERT_NE(nullptr, piece_b);
 
-   piece_a->set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
-   piece_b->set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
+   std::vector<std::pair<
+      std::pair<std::pair<int, int>, Tracko::Piece::TileType>,
+      std::pair<std::pair<int, int>, Tracko::Piece::TileType>
+   >> invalid_connections = {
+      {
+         { { 2, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+         { { 3, 3 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+      }
+   };
 
-   board.initialize_pieces();
+   for (auto &invalid_connection : invalid_connections)
+   {
+      std::pair<std::pair<int, int>, Tracko::Piece::TileType> &piece_a_data = invalid_connection.first;
+      std::pair<std::pair<int, int>, Tracko::Piece::TileType> &piece_b_data = invalid_connection.second;
+      float piece_a_x = piece_a_data.first.first;
+      float piece_a_y = piece_a_data.first.second;
+      float piece_b_x = piece_b_data.first.first;
+      float piece_b_y = piece_b_data.first.second;
+      
+      Tracko::Board board;
+      board.resize(5, 7);
+      board.fill_with_random_types();
 
-   EXPECT_EQ(false, board.have_connecting_edges(-1, 2, 0, 2));
+      Tracko::Piece* piece_a = board.get_piece(piece_a_x, piece_a_y);
+      Tracko::Piece* piece_b = board.get_piece(piece_b_x, piece_b_y);
+      ASSERT_NE(nullptr, piece_a);
+      ASSERT_NE(nullptr, piece_b);
+      piece_a->set_tile_type(piece_a_data.second);
+      piece_b->set_tile_type(piece_b_data.second);
+
+      board.initialize_pieces();
+
+      EXPECT_EQ(false, board.have_connecting_edges(piece_a_x, piece_a_y, piece_b_x, piece_b_y));
+   }
 
    al_uninstall_system();
 }
