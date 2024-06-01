@@ -95,3 +95,57 @@ TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture, CAPTURE__render_
 }
 
 
+TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture, CAPTURE__build_points_for_tile_type__will_return_\
+points_for_the_path_shape)
+{
+   AllegroFlare::Camera2D camera;
+   camera.size = { 1920, 1080 };
+
+   std::vector<Tracko::Piece::TileType> tile_types_to_render = {
+      //Tracko::Piece::TILE_TYPE_UNDEF,
+      Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR,
+      Tracko::Piece::TILE_TYPE_VERTICAL_BAR,
+      Tracko::Piece::TILE_TYPE_TOP_RIGHT_CURVE,
+      Tracko::Piece::TILE_TYPE_RIGHT_BOTTOM_CURVE,
+      Tracko::Piece::TILE_TYPE_BOTTOM_LEFT_CURVE,
+      Tracko::Piece::TILE_TYPE_LEFT_TOP_CURVE,
+   };
+
+   camera.start_reverse_transform();
+
+   float spacing = 200.0f;
+   float scale = 180.0f;
+
+   int num_subjects = tile_types_to_render.size();
+   float x = -((num_subjects - 1) * spacing) * 0.5;
+   for (auto &tile_type_to_render : tile_types_to_render)
+   {
+      // Build the piece
+      //Tracko::Piece piece;
+      //piece.set_tile_type(tile_type_to_render);
+      //piece.initialize();
+      //piece.reveal();
+
+      // Build the placement
+      AllegroFlare::Placement2D subject_placement;
+      //Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
+      //piece_renderer.set_piece(&piece);
+      //subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
+      //subject_placement.position.x = x;
+
+      // Render the subject
+      //subject_placement.start_transform();
+      //piece_renderer.render();
+      //subject_placement.restore_transform();
+
+      x += spacing;
+   }
+
+   camera.restore_transform();
+
+   al_flip_display();
+
+   sleep_for(1);
+}
+
+
