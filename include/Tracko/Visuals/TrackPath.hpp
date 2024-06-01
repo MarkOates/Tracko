@@ -24,6 +24,7 @@ namespace Tracko
          AllegroFlare::Path2D get_path() const;
          AllegroFlare::Path2D &get_path_ref();
          void render();
+         void render_point_at(float position=0.0f);
       };
    }
 }

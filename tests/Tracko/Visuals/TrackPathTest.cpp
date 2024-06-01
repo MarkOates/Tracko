@@ -74,17 +74,22 @@ TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture, CAPTURE__render_
 {
    AllegroFlare::Camera2D camera;
    camera.size = { 1920, 1080 };
-   //camera.set_zoom(2.0);
    Tracko::Visuals::TrackPath track_path;
    AllegroFlare::Path2D &path = track_path.get_path_ref();
+   ALLEGRO_COLOR frame_color = ALLEGRO_COLOR{0.4, 0.41, 0.42, 0.42};
 
    path.add_point(0.0f, 0.5f);
    path.add_point(1.0f, 0.5f);
-    
+
+   float scale = 200.0f;
+
    camera.start_reverse_transform();
+   al_draw_rectangle(0, 0, scale, scale, frame_color, 2.0f);
+   path.scale(200); // For visual purposes
    track_path.render();
+   track_path.render_point_at(0.2);
    camera.restore_transform();
- 
+
    al_flip_display();
    sleep_for(1);
 }
