@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Vec2D.hpp>
+#include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -185,6 +186,12 @@ void PieceRenderer::render()
             al_draw_filled_circle(x, y, 8, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
          }
       }
+
+      // Draw fill_counter
+      ALLEGRO_COLOR dial_color = al_color_name("gray");
+      if (piece->is_filled()) al_color_name("aquamarine");
+      if (piece->is_partially_filled()) al_color_name("chartreuce");
+      al_draw_arc(center_x, center_y, 20, 0, piece->get_fill_counter() * (ALLEGRO_PI * 2), dial_color, 12);
    }
 
    // Draw some tile type undefined warning

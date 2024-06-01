@@ -103,6 +103,12 @@ methods:
                al_draw_filled_circle(x, y, 8, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
             }
          }
+
+         // Draw fill_counter
+         ALLEGRO_COLOR dial_color = al_color_name("gray");
+         if (piece->is_filled()) al_color_name("aquamarine");
+         if (piece->is_partially_filled()) al_color_name("chartreuce");
+         al_draw_arc(center_x, center_y, 20, 0, piece->get_fill_counter() * (ALLEGRO_PI * 2), dial_color, 12);
       }
 
       // Draw some tile type undefined warning
@@ -118,6 +124,7 @@ methods:
       - AllegroFlare::Vec2D
       - al_draw_rounded_rectangle
       - al_draw_text
+      - al_color_name
 
 
   - name: get_connecting_coords_for_type
@@ -183,6 +190,8 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: al_draw_rounded_rectangle
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_color_name
+    headers: [ allegro5/allegro_color.h ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: Tracko::Piece

@@ -8,6 +8,7 @@
   ],
   "Tracko/Piece/ConnectingPosition": [
     "Tracko/Board",
+    "Tracko/Gameplay/Screen",
     "Tracko/Piece",
     "Tracko/PieceRenderer"
   ],
@@ -26,7 +27,8 @@
     "Tracko/PieceRenderer"
   ],
   "al_color_name": [
-    "Tracko/BoardRenderer"
+    "Tracko/BoardRenderer",
+    "Tracko/PieceRenderer"
   ],
   "al_draw_circle": [
     "Tracko/BoardRenderer"

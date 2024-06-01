@@ -276,14 +276,19 @@ bool Piece::is_filled()
    return is_state(STATE_FILLED);
 }
 
+bool Piece::is_partially_filled()
+{
+   return is_state(STATE_FILLING);
+}
+
 std::pair<bool, float> Piece::fill_with_amount(float amount)
 {
-   if (!((!is_filled())))
+   if (!((is_state(STATE_REVEALED) || is_state(STATE_FILLING))))
    {
       std::stringstream error_message;
-      error_message << "[Piece::fill_with_amount]: error: guard \"(!is_filled())\" not met.";
+      error_message << "[Piece::fill_with_amount]: error: guard \"(is_state(STATE_REVEALED) || is_state(STATE_FILLING))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Piece::fill_with_amount: error: guard \"(!is_filled())\" not met");
+      throw std::runtime_error("Piece::fill_with_amount: error: guard \"(is_state(STATE_REVEALED) || is_state(STATE_FILLING))\" not met");
    }
    if (is_state(STATE_REVEALED)) set_state(STATE_FILLING);
 

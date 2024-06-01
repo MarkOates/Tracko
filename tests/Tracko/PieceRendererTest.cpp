@@ -145,6 +145,53 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
 
 
 TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
+   CAPTURE__FOCUS__render__with_a_fill_counter_at_different_values__will_render_as_expected)
+{
+   AllegroFlare::Camera2D camera;
+   camera.size = { 1920, 1080 };
+
+   std::vector<float> fill_values = { 0.0, 0.2, 0.7, 0.8, 0.999, 1.0 };
+
+   camera.start_reverse_transform();
+
+   float spacing = 200;
+   int num_subjects = fill_values.size();
+   float x = -((num_subjects - 1) * spacing) * 0.5;
+   for (auto &fill_value : fill_values)
+   {
+      // Build the piece
+      Tracko::Piece piece;
+      piece.set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
+      piece.initialize();
+      piece.reveal();
+
+      // Fill up to a point
+      piece.fill_with_amount(fill_value);
+
+      // Build the placement
+      AllegroFlare::Placement2D subject_placement;
+      Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
+      piece_renderer.set_piece(&piece);
+      subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
+      subject_placement.position.x = x;
+
+      // Render the subject
+      subject_placement.start_transform();
+      piece_renderer.render();
+      subject_placement.restore_transform();
+
+      x += spacing;
+   }
+
+   camera.restore_transform();
+
+   al_flip_display();
+
+   sleep_for(1);
+}
+
+
+TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
    CAPTURE__render__when_hidden__will_render_as_expected)
 {
    AllegroFlare::Camera2D camera;

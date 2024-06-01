@@ -33,6 +33,7 @@ Screen::Screen()
    , camera({})
    , current_board(nullptr)
    , current_board_start_tile({})
+   , current_board_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
    , current_board_placement({})
    , initialized(false)
 {
@@ -140,6 +141,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    if (current_board) delete current_board;
 
    current_board_start_tile = { 0, 1 };
+   current_board_start_tile_start_connecting_position = Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT;
    current_board = new Tracko::Board;
    current_board->resize(7, 5);
    current_board->fill_with_random_types();
@@ -261,6 +263,7 @@ void Screen::on_deactivate()
 
 void Screen::update()
 {
+
    return;
 }
 

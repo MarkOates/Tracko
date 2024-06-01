@@ -16,6 +16,7 @@
 #include <Tracko/Board.hpp>
 #include <Tracko/GameConfigurations/Main.hpp>
 #include <Tracko/Gameplay/Level.hpp>
+#include <Tracko/Piece.hpp>
 #include <allegro5/allegro.h>
 #include <string>
 
@@ -43,6 +44,7 @@ namespace Tracko
          AllegroFlare::Camera2D camera;
          Tracko::Board* current_board;
          AllegroFlare::Int2D current_board_start_tile;
+         Tracko::Piece::ConnectingPosition current_board_start_tile_start_connecting_position;
          AllegroFlare::Placement2D current_board_placement;
          bool initialized;
 

@@ -279,13 +279,19 @@ methods:
       return is_state(STATE_FILLED);
 
 
+  - name: is_partially_filled
+    type: bool
+    body: |
+      return is_state(STATE_FILLING);
+
+
   - name: fill_with_amount
     type: std::pair<bool, float>
     parameters:
       - name: amount
         type: float
         default_argument: 0.025f
-    guards: [ (!is_filled()) ]
+    guards: [ (is_state(STATE_REVEALED) || is_state(STATE_FILLING)) ]
     body: |
       if (is_state(STATE_REVEALED)) set_state(STATE_FILLING);
 
