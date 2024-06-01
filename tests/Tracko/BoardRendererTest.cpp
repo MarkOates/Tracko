@@ -78,7 +78,7 @@ TEST_F(Tracko_BoardRendererTestWithAllegroRenderingFixture, CAPTURE__render__wit
    board.set_start_tile_coordinates({ 0, 1 });
    board.set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
    board.set_exit_tile_coordinates({ 6, 3 });
-   board.set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
+   board.set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
    board.initialize_pieces();
 
    camera.start_reverse_transform();

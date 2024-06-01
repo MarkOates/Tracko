@@ -98,11 +98,27 @@ methods:
       AllegroFlare::Int2D start_tile_coordinates = board->get_start_tile_coordinates();
       Tracko::Piece::ConnectingPosition start_tile_start_connecting_position = 
          board->get_start_tile_start_connecting_position();
-      AllegroFlare::Vec2D start_tile_connecting_edge =
+      AllegroFlare::Vec2D start_tile_connecting_delta =
          Tracko::PieceRenderer::get_connecting_coords(start_tile_start_connecting_position);
-      //float start_tile_entrance_x = start_tile_coordinates.x * column- 
-      //float start_tile_entrance_y = start_tile_coordinates
-      //al_draw_circle(start_tile_entrance_x, start_tile_entrance_y
+      float entrance_tile_center_x = start_tile_coordinates.x * column_width + column_width * 0.5;
+      float entrance_tile_center_y = start_tile_coordinates.y * row_height + row_height * 0.5;
+      AllegroFlare::Vec2D start_tile_connecting_offset = start_tile_connecting_delta * row_height * 0.5;
+      float start_tile_entrance_x = entrance_tile_center_x + start_tile_connecting_offset.x;
+      float start_tile_entrance_y = entrance_tile_center_y + start_tile_connecting_offset.y;
+      al_draw_filled_circle(start_tile_entrance_x, start_tile_entrance_y, 9, al_color_name("aliceblue"));
+
+      // Draw the exit
+      AllegroFlare::Int2D exit_tile_coordinates = board->get_exit_tile_coordinates();
+      Tracko::Piece::ConnectingPosition exit_tile_exit_connecting_position = 
+         board->get_exit_tile_exit_connecting_position();
+      AllegroFlare::Vec2D exit_tile_connecting_delta =
+         Tracko::PieceRenderer::get_connecting_coords(exit_tile_exit_connecting_position);
+      float exit_tile_center_x = exit_tile_coordinates.x * column_width + column_width * 0.5;
+      float exit_tile_center_y = exit_tile_coordinates.y * row_height + row_height * 0.5;
+      AllegroFlare::Vec2D exit_tile_connecting_offset = exit_tile_connecting_delta * row_height * 0.5;
+      float exit_tile_exit_x = exit_tile_center_x + exit_tile_connecting_offset.x;
+      float exit_tile_exit_y = exit_tile_center_y + exit_tile_connecting_offset.y;
+      al_draw_filled_circle(exit_tile_exit_x, exit_tile_exit_y, 9, al_color_name("aliceblue"));
 
       // Draw the position of the cursor
       float cursor_column = board->get_cursor_x();
