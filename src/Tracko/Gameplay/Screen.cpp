@@ -34,7 +34,10 @@ Screen::Screen()
    , current_board(nullptr)
    , current_board_start_tile({})
    , current_board_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
+   , current_board_exit_tile({})
+   , current_board_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
    , current_board_current_filling_piece(nullptr)
+   , current_board_current_filling_piece_coordinates({})
    , game_started(false)
    , current_board_placement({})
    , initialized(false)
@@ -147,6 +150,8 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
    current_board_start_tile = { 0, 1 };
    current_board_start_tile_start_connecting_position = Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT;
+   current_board_exit_tile = { 6, 2 };
+   current_board_exit_tile_exit_connecting_position = Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT;
    current_board = new Tracko::Board;
    current_board->resize(7, 5);
    current_board->fill_with_random_types();
@@ -249,8 +254,12 @@ void Screen::start_game()
       throw std::runtime_error("Screen::start_game: error: guard \"(!game_started)\" not met");
    }
    game_started = true;
+   current_board_current_filling_piece_coordinates = current_board_start_tile;
    current_board_current_filling_piece =
-      current_board->get_piece(current_board_start_tile.x, current_board_start_tile.y);
+      current_board->get_piece(
+         current_board_current_filling_piece_coordinates.x,
+         current_board_current_filling_piece_coordinates.y
+      );
    current_board_current_filling_piece->set_entrance_connecting_position(
          current_board_start_tile_start_connecting_position
       );
@@ -325,8 +334,14 @@ void Screen::update()
                Tracko::Piece::ConnectingPosition entrance_connection_position_of_next_piece =
                   Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
 
+               // TODO: These variables are not properly assigned
+               current_board_current_filling_piece_coordinates =
+                  { current_board_start_tile.x, current_board_start_tile.y };
                current_board_current_filling_piece =
-                  current_board->get_piece(current_board_start_tile.x, current_board_start_tile.y);
+                  current_board->get_piece(
+                     current_board_current_filling_piece_coordinates.x,
+                     current_board_current_filling_piece_coordinates.y
+                  );
                current_board_current_filling_piece->set_entrance_connecting_position(
                      entrance_connection_position_of_next_piece
                   );
