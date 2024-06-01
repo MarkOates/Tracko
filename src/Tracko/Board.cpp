@@ -128,13 +128,22 @@ bool Board::can_swap()
    return piece_at_cursor->infer_can_swap();
 }
 
-bool Board::connection_can_be_made(int x1, int y1, int x2, int y2)
+bool Board::have_connecting_edges(int x1, int y1, int x2, int y2)
 {
    // Coordinates are on the board
    if (!is_valid_tile_coordinate(x1, y1)) return false;
    if (!is_valid_tile_coordinate(x2, y2)) return false;
 
-   // Pieces are connectable
+   // Pieces are in a connectable state
+   Tracko::Piece* piece_a = get_piece(x1, y1);
+   Tracko::Piece* piece_b = get_piece(x2, x2);
+
+   std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition> piece_a_connections =
+      Tracko::Piece::get_connecting_positions(piece_a->get_tile_type());
+   std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition> piece_b_connections =
+      Tracko::Piece::get_connecting_positions(piece_b->get_tile_type());
+
+   // Get the connecting edges
 
    // HERE
    // TODO: This method, need to take into account if:

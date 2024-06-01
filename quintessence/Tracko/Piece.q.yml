@@ -133,6 +133,21 @@ methods:
       return (revealable_states.count(state) > 0);
 
 
+  - name: infer_can_connect
+    type: bool
+    body: |
+      // TODO: Test this
+      std::set<uint32_t> fillable_states =
+      {
+         //STATE_UNDEF,
+         //STATE_HIDDEN,
+         STATE_REVEALED,
+         STATE_FILLING,
+         //STATE_FILLED,
+      };
+      return (fillable_states.count(state) > 0);
+
+
   - name: reveal
     guards: [ infer_can_reveal() ]
     body: |
