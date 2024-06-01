@@ -128,7 +128,7 @@ bool Board::can_swap()
    return piece_at_cursor->infer_can_swap();
 }
 
-bool Board::connection_is_valid(int x, int y, Tracko::Piece::ConnectingPosition connecting_position)
+bool Board::connection_is_valid(int x1, int y1, int x2, int y2)
 {
    // HERE
    // TODO: This method, need to take into account if:
@@ -140,8 +140,8 @@ bool Board::connection_is_valid(int x, int y, Tracko::Piece::ConnectingPosition 
    //CONNECTING_POSITION_TOP
    //CONNECTING_POSITION_RIGHT
    //CONNECTING_POSITION_BOTTOM
-   throw std::runtime_error("Tracko::Board HERE");
-   return false;
+   //throw std::runtime_error("Tracko::Board HERE");
+   return true;
 }
 
 bool Board::cursor_is_in_valid_position()

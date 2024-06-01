@@ -92,15 +92,18 @@ methods:
   - name: connection_is_valid
     type: bool
     parameters:
-      - name: x
+      - name: x1
         type: int
         default_argument: 0
-      - name: y
+      - name: y1
         type: int
         default_argument: 0
-      - name: connecting_position
-        type: Tracko::Piece::ConnectingPosition
-        default_argument: Tracko::Piece::CONNECTING_POSITION_UNDEF
+      - name: x2
+        type: int
+        default_argument: 0
+      - name: y2
+        type: int
+        default_argument: 0
     body: |
       // HERE
       // TODO: This method, need to take into account if:
@@ -112,8 +115,8 @@ methods:
       //CONNECTING_POSITION_TOP
       //CONNECTING_POSITION_RIGHT
       //CONNECTING_POSITION_BOTTOM
-      throw std::runtime_error("Tracko::Board HERE");
-      return false;
+      //throw std::runtime_error("Tracko::Board HERE");
+      return true;
 
 
   - name: cursor_is_in_valid_position

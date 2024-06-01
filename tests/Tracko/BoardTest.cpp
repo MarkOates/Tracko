@@ -36,3 +36,59 @@ TEST(Tracko_BoardTest, get_piece__will_return_the_correct_piece)
 }
 
 
+TEST(Tracko_BoardTest, connection_is_valid__will_return_true_if_the_pieces_between_the_two_coordinates_connect)
+{
+   al_init();
+   Tracko::Board board;
+   board.resize(5, 7);
+   board.fill_with_random_types();
+   Tracko::Piece* piece_a = board.get_piece(2, 3);
+   Tracko::Piece* piece_b = board.get_piece(3, 3);
+   ASSERT_NE(nullptr, piece_a);
+   ASSERT_NE(nullptr, piece_b);
+
+   piece_a->set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
+   piece_b->set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
+
+   board.initialize_pieces();
+
+   EXPECT_EQ(true, board.connection_is_valid(2, 3, 3, 3));
+
+   al_uninstall_system();
+}
+
+
+/*
+  - name: TileType
+    scope: public
+    enumerators:
+      - TILE_TYPE_UNDEF
+      - TILE_TYPE_HORIZONTAL_BAR
+      - TILE_TYPE_VERTICAL_BAR
+      - TILE_TYPE_TOP_RIGHT_CURVE
+      - TILE_TYPE_RIGHT_BOTTOM_CURVE
+      - TILE_TYPE_BOTTOM_LEFT_CURVE
+      - TILE_TYPE_LEFT_TOP_CURVE
+
+
+  - name: ConnectingPosition
+    scope: public
+    enumerators:
+      - CONNECTING_POSITION_UNDEF
+      - CONNECTING_POSITION_LEFT
+      - CONNECTING_POSITION_TOP
+      - CONNECTING_POSITION_RIGHT
+      - CONNECTING_POSITION_BOTTOM
+
+
+  - name: State
+    scope: public
+    enumerators:
+      - STATE_UNDEF
+      - STATE_HIDDEN
+      - STATE_REVEALED
+      - STATE_FILLING
+      - STATE_FILLED
+*/
+
+

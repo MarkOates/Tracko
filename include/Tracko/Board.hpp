@@ -39,7 +39,7 @@ namespace Tracko
       void move_cursor_right();
       void swap();
       bool can_swap();
-      bool connection_is_valid(int x=0, int y=0, Tracko::Piece::ConnectingPosition connecting_position=Tracko::Piece::CONNECTING_POSITION_UNDEF);
+      bool connection_is_valid(int x1=0, int y1=0, int x2=0, int y2=0);
       bool cursor_is_in_valid_position();
       void resize(int num_columns=8, int num_rows=8);
       void fill_with_random_types(uint32_t seed=76414 /*TRAIN*/);
