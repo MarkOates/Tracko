@@ -7,6 +7,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEvent.hpp>
+#include <AllegroFlare/Int2D.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Player.hpp>
@@ -41,6 +42,7 @@ namespace Tracko
          Tracko::Gameplay::Level* current_level;
          AllegroFlare::Camera2D camera;
          Tracko::Board* current_board;
+         AllegroFlare::Int2D current_board_start_tile;
          AllegroFlare::Placement2D current_board_placement;
          bool initialized;
 

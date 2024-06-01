@@ -5,6 +5,7 @@
 #include <allegro5/allegro.h>
 #include <cstdint>
 #include <utility>
+#include <vector>
 
 
 namespace Tracko
@@ -69,6 +70,7 @@ namespace Tracko
       void set_tile_type(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF);
       void set_entrance_connecting_position(Tracko::Piece::ConnectingPosition entrance_connecting_position=CONNECTING_POSITION_UNDEF);
       static std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition> get_connecting_positions(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF);
+      static std::vector<Tracko::Piece::TileType> get_types_with_connecting_position(Tracko::Piece::ConnectingPosition connecting_position=CONNECTING_POSITION_UNDEF);
       Tracko::Piece::ConnectingPosition infer_exit_connecting_position();
       bool is_filled();
       std::pair<bool, float> fill_with_amount(float amount=0.025f);

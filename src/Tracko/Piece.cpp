@@ -209,6 +209,40 @@ std::pair<Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition> 
    return connecting_positions;
 }
 
+std::vector<Tracko::Piece::TileType> Piece::get_types_with_connecting_position(Tracko::Piece::ConnectingPosition connecting_position)
+{
+   if (!((connecting_position != CONNECTING_POSITION_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::get_types_with_connecting_position]: error: guard \"(connecting_position != CONNECTING_POSITION_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::get_types_with_connecting_position: error: guard \"(connecting_position != CONNECTING_POSITION_UNDEF)\" not met");
+   }
+   // TODO: Test this
+   std::map<TileType, std::pair<ConnectingPosition, ConnectingPosition>> piece_connection_edges = {
+      { TILE_TYPE_HORIZONTAL_BAR, { CONNECTING_POSITION_LEFT, CONNECTING_POSITION_RIGHT } },
+      { TILE_TYPE_VERTICAL_BAR, { CONNECTING_POSITION_TOP, CONNECTING_POSITION_BOTTOM } },
+      { TILE_TYPE_TOP_RIGHT_CURVE, { CONNECTING_POSITION_TOP, CONNECTING_POSITION_RIGHT } },
+      { TILE_TYPE_RIGHT_BOTTOM_CURVE, { CONNECTING_POSITION_RIGHT, CONNECTING_POSITION_BOTTOM } },
+      { TILE_TYPE_BOTTOM_LEFT_CURVE, { CONNECTING_POSITION_BOTTOM, CONNECTING_POSITION_LEFT } },
+      { TILE_TYPE_LEFT_TOP_CURVE, { CONNECTING_POSITION_LEFT, CONNECTING_POSITION_TOP } },
+   };
+
+   // Lookup the types on this connection type
+   std::vector<TileType> types_with_connecting_position;
+
+   for (auto &piece_connection_edge : piece_connection_edges)
+   {
+      if (piece_connection_edge.second.first == connecting_position || 
+          piece_connection_edge.second.second == connecting_position)
+      {
+         types_with_connecting_position.push_back(piece_connection_edge.first);
+      }
+   }
+
+   return types_with_connecting_position;
+}
+
 Tracko::Piece::ConnectingPosition Piece::infer_exit_connecting_position()
 {
    std::pair<ConnectingPosition, ConnectingPosition> connections_on_this_piece = get_connecting_positions(tile_type);

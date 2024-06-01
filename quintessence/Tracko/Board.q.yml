@@ -158,6 +158,39 @@ methods:
       - AllegroFlare::Random
 
 
+  - name: set_random_tile_with_connection
+    parameters:
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: connecting_position
+        type: Tracko::Piece::ConnectingPosition
+        default_argument: Tracko::Piece::CONNECTING_POSITION_UNDEF
+      - name: seed
+        type: uint32_t
+        default_argument: 76414 /*TRAIN*/
+    guards: [ (connecting_position != Tracko::Piece::CONNECTING_POSITION_UNDEF) ]
+    body: |
+      static AllegroFlare::Random random(seed);
+
+      Tracko::Piece *piece = get_piece(x, y);
+      std::vector<Tracko::Piece::TileType> tile_types_with_connecting_position =
+         piece->get_types_with_connecting_position(connecting_position);
+
+      Tracko::Piece::TileType selected_type_with_connection = random.get_random_element(
+            tile_types_with_connecting_position
+         );
+
+      piece->set_tile_type(selected_type_with_connection);
+      ////Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Random
+
+
   - name: initialize_pieces
     body: |
       // Initialize the pieces on the board
@@ -209,5 +242,7 @@ dependencies:
     headers: [ Tracko/Piece.hpp ]
   - symbol: AllegroFlare::Random
     headers: [ AllegroFlare/Random.hpp ]
+  - symbol: Tracko::Piece::ConnectingPosition
+    headers: [ Tracko/Piece.hpp ]
 
 

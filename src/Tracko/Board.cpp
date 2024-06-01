@@ -196,6 +196,30 @@ void Board::fill_with_random_types(uint32_t seed)
    return;
 }
 
+void Board::set_random_tile_with_connection(int x, int y, Tracko::Piece::ConnectingPosition connecting_position, uint32_t seed)
+{
+   if (!((connecting_position != Tracko::Piece::CONNECTING_POSITION_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Board::set_random_tile_with_connection]: error: guard \"(connecting_position != Tracko::Piece::CONNECTING_POSITION_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Board::set_random_tile_with_connection: error: guard \"(connecting_position != Tracko::Piece::CONNECTING_POSITION_UNDEF)\" not met");
+   }
+   static AllegroFlare::Random random(seed);
+
+   Tracko::Piece *piece = get_piece(x, y);
+   std::vector<Tracko::Piece::TileType> tile_types_with_connecting_position =
+      piece->get_types_with_connecting_position(connecting_position);
+
+   Tracko::Piece::TileType selected_type_with_connection = random.get_random_element(
+         tile_types_with_connecting_position
+      );
+
+   piece->set_tile_type(selected_type_with_connection);
+   ////Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT
+   return;
+}
+
 void Board::initialize_pieces()
 {
    // Initialize the pieces on the board

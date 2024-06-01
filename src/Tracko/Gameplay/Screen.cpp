@@ -32,6 +32,7 @@ Screen::Screen()
    , current_level(nullptr)
    , camera({})
    , current_board(nullptr)
+   , current_board_start_tile({})
    , current_board_placement({})
    , initialized(false)
 {
@@ -137,10 +138,19 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
    // DEVELOPMENT: build random board
    if (current_board) delete current_board;
+
+   current_board_start_tile = { 0, 1 };
    current_board = new Tracko::Board;
    current_board->resize(7, 5);
    current_board->fill_with_random_types();
+   current_board->set_random_tile_with_connection(
+         current_board_start_tile.x,
+         current_board_start_tile.y,
+         Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT
+      );
    current_board->initialize_pieces();
+   Tracko::Piece *start_piece = current_board->get_piece(current_board_start_tile.x, current_board_start_tile.y);
+   start_piece->reveal();
 
    // Load the new level
    AllegroFlare::Levels::Base *loaded_level = game_configuration->load_level_by_identifier(level_identifier);
