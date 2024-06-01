@@ -251,6 +251,9 @@ void Screen::start_game()
    game_started = true;
    current_board_current_filling_piece =
       current_board->get_piece(current_board_start_tile.x, current_board_start_tile.y);
+   current_board_current_filling_piece->set_entrance_connecting_position(
+         current_board_start_tile_start_connecting_position
+      );
    return;
 }
 
@@ -284,7 +287,7 @@ void Screen::on_deactivate()
 void Screen::update()
 {
    double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
-   fill_rate *= 5.0f; // TODO: Use a bpm to sync with music(?)
+   fill_rate /= 6.0f; // TODO: Use a bpm to sync with music(?)
    if (current_board_current_filling_piece)
    {
       bool was_filled = false;
@@ -294,6 +297,35 @@ void Screen::update()
       if (was_filled)
       {
          // TODO: Handle going to next piece
+         bool current_piece_is_last_piece = false;
+         if (current_piece_is_last_piece)
+         {
+            // Level won! Jump to win state
+            // TODO: Handle this case
+         }
+         else
+         {
+            bool current_piece_connects_to_next = false;
+            if (!current_piece_connects_to_next)
+            {
+               // Lost lost! Jump to you lose state
+               // TODO: Handle this case
+            }
+            else
+            {
+               // HERE
+               // TODO: Get connecting piece
+               // TODO: Get connecting piece entrance connection position
+               Tracko::Piece::ConnectingPosition entrance_connection_position_of_next_piece =
+                  Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
+
+               current_board_current_filling_piece =
+                  current_board->get_piece(current_board_start_tile.x, current_board_start_tile.y);
+               current_board_current_filling_piece->set_entrance_connecting_position(
+                     entrance_connection_position_of_next_piece
+                  );
+            }
+         }
       }
    }
    return;
