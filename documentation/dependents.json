@@ -6,6 +6,11 @@
   "AllegroFlare/Random": [
     "Tracko/Board"
   ],
+  "Tracko/Piece/ConnectingPosition": [
+    "Tracko/Board",
+    "Tracko/Piece",
+    "Tracko/PieceRenderer"
+  ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
@@ -160,6 +165,9 @@
   "AllegroFlare/Camera2D": [
     "Tracko/Gameplay/Screen"
   ],
+  "AllegroFlare/Int2D": [
+    "Tracko/Gameplay/Screen"
+  ],
   "AllegroFlare/Logger": [
     "Tracko/Piece",
     "Tracko/PieceRenderer"
@@ -168,10 +176,6 @@
     "Tracko/Piece"
   ],
   "Tracko/Piece/TileType": [
-    "Tracko/Piece",
-    "Tracko/PieceRenderer"
-  ],
-  "Tracko/Piece/ConnectingPosition": [
     "Tracko/Piece",
     "Tracko/PieceRenderer"
   ]

@@ -172,7 +172,7 @@ methods:
       - name: seed
         type: uint32_t
         default_argument: 76414 /*TRAIN*/
-    guards: [ (connecting_position != Tracko::Piece::CONNECTING_POSITION_UNDEF) ]
+    guards: [ '(connecting_position != Tracko::Piece::CONNECTING_POSITION_UNDEF)' ]
     body: |
       static AllegroFlare::Random random(seed);
 

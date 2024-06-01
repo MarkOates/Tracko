@@ -137,6 +137,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>set_random_tile_with_connection</b>(int x=0, int y=0, Tracko::Piece::ConnectingPosition connecting_position=Tracko::Piece::CONNECTING_POSITION_UNDEF, uint32_t seed=76414 /*TRAIN*/)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>initialize_pieces</b>()</td>
 </tr>
 <tr>
@@ -159,6 +163,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Random&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Random.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::ConnectingPosition&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -512,6 +519,10 @@ table td
   <td class="property">Tracko::Board*</td>
 </tr>
 <tr>
+  <td class="property">current_board_start_tile</td>
+  <td class="property">AllegroFlare::Int2D</td>
+</tr>
+<tr>
   <td class="property">current_board_placement</td>
   <td class="property">AllegroFlare::Placement2D</td>
 </tr>
@@ -656,6 +667,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::PieceRenderer&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/PieceRenderer.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Int2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Int2D.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -733,6 +747,10 @@ table td
 <tr>
   <td class="method">std::pair&lt;Tracko::Piece::ConnectingPosition, Tracko::Piece::ConnectingPosition&gt;</td>
   <td class="method"><b>get_connecting_positions</b>(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;Tracko::Piece::TileType&gt;</td>
+  <td class="method"><b>get_types_with_connecting_position</b>(Tracko::Piece::ConnectingPosition connecting_position=CONNECTING_POSITION_UNDEF)</td>
 </tr>
 <tr>
   <td class="method">Tracko::Piece::ConnectingPosition</td>
@@ -869,6 +887,11 @@ table td
   ],
   "AllegroFlare/Random": [
     "Tracko/Board"
+  ],
+  "Tracko/Piece/ConnectingPosition": [
+    "Tracko/Board",
+    "Tracko/Piece",
+    "Tracko/PieceRenderer"
   ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
@@ -1024,6 +1047,9 @@ table td
   "AllegroFlare/Camera2D": [
     "Tracko/Gameplay/Screen"
   ],
+  "AllegroFlare/Int2D": [
+    "Tracko/Gameplay/Screen"
+  ],
   "AllegroFlare/Logger": [
     "Tracko/Piece",
     "Tracko/PieceRenderer"
@@ -1032,10 +1058,6 @@ table td
     "Tracko/Piece"
   ],
   "Tracko/Piece/TileType": [
-    "Tracko/Piece",
-    "Tracko/PieceRenderer"
-  ],
-  "Tracko/Piece/ConnectingPosition": [
     "Tracko/Piece",
     "Tracko/PieceRenderer"
   ]
