@@ -62,7 +62,8 @@
   ],
   "AllegroFlare/Placement2D": [
     "Tracko/BoardRenderer",
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/PieceRenderer"
   ],
   "AllegroFlare/Placement3D": [
     "Tracko/BoardRenderer",

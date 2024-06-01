@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Model3D.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
@@ -215,18 +216,31 @@ void PieceRenderer::render()
             al_draw_filled_circle(x, y, 8, ALLEGRO_COLOR{ 0.3, 0.4, 0.3, 0.4 });
          }
 
-         if (model_bin && bitmap_bin)
+         if (bitmap_bin)
          {
-            ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("tiles_4x3-01-horizontal-01.png");
-            AllegroFlare::Model3D *model = model_bin->auto_get(
-                  get_model_identifier_for_type(piece->get_tile_type())
+            ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(
+                  get_bitmap_identifier_for_type(piece->get_tile_type())
                );
-            if (model)
-            {
-               model->set_texture(texture);
-               model->draw();
-            }
+            AllegroFlare::Placement2D bitmap_placement;
+            bitmap_placement.scale = { width / al_get_bitmap_width(bitmap), height / al_get_bitmap_height(bitmap) };
+            bitmap_placement.start_transform();
+            al_draw_bitmap(bitmap, 0, 0, 0);
+            bitmap_placement.restore_transform();
          }
+
+         
+         //if (model_bin && bitmap_bin)
+         //{
+            //ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("tiles_4x3-01-horizontal-01.png");
+            //AllegroFlare::Model3D *model = model_bin->auto_get(
+                  //get_model_identifier_for_type(piece->get_tile_type())
+               //);
+            //if (model)
+            //{
+               //model->set_texture(texture);
+               //model->draw();
+            //}
+         //}
       }
 
       // Draw fill_counter
@@ -262,6 +276,29 @@ std::string PieceRenderer::get_model_identifier_for_type(Tracko::Piece::TileType
    {
       AllegroFlare::Logger::throw_error(
          "Tracko::PieceRenderer::get_model_identifier_for_type",
+         "Unable to handle case for the Tracko::Piece::TileType \""
+            + std::to_string(tile_type) + "\""
+      );
+   }
+
+   return model_identifiers[tile_type];
+}
+
+std::string PieceRenderer::get_bitmap_identifier_for_type(Tracko::Piece::TileType tile_type)
+{
+   std::map<Piece::TileType, std::string> model_identifiers = {
+      { Piece::TILE_TYPE_HORIZONTAL_BAR,     "horizontal-01.png" },
+      { Piece::TILE_TYPE_VERTICAL_BAR,       "vertical-01.png" },
+      { Piece::TILE_TYPE_TOP_RIGHT_CURVE,    "top_right-01.png" },
+      { Piece::TILE_TYPE_RIGHT_BOTTOM_CURVE, "right_bottom-01.png" },
+      { Piece::TILE_TYPE_BOTTOM_LEFT_CURVE,  "bottom_left-01.png" },
+      { Piece::TILE_TYPE_LEFT_TOP_CURVE,     "left_top-01.png" },
+   };
+
+   if (model_identifiers.find(tile_type) == model_identifiers.end())
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::PieceRenderer::get_bitmap_identifier_for_type",
          "Unable to handle case for the Tracko::Piece::TileType \""
             + std::to_string(tile_type) + "\""
       );

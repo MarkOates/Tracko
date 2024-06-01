@@ -258,6 +258,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>render_models</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>render</b>()</td>
 </tr>
 <tr>
@@ -946,6 +950,10 @@ table td
   <td class="method"><b>get_model_identifier_for_type</b>(Tracko::Piece::TileType tile_type=Tracko::Piece::TILE_TYPE_UNDEF)</td>
 </tr>
 <tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_bitmap_identifier_for_type</b>(Tracko::Piece::TileType tile_type=Tracko::Piece::TILE_TYPE_UNDEF)</td>
+</tr>
+<tr>
   <td class="method">std::pair&lt;AllegroFlare::Vec2D, AllegroFlare::Vec2D&gt;</td>
   <td class="method"><b>get_connecting_coords_for_type</b>(Tracko::Piece::TileType tile_type=Tracko::Piece::TILE_TYPE_UNDEF)</td>
 </tr>
@@ -992,6 +1000,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
@@ -1129,7 +1140,8 @@ table td
   ],
   "AllegroFlare/Placement2D": [
     "Tracko/BoardRenderer",
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/PieceRenderer"
   ],
   "AllegroFlare/Placement3D": [
     "Tracko/BoardRenderer",

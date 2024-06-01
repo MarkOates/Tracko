@@ -126,6 +126,7 @@ TEST_F(Tracko_PieceRendererTestWithAllegroRenderingFixture,
       AllegroFlare::Placement2D subject_placement;
       Tracko::PieceRenderer piece_renderer;
       piece_renderer.set_font_bin(&get_font_bin_ref());
+      piece_renderer.set_bitmap_bin(&get_bitmap_bin_ref());
       piece_renderer.set_piece(&piece);
       subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
       subject_placement.position.x = x;

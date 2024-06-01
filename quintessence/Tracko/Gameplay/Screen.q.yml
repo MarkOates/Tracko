@@ -322,21 +322,22 @@ methods:
       camera3.zoom = 2.0;
       camera3.setup_projection_on(al_get_target_bitmap()); // ???
       //AllegroFlare::Model3D *model = model_bin->auto_get("centered_unit_cube-02.obj");
-      ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("tiles_4x3-01-horizontal-01.png");
-      AllegroFlare::Model3D *model = model_bin->auto_get("tiles_4x3-01-horizontal-01.obj");
-      AllegroFlare::Placement3D piece_placement;
-      float scale = 0.25;
-      piece_placement.scale = { scale, scale, scale };
-      piece_placement.rotation += { 0.25, 0.0, 0.0 };
-      model->set_texture(texture);
+      //ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("tiles_4x3-01-horizontal-01.png");
+      //AllegroFlare::Model3D *model = model_bin->auto_get("tiles_4x3-01-horizontal-01.obj");
+      //AllegroFlare::Placement3D piece_placement;
+      //float scale = 0.25;
+      //piece_placement.scale = { scale, scale, scale };
+      //piece_placement.rotation += { 0.25, 0.0, 0.0 };
+      //model->set_texture(texture);
 
-      piece_placement.start_transform();
-      model->draw();
-      piece_placement.restore_transform();
+      //piece_placement.start_transform();
+      //model->draw();
+      //piece_placement.restore_transform();
       //camera3.start_reverse_transform();
       // camera.start_reverse_transform();
       current_board_placement.start_transform();
       board_renderer.render();
+      //board_renderer.render_models();
       current_board_placement.restore_transform();
       //camera.restore_transform();
       //camera3.restore_transform();

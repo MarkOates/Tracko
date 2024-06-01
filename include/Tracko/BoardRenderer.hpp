@@ -42,6 +42,7 @@ namespace Tracko
       float get_row_height() const;
       float infer_width();
       float infer_height();
+      void render_models();
       void render();
    };
 }
