@@ -63,7 +63,7 @@ properties:
     type: Tracko::Board*
     init_with: nullptr
 
-  - name: current_board_start_tile
+  - name: current_board_start_tile_coordinates
     type: AllegroFlare::Int2D
     init_with: '{}'
 
@@ -141,7 +141,7 @@ methods:
       // DEVELOPMENT: build random board
       if (current_board) delete current_board;
 
-      current_board_start_tile = { 0, 1 };
+      current_board_start_tile_coordinates = { 0, 1 };
       current_board_start_tile_start_connecting_position = Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT;
       current_board_exit_tile_coordinates = { 6, 2 };
       current_board_exit_tile_exit_connecting_position = Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT;
@@ -149,12 +149,15 @@ methods:
       current_board->resize(7, 5);
       current_board->fill_with_random_types();
       current_board->set_random_tile_with_connection(
-            current_board_start_tile.x,
-            current_board_start_tile.y,
+            current_board_start_tile_coordinates.x,
+            current_board_start_tile_coordinates.y,
             Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT
          );
       current_board->initialize_pieces();
-      Tracko::Piece *start_piece = current_board->get_piece(current_board_start_tile.x, current_board_start_tile.y);
+      Tracko::Piece *start_piece = current_board->get_piece(
+            current_board_start_tile_coordinates.x,
+            current_board_start_tile_coordinates.y
+         );
       start_piece->reveal();
 
       // Load the new level
@@ -199,7 +202,7 @@ methods:
     guards: [ (!game_started) ]
     body: |
       game_started = true;
-      current_board_current_filling_piece_coordinates = current_board_start_tile;
+      current_board_current_filling_piece_coordinates = current_board_start_tile_coordinates;
       current_board_current_filling_piece =
          current_board->get_piece(
             current_board_current_filling_piece_coordinates.x,

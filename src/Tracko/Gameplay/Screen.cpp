@@ -32,7 +32,7 @@ Screen::Screen()
    , current_level(nullptr)
    , camera({})
    , current_board(nullptr)
-   , current_board_start_tile({})
+   , current_board_start_tile_coordinates({})
    , current_board_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
    , current_board_exit_tile_coordinates({})
    , current_board_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
@@ -148,7 +148,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // DEVELOPMENT: build random board
    if (current_board) delete current_board;
 
-   current_board_start_tile = { 0, 1 };
+   current_board_start_tile_coordinates = { 0, 1 };
    current_board_start_tile_start_connecting_position = Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT;
    current_board_exit_tile_coordinates = { 6, 2 };
    current_board_exit_tile_exit_connecting_position = Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT;
@@ -156,12 +156,15 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    current_board->resize(7, 5);
    current_board->fill_with_random_types();
    current_board->set_random_tile_with_connection(
-         current_board_start_tile.x,
-         current_board_start_tile.y,
+         current_board_start_tile_coordinates.x,
+         current_board_start_tile_coordinates.y,
          Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT
       );
    current_board->initialize_pieces();
-   Tracko::Piece *start_piece = current_board->get_piece(current_board_start_tile.x, current_board_start_tile.y);
+   Tracko::Piece *start_piece = current_board->get_piece(
+         current_board_start_tile_coordinates.x,
+         current_board_start_tile_coordinates.y
+      );
    start_piece->reveal();
 
    // Load the new level
@@ -254,7 +257,7 @@ void Screen::start_game()
       throw std::runtime_error("Screen::start_game: error: guard \"(!game_started)\" not met");
    }
    game_started = true;
-   current_board_current_filling_piece_coordinates = current_board_start_tile;
+   current_board_current_filling_piece_coordinates = current_board_start_tile_coordinates;
    current_board_current_filling_piece =
       current_board->get_piece(
          current_board_current_filling_piece_coordinates.x,
