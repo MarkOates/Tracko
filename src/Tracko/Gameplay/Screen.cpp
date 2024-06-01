@@ -33,8 +33,8 @@ Screen::Screen()
    , camera({})
    , current_board(nullptr)
    , current_board_start_tile({})
-   , current_board_current_filling_piece(nullptr)
    , current_board_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
+   , current_board_current_filling_piece(nullptr)
    , game_started(false)
    , current_board_placement({})
    , initialized(false)
@@ -292,7 +292,10 @@ void Screen::update()
    {
       bool was_filled = false;
       float overflow = 0.0f;
-      std::tie(was_filled, overflow) = current_board_current_filling_piece->fill_with_amount(fill_rate);
+      Tracko::Piece::ConnectingPosition exit_connecting_position =
+         Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
+      std::tie(was_filled, overflow, exit_connecting_position) =
+         current_board_current_filling_piece->fill_with_amount(fill_rate);
 
       if (was_filled)
       {
@@ -302,6 +305,7 @@ void Screen::update()
          {
             // Level won! Jump to win state
             // TODO: Handle this case
+            throw std::runtime_error("Game won!");
          }
          else
          {
@@ -310,12 +314,14 @@ void Screen::update()
             {
                // Lost lost! Jump to you lose state
                // TODO: Handle this case
+               throw std::runtime_error("Game lost!");
             }
             else
             {
                // HERE
                // TODO: Get connecting piece
                // TODO: Get connecting piece entrance connection position
+               throw std::runtime_error("Connection logic still to do!");
                Tracko::Piece::ConnectingPosition entrance_connection_position_of_next_piece =
                   Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
 

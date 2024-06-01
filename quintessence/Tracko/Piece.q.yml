@@ -163,7 +163,8 @@ methods:
         default_argument: CONNECTING_POSITION_UNDEF
     guards:
       - (entrance_connecting_position != CONNECTING_POSITION_UNDEF)
-      - (is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))
+      - (!is_state(STATE_FILLING))
+      - (!is_state(STATE_FILLED))
     body: |
       this->entrance_connecting_position = entrance_connecting_position;
       return;
@@ -286,7 +287,7 @@ methods:
 
 
   - name: fill_with_amount
-    type: std::pair<bool, float>
+    type: std::tuple<bool, float, Tracko::Piece::ConnectingPosition>
     parameters:
       - name: amount
         type: float
@@ -297,17 +298,21 @@ methods:
 
       float remainder = 0.0f;
       bool was_filled = false;
+      Tracko::Piece::ConnectingPosition exit_connecting_position =
+         Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
 
       fill_counter += amount;
       if (fill_counter >= 1.0) 
       {
          remainder = (fill_counter - 1.0);
          was_filled = true;
+         exit_connecting_position = infer_exit_connecting_position();
 
          set_state(STATE_FILLED);
          fill_counter = 1.0f;
       }
-      return { was_filled, remainder };
+
+      return { was_filled, remainder, exit_connecting_position };
 
 
   - name: set_state

@@ -44,8 +44,8 @@ namespace Tracko
          AllegroFlare::Camera2D camera;
          Tracko::Board* current_board;
          AllegroFlare::Int2D current_board_start_tile;
-         Tracko::Piece* current_board_current_filling_piece;
          Tracko::Piece::ConnectingPosition current_board_start_tile_start_connecting_position;
+         Tracko::Piece* current_board_current_filling_piece;
          bool game_started;
          AllegroFlare::Placement2D current_board_placement;
          bool initialized;

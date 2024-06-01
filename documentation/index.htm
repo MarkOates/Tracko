@@ -523,12 +523,12 @@ table td
   <td class="property">AllegroFlare::Int2D</td>
 </tr>
 <tr>
-  <td class="property">current_board_current_filling_piece</td>
-  <td class="property">Tracko::Piece*</td>
-</tr>
-<tr>
   <td class="property">current_board_start_tile_start_connecting_position</td>
   <td class="property">Tracko::Piece::ConnectingPosition</td>
+</tr>
+<tr>
+  <td class="property">current_board_current_filling_piece</td>
+  <td class="property">Tracko::Piece*</td>
 </tr>
 <tr>
   <td class="property">game_started</td>
@@ -787,7 +787,7 @@ table td
   <td class="method"><b>is_partially_filled</b>()</td>
 </tr>
 <tr>
-  <td class="method">std::pair&lt;bool, float&gt;</td>
+  <td class="method">std::tuple&lt;bool, float, Tracko::Piece::ConnectingPosition&gt;</td>
   <td class="method"><b>fill_with_amount</b>(float amount=0.025f)</td>
 </tr>
 <tr>

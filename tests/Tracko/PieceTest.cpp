@@ -40,7 +40,9 @@ TEST(Tracko_PieceTest, fill_with_amount__when_the_fill_does_not_overflow__will_r
 
    bool was_filled = false;
    float overflow = 0.0f;
-   std::tie(was_filled, overflow) = piece.fill_with_amount(0.8);
+   Tracko::Piece::ConnectingPosition exit_connecting_position =
+      Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
+   std::tie(was_filled, overflow, exit_connecting_position) = piece.fill_with_amount(0.8);
 
    EXPECT_EQ(false, was_filled);
    EXPECT_FLOAT_EQ(0.0f, overflow);
@@ -60,9 +62,13 @@ TEST(Tracko_PieceTest, fill_with_amount__when_the_fill_amount_overflows__will_re
    piece.initialize();
    piece.reveal();
 
+   piece.set_entrance_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
+
    bool was_filled = false;
    float overflow = 0.0f;
-   std::tie(was_filled, overflow) = piece.fill_with_amount(1.2);
+   Tracko::Piece::ConnectingPosition exit_connecting_position =
+      Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
+   std::tie(was_filled, overflow, exit_connecting_position) = piece.fill_with_amount(1.2);
 
    EXPECT_EQ(true, was_filled);
    EXPECT_FLOAT_EQ(0.2f, overflow);

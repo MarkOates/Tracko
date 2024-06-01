@@ -4,6 +4,7 @@
 #include <Tracko/Piece.hpp>
 #include <allegro5/allegro.h>
 #include <cstdint>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -74,7 +75,7 @@ namespace Tracko
       Tracko::Piece::ConnectingPosition infer_exit_connecting_position();
       bool is_filled();
       bool is_partially_filled();
-      std::pair<bool, float> fill_with_amount(float amount=0.025f);
+      std::tuple<bool, float, Tracko::Piece::ConnectingPosition> fill_with_amount(float amount=0.025f);
       void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);
       void update_state(float time_now=al_get_time());
       static bool is_valid_state(uint32_t state=STATE_UNDEF);

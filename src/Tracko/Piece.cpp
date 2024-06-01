@@ -172,12 +172,19 @@ void Piece::set_entrance_connecting_position(Tracko::Piece::ConnectingPosition e
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"(entrance_connecting_position != CONNECTING_POSITION_UNDEF)\" not met");
    }
-   if (!((is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))))
+   if (!((!is_state(STATE_FILLING))))
    {
       std::stringstream error_message;
-      error_message << "[Piece::set_entrance_connecting_position]: error: guard \"(is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))\" not met.";
+      error_message << "[Piece::set_entrance_connecting_position]: error: guard \"(!is_state(STATE_FILLING))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"(is_state(STATE_UNDEF) || is_state(STATE_HIDDEN))\" not met");
+      throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"(!is_state(STATE_FILLING))\" not met");
+   }
+   if (!((!is_state(STATE_FILLED))))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::set_entrance_connecting_position]: error: guard \"(!is_state(STATE_FILLED))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"(!is_state(STATE_FILLED))\" not met");
    }
    this->entrance_connecting_position = entrance_connecting_position;
    return;
@@ -281,7 +288,7 @@ bool Piece::is_partially_filled()
    return is_state(STATE_FILLING);
 }
 
-std::pair<bool, float> Piece::fill_with_amount(float amount)
+std::tuple<bool, float, Tracko::Piece::ConnectingPosition> Piece::fill_with_amount(float amount)
 {
    if (!((is_state(STATE_REVEALED) || is_state(STATE_FILLING))))
    {
@@ -294,17 +301,21 @@ std::pair<bool, float> Piece::fill_with_amount(float amount)
 
    float remainder = 0.0f;
    bool was_filled = false;
+   Tracko::Piece::ConnectingPosition exit_connecting_position =
+      Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
 
    fill_counter += amount;
    if (fill_counter >= 1.0) 
    {
       remainder = (fill_counter - 1.0);
       was_filled = true;
+      exit_connecting_position = infer_exit_connecting_position();
 
       set_state(STATE_FILLED);
       fill_counter = 1.0f;
    }
-   return { was_filled, remainder };
+
+   return { was_filled, remainder, exit_connecting_position };
 }
 
 void Piece::set_state(uint32_t state, bool override_if_busy)
