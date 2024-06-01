@@ -41,6 +41,8 @@ namespace Tracko
       void swap();
       bool can_swap();
       std::pair<bool, std::pair<int, int>> calculate_adjacency(int x1=0, int y1=0, int x2=0, int y2=0);
+      static Tracko::Piece::ConnectingPosition get_inverse_connection_position(Tracko::Piece::ConnectingPosition connection_position=Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF);
+      std::pair<Tracko::Piece*, std::pair<int, int>> get_connecting_to_piece(int from_piece_x=0, int from_piece_y=0, Tracko::Piece::ConnectingPosition exiting_connection_position=Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF);
       bool have_connecting_edges(int x1=0, int y1=0, int x2=0, int y2=0);
       bool cursor_is_in_valid_position();
       void resize(int num_columns=8, int num_rows=8);

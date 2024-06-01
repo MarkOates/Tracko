@@ -144,6 +144,78 @@ std::pair<bool, std::pair<int, int>> Board::calculate_adjacency(int x1, int y1, 
    return { true, difference };
 }
 
+Tracko::Piece::ConnectingPosition Board::get_inverse_connection_position(Tracko::Piece::ConnectingPosition connection_position)
+{
+   if (!((connection_position != Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Board::get_inverse_connection_position]: error: guard \"(connection_position != Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Board::get_inverse_connection_position: error: guard \"(connection_position != Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)\" not met");
+   }
+   std::map<Piece::ConnectingPosition, Piece::ConnectingPosition> inverse_connection_positions = {
+      { Piece::CONNECTING_POSITION_LEFT, Piece::CONNECTING_POSITION_RIGHT },
+      { Piece::CONNECTING_POSITION_TOP, Piece::CONNECTING_POSITION_BOTTOM },
+      { Piece::CONNECTING_POSITION_RIGHT, Piece::CONNECTING_POSITION_LEFT },
+      { Piece::CONNECTING_POSITION_BOTTOM, Piece::CONNECTING_POSITION_TOP },
+   };
+   if (inverse_connection_positions.find(connection_position) == inverse_connection_positions.end())
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::Piece::get_inverse_connection_position",
+         "Unable to handle case for the connection_position \""
+            + std::to_string(connection_position) + "\"."
+      );
+   }
+   return inverse_connection_positions[connection_position];
+}
+
+std::pair<Tracko::Piece*, std::pair<int, int>> Board::get_connecting_to_piece(int from_piece_x, int from_piece_y, Tracko::Piece::ConnectingPosition exiting_connection_position)
+{
+   if (!((exiting_connection_position != Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Board::get_connecting_to_piece]: error: guard \"(exiting_connection_position != Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Board::get_connecting_to_piece: error: guard \"(exiting_connection_position != Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)\" not met");
+   }
+   // TODO: Test this
+   // Get the connecting direction
+   std::map<Piece::ConnectingPosition, std::pair<int, int>> connecting_to_next_directions = {
+      { Piece::CONNECTING_POSITION_TOP, { 0, -1 } },
+      { Piece::CONNECTING_POSITION_RIGHT, { 0, 1 } },
+      { Piece::CONNECTING_POSITION_BOTTOM, { 1, 0 } },
+      { Piece::CONNECTING_POSITION_LEFT, { -1, 0 } },
+   };
+
+   if (connecting_to_next_directions.find(exiting_connection_position) == connecting_to_next_directions.end())
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::Piece::connecting_to_next_direction",
+         "Unable to handle case for the exiting connecting position \""
+            + std::to_string(exiting_connection_position) + "\"."
+      );
+   }
+
+   std::pair<int, int> connecting_to_next_direction = connecting_to_next_directions[exiting_connection_position];
+
+   int to_piece_x = from_piece_x + connecting_to_next_direction.first;
+   int to_piece_y = from_piece_y + connecting_to_next_direction.second;
+
+   if (!is_valid_tile_coordinate(to_piece_x, to_piece_y)) return { nullptr, { 0, 0 } };
+
+   Tracko::Piece *next_piece = get_piece(to_piece_x, to_piece_y);
+   if (!next_piece)
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::Piece::get_connecting_to_next_piece",
+         "When looking for next_piece a nullptr was returned. This is unexpected."
+      );
+   }
+
+   return { next_piece, { to_piece_x, to_piece_y } };
+}
+
 bool Board::have_connecting_edges(int x1, int y1, int x2, int y2)
 {
    // Coordinates are on the board
