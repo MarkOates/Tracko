@@ -44,10 +44,32 @@ TEST(Tracko_BoardTest, have_connecting_edges__will_return_true_if_the_pieces_bet
       std::pair<std::pair<int, int>, Tracko::Piece::TileType>,
       std::pair<std::pair<int, int>, Tracko::Piece::TileType>
    >> valid_connections = {
+      // Some simple vertical bars
       {
          { { 2, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
          { { 3, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
-      }
+      },
+      {
+         { { 2, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+         { { 1, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+      },
+      {
+         { { 2, 1 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+         { { 2, 2 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+      },
+      {
+         { { 2, 2 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+         { { 2, 1 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+      },
+      // Some curves
+      {
+         { { 2, 1 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+         { { 2, 2 }, Tracko::Piece::TILE_TYPE_TOP_RIGHT_CURVE },
+      },
+      {
+         { { 2, 1 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+         { { 2, 2 }, Tracko::Piece::TILE_TYPE_LEFT_TOP_CURVE },
+      },
    };
 
    for (auto &valid_connection : valid_connections)
@@ -88,10 +110,42 @@ connect)
       std::pair<std::pair<int, int>, Tracko::Piece::TileType>,
       std::pair<std::pair<int, int>, Tracko::Piece::TileType>
    >> invalid_connections = {
+      // Tile types that do not connect
       {
          { { 2, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
          { { 3, 3 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
-      }
+      },
+      {
+         { { 2, 3 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+         { { 3, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+      },
+      {
+         { { 2, 1 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+         { { 2, 2 }, Tracko::Piece::TILE_TYPE_RIGHT_BOTTOM_CURVE },
+      },
+      {
+         { { 2, 1 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+         { { 2, 2 }, Tracko::Piece::TILE_TYPE_BOTTOM_LEFT_CURVE },
+      },
+      // Same tile
+      {
+         { { 3, 3 }, Tracko::Piece::TILE_TYPE_TOP_RIGHT_CURVE },
+         { { 3, 3 }, Tracko::Piece::TILE_TYPE_TOP_RIGHT_CURVE },
+      },
+      // Tiles that are not adjacent
+      {
+         { { 2, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+         { { 4, 3 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+      },
+      {
+         { { 2, 1 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+         { { 2, 3 }, Tracko::Piece::TILE_TYPE_VERTICAL_BAR },
+      },
+      // Tiles that are off the edge of the board (TODO: this will need to be tested separately)
+      //{
+         //{ { 4, 0 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+         //{ { 5, 0 }, Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR },
+      //},
    };
 
    for (auto &invalid_connection : invalid_connections)
