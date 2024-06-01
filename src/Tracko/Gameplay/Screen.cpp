@@ -158,7 +158,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    current_board->set_exit_tile_coordinates({ 6, 3 });
    current_board->set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
    current_board->resize(7, 5);
-   current_board->fill_with_random_types();
+   current_board->fill_with_random_types(1234);
    current_board->set_random_tile_with_connection(
          current_board->get_start_tile_coordinates().x,
          current_board->get_start_tile_coordinates().y,
