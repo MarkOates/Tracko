@@ -64,6 +64,10 @@
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen"
   ],
+  "AllegroFlare/Placement3D": [
+    "Tracko/BoardRenderer",
+    "Tracko/Gameplay/Screen"
+  ],
   "AllegroFlare/Vec2D": [
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer",
@@ -179,9 +183,6 @@
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/AssetStudio/Database": [
-    "Tracko/Gameplay/Screen"
-  ],
-  "AllegroFlare/Placement3D": [
     "Tracko/Gameplay/Screen"
   ],
   "Tracko/BoardRenderer": [

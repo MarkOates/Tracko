@@ -3,6 +3,7 @@
 #include <Tracko/BoardRenderer.hpp>
 
 #include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <Tracko/PieceRenderer.hpp>
 #include <allegro5/allegro_color.h>
@@ -203,7 +204,7 @@ void BoardRenderer::render()
          Tracko::PieceRenderer piece_renderer;//(font_bin, model_bin, piece);
          piece_renderer.set_bitmap_bin(bitmap_bin);
          piece_renderer.set_font_bin(font_bin);
-         piece_renderer.set_model_bin(model_bin);
+         //piece_renderer.set_model_bin(model_bin);
          piece_renderer.set_piece(piece);
 
          piece_placement.position = { center_x, center_y };
@@ -211,6 +212,38 @@ void BoardRenderer::render()
          piece_placement.start_transform();
          piece_renderer.render();
          piece_placement.restore_transform();
+      }
+   }
+
+   // Draw the 3D pieces
+   if (model_bin && bitmap_bin)
+   {
+      AllegroFlare::Placement3D piece_placement_3d;
+      for (int x=0; x<num_columns; x++)
+      {
+         for (int y=0; y<num_rows; y++)
+         {
+            Tracko::Piece* piece = board->get_piece(x, y);
+            float center_x = x * column_width + column_width * 0.5;
+            float center_y = y * row_height + row_height * 0.5;
+
+            Tracko::PieceRenderer piece_renderer;//(font_bin, model_bin, piece);
+            piece_renderer.set_bitmap_bin(bitmap_bin);
+            piece_renderer.set_font_bin(font_bin);
+            piece_renderer.set_model_bin(model_bin);
+            piece_renderer.set_piece(piece);
+
+            float scale = 0.25;
+            //piece_placement.scale = { scale, scale, scale };
+            piece_placement_3d.rotation += { 0.25, 0.0, 0.0 };
+
+            piece_placement_3d.position = { center_x, center_y };
+            //piece_placement_3d.size = { piece_renderer.get_width(), piece_renderer.get_height() };
+            //piece_placement_3d.scale = { 0.3f, 0.3f, 0.3f };
+            piece_placement_3d.start_transform();
+            piece_renderer.render();
+            piece_placement_3d.restore_transform();
+         }
       }
    }
 

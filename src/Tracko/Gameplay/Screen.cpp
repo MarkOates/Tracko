@@ -398,8 +398,9 @@ void Screen::render()
    ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("tiles_4x3-01-horizontal-01.png");
    AllegroFlare::Model3D *model = model_bin->auto_get("tiles_4x3-01-horizontal-01.obj");
    AllegroFlare::Placement3D piece_placement;
-   piece_placement.scale = { 0.2, 0.2, 0.3 };
-   piece_placement.rotation = { 0.2, 0.0, 0.0 };
+   float scale = 0.25;
+   piece_placement.scale = { scale, scale, scale };
+   piece_placement.rotation += { 0.25, 0.0, 0.0 };
    model->set_texture(texture);
 
    piece_placement.start_transform();
