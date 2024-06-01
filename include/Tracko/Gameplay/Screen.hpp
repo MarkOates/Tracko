@@ -4,6 +4,7 @@
 #include <AllegroFlare/AssetStudio/Database.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Camera2D.hpp>
+#include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEvent.hpp>
@@ -42,6 +43,7 @@ namespace Tracko
          std::string current_level_identifier;
          Tracko::Gameplay::Level* current_level;
          AllegroFlare::Camera2D camera;
+         AllegroFlare::Camera3D camera3;
          Tracko::Board* current_board;
          Tracko::Piece* current_board_current_filling_piece;
          AllegroFlare::Int2D current_board_current_filling_piece_coordinates;

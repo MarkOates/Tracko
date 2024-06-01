@@ -183,6 +183,9 @@
   "AllegroFlare/Camera2D": [
     "Tracko/Gameplay/Screen"
   ],
+  "AllegroFlare/Camera3D": [
+    "Tracko/Gameplay/Screen"
+  ],
   "al_get_time": [
     "Tracko/Piece"
   ],

@@ -31,6 +31,7 @@ Screen::Screen()
    , current_level_identifier("[unset-current_level]")
    , current_level(nullptr)
    , camera({})
+   , camera3({})
    , current_board(nullptr)
    , current_board_current_filling_piece(nullptr)
    , current_board_current_filling_piece_coordinates({})
@@ -135,8 +136,14 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       delete current_level;
    }
 
-   // Reset the camera position
+   // Reset the camera2D position
    camera.position = { 0, 0 };
+
+   // Reset the camera3D position
+   camera3.position = { 0, 0 };
+   camera3.stepout = 0;
+   camera3.tilt = 0.0;
+   camera3.spin = 0.0;
 
    // Reset the game started counter
    game_started = false;
@@ -378,13 +385,23 @@ void Screen::render()
 
    Tracko::BoardRenderer board_renderer(font_bin, current_board);
    current_board_placement.size = { board_renderer.infer_width(), board_renderer.infer_height() }; // ??
+   current_board_placement.scale = { 0.0075, -0.0075 };
 
    // Draw the board
-   camera.start_reverse_transform();
+   camera3.tilt = -0.6;
+   //camera3.stepout += 0.1;
+   camera3.stepout = AllegroFlare::Vec3D(0, -0.1, 10);
+   camera3.zoom = 2.0;
+   camera3.setup_projection_on(al_get_target_bitmap()); // ???
+   //AllegroFlare::Model3D *model = model_bin->auto_get("centered_unit_cube-02.obj");
+   //model->draw();
+   //camera3.start_reverse_transform();
+   // camera.start_reverse_transform();
    current_board_placement.start_transform();
    board_renderer.render();
    current_board_placement.restore_transform();
-   camera.restore_transform();
+   //camera.restore_transform();
+   //camera3.restore_transform();
 
    //
    // Draw hud
