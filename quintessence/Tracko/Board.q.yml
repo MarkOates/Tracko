@@ -154,6 +154,22 @@ methods:
          Tracko::Piece::get_connecting_positions(piece_b->get_tile_type());
 
       // Get the connecting edges
+      std::map<std::pair<int, int>, std::pair<Piece::ConnectingPosition, Piece::ConnectingPosition>> adjacency_connections = {
+         { { -1, 0 }, { Piece::CONNECTING_POSITION_LEFT, Piece::CONNECTING_POSITION_RIGHT }, },
+         { { 0, -1 }, { Piece::CONNECTING_POSITION_TOP, Piece::CONNECTING_POSITION_BOTTOM }, },
+         { { 1, 0 }, { Piece::CONNECTING_POSITION_RIGHT, Piece::CONNECTING_POSITION_LEFT}, },
+         { { 0, 1 }, { Piece::CONNECTING_POSITION_BOTTOM, Piece::CONNECTING_POSITION_TOP}, },
+      };
+
+      if (adjacency_connections.find(adjacency) == adjacency_connections.end())
+      {
+         // TODO: Throw
+      }
+
+      std::pair<Piece::ConnectingPosition, Piece::ConnectingPosition> required_connections =
+         adjacency_connections[adjacency];
+      if (!piece_a->has_connecting_position(required_connections.first)) return false;
+      if (!piece_b->has_connecting_position(required_connections.first)) return false;
 
       // HERE
       // TODO: This method, need to take into account if:
@@ -167,6 +183,8 @@ methods:
       //CONNECTING_POSITION_BOTTOM
       //throw std::runtime_error("Tracko::Board HERE");
       return true;
+    body_dependency_symbols:
+      - std::map
 
 
   - name: cursor_is_in_valid_position

@@ -140,6 +140,36 @@ bool Piece::infer_can_connect()
    return (fillable_states.count(state) > 0);
 }
 
+bool Piece::has_connecting_position(Tracko::Piece::ConnectingPosition connecting_position)
+{
+   if (!((tile_type != TILE_TYPE_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::has_connecting_position]: error: guard \"(tile_type != TILE_TYPE_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::has_connecting_position: error: guard \"(tile_type != TILE_TYPE_UNDEF)\" not met");
+   }
+   // TODO: Test this
+   std::map<TileType, std::pair<ConnectingPosition, ConnectingPosition>> piece_connection_edges = {
+      { TILE_TYPE_HORIZONTAL_BAR, { CONNECTING_POSITION_LEFT, CONNECTING_POSITION_RIGHT } },
+      { TILE_TYPE_VERTICAL_BAR, { CONNECTING_POSITION_TOP, CONNECTING_POSITION_BOTTOM } },
+      { TILE_TYPE_TOP_RIGHT_CURVE, { CONNECTING_POSITION_TOP, CONNECTING_POSITION_RIGHT } },
+      { TILE_TYPE_RIGHT_BOTTOM_CURVE, { CONNECTING_POSITION_RIGHT, CONNECTING_POSITION_BOTTOM } },
+      { TILE_TYPE_BOTTOM_LEFT_CURVE, { CONNECTING_POSITION_BOTTOM, CONNECTING_POSITION_LEFT } },
+      { TILE_TYPE_LEFT_TOP_CURVE, { CONNECTING_POSITION_LEFT, CONNECTING_POSITION_TOP } },
+   };
+   if (piece_connection_edges.find(tile_type) == piece_connection_edges.end())
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::Piece::has_connecting_position",
+         "Unable to handle case for the tile_type \""
+            + std::to_string(tile_type) + "\""
+      );
+   }
+   std::pair<ConnectingPosition, ConnectingPosition> connecting_positions = piece_connection_edges[tile_type];
+   return (connecting_positions.first == connecting_position || connecting_positions.second == connecting_position);
+}
+
 void Piece::reveal()
 {
    if (!(infer_can_reveal()))

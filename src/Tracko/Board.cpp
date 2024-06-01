@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Random.hpp>
 #include <iostream>
+#include <map>
 #include <set>
 #include <sstream>
 #include <stdexcept>
@@ -164,6 +165,22 @@ bool Board::have_connecting_edges(int x1, int y1, int x2, int y2)
       Tracko::Piece::get_connecting_positions(piece_b->get_tile_type());
 
    // Get the connecting edges
+   std::map<std::pair<int, int>, std::pair<Piece::ConnectingPosition, Piece::ConnectingPosition>> adjacency_connections = {
+      { { -1, 0 }, { Piece::CONNECTING_POSITION_LEFT, Piece::CONNECTING_POSITION_RIGHT }, },
+      { { 0, -1 }, { Piece::CONNECTING_POSITION_TOP, Piece::CONNECTING_POSITION_BOTTOM }, },
+      { { 1, 0 }, { Piece::CONNECTING_POSITION_RIGHT, Piece::CONNECTING_POSITION_LEFT}, },
+      { { 0, 1 }, { Piece::CONNECTING_POSITION_BOTTOM, Piece::CONNECTING_POSITION_TOP}, },
+   };
+
+   if (adjacency_connections.find(adjacency) == adjacency_connections.end())
+   {
+      // TODO: Throw
+   }
+
+   std::pair<Piece::ConnectingPosition, Piece::ConnectingPosition> required_connections =
+      adjacency_connections[adjacency];
+   if (!piece_a->has_connecting_position(required_connections.first)) return false;
+   if (!piece_b->has_connecting_position(required_connections.first)) return false;
 
    // HERE
    // TODO: This method, need to take into account if:

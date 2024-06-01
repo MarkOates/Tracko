@@ -67,6 +67,7 @@ namespace Tracko
       bool infer_can_fill();
       bool infer_can_reveal();
       bool infer_can_connect();
+      bool has_connecting_position(Tracko::Piece::ConnectingPosition connecting_position=CONNECTING_POSITION_UNDEF);
       void reveal();
       bool is_hidden();
       void set_tile_type(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF);
