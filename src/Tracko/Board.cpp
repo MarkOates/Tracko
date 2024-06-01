@@ -128,6 +128,22 @@ bool Board::can_swap()
    return piece_at_cursor->infer_can_swap();
 }
 
+bool Board::connection_is_valid(int x, int y, Tracko::Piece::ConnectingPosition connecting_position)
+{
+   // HERE
+   // TODO: This method, need to take into account if:
+   // 1) piece is in a connectable state
+   // 2) piece has the matching connection
+   // 3) source's connection does not match to edge of map
+   // 4) other stuff
+   //CONNECTING_POSITION_LEFT
+   //CONNECTING_POSITION_TOP
+   //CONNECTING_POSITION_RIGHT
+   //CONNECTING_POSITION_BOTTOM
+   throw std::runtime_error("Tracko::Board HERE");
+   return false;
+}
+
 bool Board::cursor_is_in_valid_position()
 {
    if (cursor_x < 0) return false;

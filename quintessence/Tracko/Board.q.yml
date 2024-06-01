@@ -89,6 +89,33 @@ methods:
       return piece_at_cursor->infer_can_swap();
 
 
+  - name: connection_is_valid
+    type: bool
+    parameters:
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: connecting_position
+        type: Tracko::Piece::ConnectingPosition
+        default_argument: Tracko::Piece::CONNECTING_POSITION_UNDEF
+    body: |
+      // HERE
+      // TODO: This method, need to take into account if:
+      // 1) piece is in a connectable state
+      // 2) piece has the matching connection
+      // 3) source's connection does not match to edge of map
+      // 4) other stuff
+      //CONNECTING_POSITION_LEFT
+      //CONNECTING_POSITION_TOP
+      //CONNECTING_POSITION_RIGHT
+      //CONNECTING_POSITION_BOTTOM
+      throw std::runtime_error("Tracko::Board HERE");
+      return false;
+
+
   - name: cursor_is_in_valid_position
     type: bool
     body: |
