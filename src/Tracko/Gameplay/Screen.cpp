@@ -408,8 +408,10 @@ void Screen::render()
    //
 
    // Draw the swap piece
+   camera.setup_dimensional_projection(al_get_target_bitmap());
+   camera.start_reverse_transform();
    AllegroFlare::Placement2D swap_piece_placement;
-   swap_piece_placement.position = { 320, 1080 - 200 };
+   swap_piece_placement.position = { -1920 / 2 + 100, 1080 / 2 - 100 }; //320, 1080 - 200 };
 
    Tracko::PieceRenderer piece_renderer(font_bin, current_board->get_swap_piece());
    swap_piece_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
@@ -417,6 +419,7 @@ void Screen::render()
    swap_piece_placement.start_transform();
    piece_renderer.render();
    swap_piece_placement.restore_transform();
+   camera.restore_transform();
 
    //ALLEGRO_FONT *font = obtain_font();
    //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 30, ALLEGRO_ALIGN_CENTER, "Hello");
