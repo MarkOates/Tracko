@@ -26,6 +26,30 @@ properties:
     getter: true
     setter: false
 
+  - name: start_tile_coordinates
+    type: AllegroFlare::Int2D
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: start_tile_start_connecting_position
+    type: Tracko::Piece::ConnectingPosition
+    init_with: Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF
+    getter: true
+    setter: true
+
+  - name: exit_tile_coordinates
+    type: AllegroFlare::Int2D
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: exit_tile_exit_connecting_position
+    type: Tracko::Piece::ConnectingPosition
+    init_with: Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF
+    getter: true
+    setter: true
+
   - name: cursor_x
     type: int
     init_with: 0
@@ -439,5 +463,7 @@ dependencies:
     headers: [ Tracko/Piece.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::Int2D
+    headers: [ AllegroFlare/Int2D.hpp ]
 
 

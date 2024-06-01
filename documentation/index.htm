@@ -89,6 +89,22 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">start_tile_coordinates</td>
+  <td class="property">AllegroFlare::Int2D</td>
+</tr>
+<tr>
+  <td class="property">start_tile_start_connecting_position</td>
+  <td class="property">Tracko::Piece::ConnectingPosition</td>
+</tr>
+<tr>
+  <td class="property">exit_tile_coordinates</td>
+  <td class="property">AllegroFlare::Int2D</td>
+</tr>
+<tr>
+  <td class="property">exit_tile_exit_connecting_position</td>
+  <td class="property">Tracko::Piece::ConnectingPosition</td>
+</tr>
+<tr>
   <td class="property">cursor_x</td>
   <td class="property">int</td>
 </tr>
@@ -189,6 +205,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Int2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Int2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -540,22 +559,6 @@ table td
 <tr>
   <td class="property">current_board</td>
   <td class="property">Tracko::Board*</td>
-</tr>
-<tr>
-  <td class="property">current_board_start_tile_coordinates</td>
-  <td class="property">AllegroFlare::Int2D</td>
-</tr>
-<tr>
-  <td class="property">current_board_start_tile_start_connecting_position</td>
-  <td class="property">Tracko::Piece::ConnectingPosition</td>
-</tr>
-<tr>
-  <td class="property">current_board_exit_tile_coordinates</td>
-  <td class="property">AllegroFlare::Int2D</td>
-</tr>
-<tr>
-  <td class="property">current_board_exit_tile_exit_connecting_position</td>
-  <td class="property">Tracko::Piece::ConnectingPosition</td>
 </tr>
 <tr>
   <td class="property">current_board_current_filling_piece</td>
@@ -972,6 +975,10 @@ table td
     "Tracko/Piece",
     "Tracko/PieceRenderer"
   ],
+  "AllegroFlare/Int2D": [
+    "Tracko/Board",
+    "Tracko/Gameplay/Screen"
+  ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
@@ -1125,9 +1132,6 @@ table td
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Camera2D": [
-    "Tracko/Gameplay/Screen"
-  ],
-  "AllegroFlare/Int2D": [
     "Tracko/Gameplay/Screen"
   ],
   "al_get_time": [

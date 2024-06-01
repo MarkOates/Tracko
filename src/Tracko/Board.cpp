@@ -20,6 +20,10 @@ Board::Board()
    , swap_piece({})
    , num_rows(0)
    , num_columns(0)
+   , start_tile_coordinates({})
+   , start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
+   , exit_tile_coordinates({})
+   , exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
    , cursor_x(0)
    , cursor_y(0)
 {
@@ -43,6 +47,30 @@ void Board::set_swap_piece(Tracko::Piece swap_piece)
 }
 
 
+void Board::set_start_tile_coordinates(AllegroFlare::Int2D start_tile_coordinates)
+{
+   this->start_tile_coordinates = start_tile_coordinates;
+}
+
+
+void Board::set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition start_tile_start_connecting_position)
+{
+   this->start_tile_start_connecting_position = start_tile_start_connecting_position;
+}
+
+
+void Board::set_exit_tile_coordinates(AllegroFlare::Int2D exit_tile_coordinates)
+{
+   this->exit_tile_coordinates = exit_tile_coordinates;
+}
+
+
+void Board::set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition exit_tile_exit_connecting_position)
+{
+   this->exit_tile_exit_connecting_position = exit_tile_exit_connecting_position;
+}
+
+
 std::vector<std::vector<Tracko::Piece>> Board::get_pieces() const
 {
    return pieces;
@@ -58,6 +86,30 @@ int Board::get_num_rows() const
 int Board::get_num_columns() const
 {
    return num_columns;
+}
+
+
+AllegroFlare::Int2D Board::get_start_tile_coordinates() const
+{
+   return start_tile_coordinates;
+}
+
+
+Tracko::Piece::ConnectingPosition Board::get_start_tile_start_connecting_position() const
+{
+   return start_tile_start_connecting_position;
+}
+
+
+AllegroFlare::Int2D Board::get_exit_tile_coordinates() const
+{
+   return exit_tile_coordinates;
+}
+
+
+Tracko::Piece::ConnectingPosition Board::get_exit_tile_exit_connecting_position() const
+{
+   return exit_tile_exit_connecting_position;
 }
 
 

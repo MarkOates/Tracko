@@ -18,6 +18,10 @@
     "Tracko/Piece",
     "Tracko/PieceRenderer"
   ],
+  "AllegroFlare/Int2D": [
+    "Tracko/Board",
+    "Tracko/Gameplay/Screen"
+  ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
@@ -171,9 +175,6 @@
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Camera2D": [
-    "Tracko/Gameplay/Screen"
-  ],
-  "AllegroFlare/Int2D": [
     "Tracko/Gameplay/Screen"
   ],
   "al_get_time": [

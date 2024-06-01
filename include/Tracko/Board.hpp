@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Int2D.hpp>
 #include <Tracko/Piece.hpp>
 #include <cstdint>
 #include <utility>
@@ -16,6 +17,10 @@ namespace Tracko
       Tracko::Piece swap_piece;
       int num_rows;
       int num_columns;
+      AllegroFlare::Int2D start_tile_coordinates;
+      Tracko::Piece::ConnectingPosition start_tile_start_connecting_position;
+      AllegroFlare::Int2D exit_tile_coordinates;
+      Tracko::Piece::ConnectingPosition exit_tile_exit_connecting_position;
       int cursor_x;
       int cursor_y;
 
@@ -28,9 +33,17 @@ namespace Tracko
 
       void set_pieces(std::vector<std::vector<Tracko::Piece>> pieces);
       void set_swap_piece(Tracko::Piece swap_piece);
+      void set_start_tile_coordinates(AllegroFlare::Int2D start_tile_coordinates);
+      void set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition start_tile_start_connecting_position);
+      void set_exit_tile_coordinates(AllegroFlare::Int2D exit_tile_coordinates);
+      void set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition exit_tile_exit_connecting_position);
       std::vector<std::vector<Tracko::Piece>> get_pieces() const;
       int get_num_rows() const;
       int get_num_columns() const;
+      AllegroFlare::Int2D get_start_tile_coordinates() const;
+      Tracko::Piece::ConnectingPosition get_start_tile_start_connecting_position() const;
+      AllegroFlare::Int2D get_exit_tile_coordinates() const;
+      Tracko::Piece::ConnectingPosition get_exit_tile_exit_connecting_position() const;
       int get_cursor_x() const;
       int get_cursor_y() const;
       std::vector<std::vector<Tracko::Piece>> &get_pieces_ref();
