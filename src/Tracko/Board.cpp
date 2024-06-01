@@ -128,8 +128,14 @@ bool Board::can_swap()
    return piece_at_cursor->infer_can_swap();
 }
 
-bool Board::connection_is_valid(int x1, int y1, int x2, int y2)
+bool Board::connection_can_be_made(int x1, int y1, int x2, int y2)
 {
+   // Coordinates are on the board
+   if (!is_valid_tile_coordinate(x1, y1)) return false;
+   if (!is_valid_tile_coordinate(x2, y2)) return false;
+
+   // Pieces are connectable
+
    // HERE
    // TODO: This method, need to take into account if:
    // 1) piece is in a connectable state
@@ -296,6 +302,11 @@ Tracko::Piece* Board::get_piece(int x, int y)
       throw std::runtime_error("Board::get_piece: error: guard \"(y < num_rows)\" not met");
    }
    return &pieces[x][y];
+}
+
+bool Board::is_valid_tile_coordinate(int x, int y)
+{
+   return (x >= 0) && (x < num_columns) && (y >= 0) && (y < num_rows);
 }
 
 Tracko::Piece* Board::get_swap_piece()

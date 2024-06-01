@@ -89,7 +89,7 @@ methods:
       return piece_at_cursor->infer_can_swap();
 
 
-  - name: connection_is_valid
+  - name: connection_can_be_made
     type: bool
     parameters:
       - name: x1
@@ -105,6 +105,12 @@ methods:
         type: int
         default_argument: 0
     body: |
+      // Coordinates are on the board
+      if (!is_valid_tile_coordinate(x1, y1)) return false;
+      if (!is_valid_tile_coordinate(x2, y2)) return false;
+
+      // Pieces are connectable
+
       // HERE
       // TODO: This method, need to take into account if:
       // 1) piece is in a connectable state
@@ -257,6 +263,19 @@ methods:
     guards: [ (x >= 0), (x < num_columns), (y >= 0), (y < num_rows) ]
     body: |
       return &pieces[x][y];
+
+
+  - name: is_valid_tile_coordinate
+    type: bool
+    parameters:
+      - name: x
+        type: int
+        default_argument: 8
+      - name: y
+        type: int
+        default_argument: 8
+    body: |
+      return (x >= 0) && (x < num_columns) && (y >= 0) && (y < num_rows);
 
 
   - name: get_swap_piece

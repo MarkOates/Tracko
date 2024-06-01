@@ -36,7 +36,7 @@ TEST(Tracko_BoardTest, get_piece__will_return_the_correct_piece)
 }
 
 
-TEST(Tracko_BoardTest, connection_is_valid__will_return_true_if_the_pieces_between_the_two_coordinates_connect)
+TEST(Tracko_BoardTest, connection_can_be_made__will_return_true_if_the_pieces_between_the_two_coordinates_connect)
 {
    al_init();
    Tracko::Board board;
@@ -52,7 +52,30 @@ TEST(Tracko_BoardTest, connection_is_valid__will_return_true_if_the_pieces_betwe
 
    board.initialize_pieces();
 
-   EXPECT_EQ(true, board.connection_is_valid(2, 3, 3, 3));
+   EXPECT_EQ(true, board.connection_can_be_made(2, 3, 3, 3));
+
+   al_uninstall_system();
+}
+
+
+TEST(Tracko_BoardTest, connection_can_be_made__will_return_false_if_the_pieces_between_the_two_coordinates_do_not_\
+connect)
+{
+   al_init();
+   Tracko::Board board;
+   board.resize(5, 7);
+   board.fill_with_random_types();
+   Tracko::Piece* piece_a = board.get_piece(2, 3);
+   Tracko::Piece* piece_b = board.get_piece(3, 3);
+   ASSERT_NE(nullptr, piece_a);
+   ASSERT_NE(nullptr, piece_b);
+
+   piece_a->set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
+   piece_b->set_tile_type(Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR);
+
+   board.initialize_pieces();
+
+   EXPECT_EQ(false, board.connection_can_be_made(-1, 2, 0, 2));
 
    al_uninstall_system();
 }
