@@ -26,6 +26,11 @@ methods:
       - al_draw_text
 
 
+  - name: reverse_points
+    body: |
+       path.reverse();
+
+
   - name: build_points_for_tile_type
     type: std::vector<AllegroFlare::Vec2D>
     parameters:

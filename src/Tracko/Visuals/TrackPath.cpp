@@ -76,6 +76,11 @@ void TrackPath::render()
    return;
 }
 
+void TrackPath::reverse_points()
+{
+   path.reverse();
+}
+
 std::vector<AllegroFlare::Vec2D> TrackPath::build_points_for_tile_type(Tracko::Piece::TileType tile_type)
 {
    if (!((tile_type != Tracko::Piece::TileType::TILE_TYPE_UNDEF)))
