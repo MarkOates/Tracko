@@ -160,6 +160,12 @@
     "Tracko/GameConfigurations/Main",
     "Tracko/Gameplay/Screen"
   ],
+  "AllegroFlare/Screens/PauseScreen": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/Screens/Subscreen/Screen": [
+    "Tracko/GameConfigurations/Main"
+  ],
   "Tracko/JSONLoaders/Tracko/GameProgressAndStateInfo": [
     "Tracko/GameProgressAndStateInfo"
   ],

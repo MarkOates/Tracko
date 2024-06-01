@@ -765,6 +765,11 @@ void Screen::update_state(float time_now)
       break;
 
       case STATE_EXITING:
+         if (age > 2.0)
+         {
+            set_state(STATE_EXITED);
+            call_on_finished_callback_func();
+         }
       break;
 
       case STATE_EXITED:

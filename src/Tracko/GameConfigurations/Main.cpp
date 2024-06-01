@@ -25,6 +25,8 @@ namespace GameConfigurations
 
 Main::Main()
    : AllegroFlare::GameConfigurations::Complete(Tracko::GameConfigurations::Main::TYPE)
+   , primary_gameplay_subscreen(nullptr)
+   , pause_screen(nullptr)
 {
 }
 
@@ -61,8 +63,133 @@ AllegroFlare::Screens::Gameplay* Main::create_primary_gameplay_screen(AllegroFla
    result->set_event_emitter(runner->get_event_emitter());
    result->set_game_configuration(this);
 
+   //primary_gameplay_screen = result;
+
    result->initialize();
    return result;
+}
+
+AllegroFlare::Screens::Subscreen::Screen* Main::create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner)
+{
+   if (!((!primary_gameplay_subscreen)))
+   {
+      std::stringstream error_message;
+      error_message << "[Main::create_primary_gameplay_subscreen]: error: guard \"(!primary_gameplay_subscreen)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Main::create_primary_gameplay_subscreen: error: guard \"(!primary_gameplay_subscreen)\" not met");
+   }
+   AllegroFlare::EventEmitter* event_emitter = runner->get_event_emitter();
+   AllegroFlare::BitmapBin* bitmap_bin = runner->get_bitmap_bin();
+   AllegroFlare::FontBin* font_bin = runner->get_font_bin();
+
+   // Build the subscreen_element
+   AllegroFlare::Screens::Subscreen::Element *subscreen_element = new AllegroFlare::Screens::Subscreen::Element;
+   subscreen_element->set_bitmap_bin(bitmap_bin);
+   subscreen_element->set_font_bin(font_bin);
+   subscreen_element->initialize();
+
+   // Build and assemble the subscreen
+   primary_gameplay_subscreen = new AllegroFlare::Screens::Subscreen::Screen;
+   primary_gameplay_subscreen->set_event_emitter(event_emitter);
+   primary_gameplay_subscreen->set_bitmap_bin(bitmap_bin);
+   primary_gameplay_subscreen->set_font_bin(font_bin);
+   primary_gameplay_subscreen->set_subscreen_element(subscreen_element);
+
+   // Set the exit screen behavior
+   primary_gameplay_subscreen->set_on_exit_callback_func(
+      [event_emitter](AllegroFlare::Screens::Subscreen::Screen* pause_screen, void* user_data){
+         event_emitter->emit_router_event(
+            AllegroFlare::Routers::Standard::EVENT_UNPAUSE_GAME,
+            nullptr,
+            al_get_time()
+         );
+      }
+   );
+   primary_gameplay_subscreen->set_on_exit_callback_func_user_data(nullptr);
+
+   primary_gameplay_subscreen->initialize();
+
+   return primary_gameplay_subscreen;
+}
+
+AllegroFlare::Screens::PauseScreen* Main::create_pause_screen(AllegroFlare::Runners::Complete* runner)
+{
+   if (!((!pause_screen)))
+   {
+      std::stringstream error_message;
+      error_message << "[Main::create_pause_screen]: error: guard \"(!pause_screen)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Main::create_pause_screen: error: guard \"(!pause_screen)\" not met");
+   }
+   AllegroFlare::FontBin* font_bin = runner->get_font_bin();
+   AllegroFlare::BitmapBin* bitmap_bin = runner->get_bitmap_bin();
+   AllegroFlare::EventEmitter* event_emitter = runner->get_event_emitter();
+
+   std::vector<std::pair<std::string, std::string>> menu_options = {
+      { "Resume", "resume_gameplay" },
+      { "Exit to Title Screen", "exit_to_title_screen" },
+   };
+
+   // NOTE: No pause screen is used in this game, however, a pause screen is needed because upstream in the system
+   // a  cannot be registered as a screen. // TODO: Fix this
+   pause_screen = new AllegroFlare::Screens::PauseScreen;
+   pause_screen->set_font_bin(font_bin);
+   pause_screen->set_bitmap_bin(bitmap_bin);
+   pause_screen->set_event_emitter(event_emitter);
+   pause_screen->set_menu_options(menu_options);
+
+   //pause_screen->set_background(shared_background); // TODO: Look into adding this
+   // TODO: Configure menu items
+   // TODO: Add actions to menu items
+
+   pause_screen->set_on_menu_choice_callback_func(
+      [event_emitter](AllegroFlare::Screens::PauseScreen* pause_screen, void* user_data){
+         // TODO: Perform different action depending on selected menu item
+         // TODO: Use event emitter from pause_screen
+
+         std::string current_menu_option_value = pause_screen->infer_current_menu_option_value();
+         if (current_menu_option_value == "resume_gameplay")
+         {
+            event_emitter->emit_router_event(
+               AllegroFlare::Routers::Standard::EVENT_UNPAUSE_GAME,
+               nullptr,
+               al_get_time()
+            );
+         }
+         else if (current_menu_option_value == "exit_to_title_screen")
+         {
+            // TODO: Add a "are you sure?" step here
+            event_emitter->emit_router_event(
+               AllegroFlare::Routers::Standard::EVENT_ACTIVATE_TITLE_SCREEN,
+               nullptr,
+               al_get_time()
+            );
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::GameConfigurations::Base::create_pause_screen"
+               "While in the \"on_menu_choice_callback_func\", there was no option to handle the menu value \""
+                  + current_menu_option_value + "\"."
+            );
+         }
+      }
+   );
+   pause_screen->set_on_menu_choice_callback_func_user_data(nullptr);
+
+   // Set the exit screen behavior
+   pause_screen->set_on_exit_callback_func(
+      [event_emitter](AllegroFlare::Screens::PauseScreen* pause_screen, void* user_data){
+         event_emitter->emit_router_event(
+            AllegroFlare::Routers::Standard::EVENT_UNPAUSE_GAME,
+            nullptr,
+            al_get_time()
+         );
+      }
+   );
+   pause_screen->set_on_exit_callback_func_user_data(nullptr);
+
+   return pause_screen;
 }
 
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Main::create_intro_logos_storyboard_pages()

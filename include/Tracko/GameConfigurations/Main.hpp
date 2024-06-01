@@ -12,6 +12,8 @@
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
 #include <AllegroFlare/Runners/Complete.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
+#include <AllegroFlare/Screens/PauseScreen.hpp>
+#include <AllegroFlare/Screens/Subscreen/Screen.hpp>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -28,6 +30,8 @@ namespace Tracko
          static constexpr char* TYPE = (char*)"Tracko/GameConfigurations/Main";
 
       private:
+         AllegroFlare::Screens::Subscreen::Screen* primary_gameplay_subscreen;
+         AllegroFlare::Screens::PauseScreen* pause_screen;
 
       protected:
 
@@ -38,6 +42,8 @@ namespace Tracko
 
          virtual std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> build_achievements() override;
          virtual AllegroFlare::Screens::Gameplay* create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner=nullptr) override;
+         virtual AllegroFlare::Screens::Subscreen::Screen* create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner=nullptr) override;
+         virtual AllegroFlare::Screens::PauseScreen* create_pause_screen(AllegroFlare::Runners::Complete* runner=nullptr) override;
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_logos_storyboard_pages() override;
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_storyboard_pages() override;
          virtual std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options() override;
