@@ -102,11 +102,24 @@ std::vector<AllegroFlare::Vec2D> TrackPath::build_points_for_tile_type(Tracko::P
             { 1.0, 0.5 },
          },
       },
-      //- TILE_TYPE_VERTICAL_BAR
-      //- TILE_TYPE_TOP_RIGHT_CURVE
-      //- TILE_TYPE_RIGHT_BOTTOM_CURVE
-      //- TILE_TYPE_BOTTOM_LEFT_CURVE
-      //- TILE_TYPE_LEFT_TOP_CURVE
+      { Piece::TILE_TYPE_RIGHT_BOTTOM_CURVE, {
+            { 1.0, 0.5 },
+            { 0.5, 0.5 },
+            { 0.5, 1.0 },
+         },
+      },
+      { Piece::TILE_TYPE_BOTTOM_LEFT_CURVE, {
+            { 0.5, 1.0 },
+            { 0.5, 0.5 },
+            { 0.0, 0.5 },
+         },
+      },
+      { Piece::TILE_TYPE_LEFT_TOP_CURVE, {
+            { 0.0, 0.5 },
+            { 0.5, 0.5 },
+            { 0.5, 0.0 },
+         },
+      },
    };
 
 

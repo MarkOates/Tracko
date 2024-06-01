@@ -95,8 +95,8 @@ TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture, CAPTURE__render_
 }
 
 
-TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture, CAPTURE__build_points_for_tile_type__will_return_\
-points_for_the_path_shape)
+TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture, CAPTURE__build_points_for_all_tile_types__will_return_\
+the_expected_points_for_the_path_shape)
 {
    AllegroFlare::Camera2D camera;
    camera.size = { 1920, 1080 };
@@ -115,28 +115,34 @@ points_for_the_path_shape)
 
    float spacing = 200.0f;
    float scale = 180.0f;
+   ALLEGRO_COLOR frame_color = ALLEGRO_COLOR{0.4, 0.41, 0.42, 0.42};
 
    int num_subjects = tile_types_to_render.size();
    float x = -((num_subjects - 1) * spacing) * 0.5;
    for (auto &tile_type_to_render : tile_types_to_render)
    {
-      // Build the piece
-      //Tracko::Piece piece;
-      //piece.set_tile_type(tile_type_to_render);
-      //piece.initialize();
-      //piece.reveal();
+      // Build the path
+      Tracko::Visuals::TrackPath track_path;
+      AllegroFlare::Path2D &path = track_path.get_path_ref();
+      std::vector<AllegroFlare::Vec2D> points = track_path.build_points_for_tile_type(tile_type_to_render);
+
+      for (auto &point : points)
+      {
+         path.add_point(point.x, point.y);
+      }
 
       // Build the placement
       AllegroFlare::Placement2D subject_placement;
-      //Tracko::PieceRenderer piece_renderer(&get_font_bin_ref());
-      //piece_renderer.set_piece(&piece);
-      //subject_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
-      //subject_placement.position.x = x;
+      path.scale(scale); // For visual purposes
+      subject_placement.size = { 200, 200 };
+      subject_placement.position.x = x;
 
       // Render the subject
-      //subject_placement.start_transform();
-      //piece_renderer.render();
-      //subject_placement.restore_transform();
+      subject_placement.start_transform();
+      track_path.render();
+      track_path.render_point_at(0.2);
+      al_draw_rectangle(0, 0, scale, scale, frame_color, 2.0f); // draw a little frame
+      subject_placement.restore_transform();
 
       x += spacing;
    }
