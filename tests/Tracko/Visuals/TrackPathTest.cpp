@@ -90,6 +90,8 @@ the_expected_points_for_the_path_shape)
          path.add_point(point.x, point.y);
       }
 
+      //track_path.reverse_points(); // NOTE: Can uncomment to see reversed paths
+
       // Build the placement
       AllegroFlare::Placement2D subject_placement;
       path.scale(scale); // For visual purposes
