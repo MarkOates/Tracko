@@ -2,6 +2,7 @@
 
 #include <Tracko/Gameplay/Screen.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <Tracko/BoardRenderer.hpp>
@@ -10,6 +11,7 @@
 #include <Tracko/PieceRenderer.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -38,6 +40,9 @@ Screen::Screen()
    , current_board_current_filling_piece_coordinates({})
    , game_started(false)
    , current_board_placement({})
+   , state(STATE_UNDEF)
+   , state_is_busy(false)
+   , state_changed_at(0.0f)
    , initialized(false)
 {
 }
@@ -109,6 +114,12 @@ Tracko::GameConfigurations::Main* Screen::get_game_configuration() const
 }
 
 
+uint32_t Screen::get_state() const
+{
+   return state;
+}
+
+
 bool Screen::get_initialized() const
 {
    return initialized;
@@ -136,6 +147,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       // TODO: Shutdown current level
       delete current_level;
    }
+
+   // Set state
+   set_state(STATE_LEVEL_LOADED);
 
    // Reset the camera2D position
    camera.position = { 0, 0 };
@@ -270,6 +284,7 @@ void Screen::start_game()
    current_board_current_filling_piece->set_entrance_connecting_position(
          current_board->get_start_tile_start_connecting_position()
       );
+   set_state(STATE_PLAYING);
    return;
 }
 
@@ -300,8 +315,37 @@ void Screen::on_deactivate()
    return;
 }
 
+void Screen::trigger_level_won()
+{
+   set_state(STATE_LEVEL_WON);
+}
+
+void Screen::trigger_level_lost()
+{
+   set_state(STATE_LEVEL_LOST);
+}
+
+void Screen::trigger_gameplay_exit()
+{
+   set_state(STATE_EXITING);
+}
+
 void Screen::update()
 {
+   update_state();
+   if (is_state(STATE_PLAYING)) update_gameplay();
+   return;
+}
+
+void Screen::update_gameplay()
+{
+   if (!(is_state(STATE_PLAYING)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::update_gameplay]: error: guard \"is_state(STATE_PLAYING)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::update_gameplay: error: guard \"is_state(STATE_PLAYING)\" not met");
+   }
    double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
    //fill_rate /= 6.0f; // TODO: Use a bpm to sync with music(?)
    if (current_board_current_filling_piece && current_board)
@@ -331,7 +375,8 @@ void Screen::update()
          {
             // Level won! Jump to win state
             // TODO: Handle this case
-            throw std::runtime_error("Game won!");
+            //throw std::runtime_error("Game won!");
+            trigger_level_won();
          }
          else
          {
@@ -350,7 +395,8 @@ void Screen::update()
             {
                // Lost game! Jump to you lose state
                // TODO: Handle this case
-               throw std::runtime_error("Game lost!");
+               //throw std::runtime_error("Game lost!");
+               trigger_level_lost();
             }
             else
             {
@@ -436,6 +482,21 @@ void Screen::render()
    piece_renderer.render();
    swap_piece_placement.restore_transform();
    camera.restore_transform();
+
+   // Draw banners based on state:
+
+   if (is_state(STATE_LEVEL_WON))
+   {
+      ALLEGRO_FONT *font = obtain_banner_font();
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 220, ALLEGRO_ALIGN_CENTER, "Game Won");
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2, ALLEGRO_ALIGN_CENTER, "Press ENTER");
+   }
+   else if (is_state(STATE_LEVEL_LOST))
+   {
+      ALLEGRO_FONT *font = obtain_banner_font();
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 220, ALLEGRO_ALIGN_CENTER, "Game Lost");
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2, ALLEGRO_ALIGN_CENTER, "Press ENTER");
+   }
 
    //ALLEGRO_FONT *font = obtain_font();
    //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 30, ALLEGRO_ALIGN_CENTER, "Hello");
@@ -527,7 +588,14 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
       break;
 
       case ALLEGRO_KEY_ENTER:
-         perform_primary_board_action();
+         if (is_state(STATE_LEVEL_WON) || is_state(STATE_LEVEL_LOST))
+         {
+            trigger_gameplay_exit();
+         }
+         else
+         {
+            perform_primary_board_action();
+         }
          //universe.move_camera_left();
       break;
 
@@ -618,6 +686,126 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    return;
 }
 
+void Screen::set_state(uint32_t state, bool override_if_busy)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::set_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   if (this->state == state) return;
+   if (!override_if_busy && state_is_busy) return;
+   uint32_t previous_state = this->state;
+
+   switch (state)
+   {
+      case STATE_LEVEL_LOADED:
+      break;
+
+      case STATE_REVEALING:
+      break;
+
+      case STATE_PLAYING:
+      break;
+
+      case STATE_LEVEL_WON:
+      break;
+
+      case STATE_LEVEL_LOST:
+      break;
+
+      case STATE_EXITING:
+      break;
+
+      case STATE_EXITED:
+      break;
+
+      default:
+         AllegroFlare::Logger::throw_error(
+            "ClassName::set_state",
+            "Unable to handle case for state \"" + std::to_string(state) + "\""
+         );
+      break;
+   }
+
+   this->state = state;
+   state_changed_at = al_get_time();
+
+   return;
+}
+
+void Screen::update_state(float time_now)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::update_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::update_state: error: guard \"is_valid_state(state)\" not met");
+   }
+   float age = infer_current_state_age(time_now);
+
+   switch (state)
+   {
+      case STATE_LEVEL_LOADED:
+      break;
+
+      case STATE_REVEALING:
+      break;
+
+      case STATE_PLAYING:
+      break;
+
+      case STATE_LEVEL_WON:
+      break;
+
+      case STATE_LEVEL_LOST:
+      break;
+
+      case STATE_EXITING:
+      break;
+
+      case STATE_EXITED:
+      break;
+
+      default:
+         AllegroFlare::Logger::throw_error(
+            "ClassName::update_state",
+            "Unable to handle case for state \"" + std::to_string(state) + "\""
+         );
+      break;
+   }
+
+   return;
+}
+
+bool Screen::is_valid_state(uint32_t state)
+{
+   std::set<uint32_t> valid_states =
+   {
+      STATE_LEVEL_LOADED,
+      STATE_REVEALING,
+      STATE_PLAYING,
+      STATE_LEVEL_WON,
+      STATE_LEVEL_LOST,
+      STATE_EXITING,
+      STATE_EXITED
+   };
+   return (valid_states.count(state) > 0);
+}
+
+bool Screen::is_state(uint32_t possible_state)
+{
+   return (state == possible_state);
+}
+
+float Screen::infer_current_state_age(float time_now)
+{
+   return (time_now - state_changed_at);
+}
+
 ALLEGRO_FONT* Screen::obtain_font()
 {
    if (!(font_bin))
@@ -628,6 +816,18 @@ ALLEGRO_FONT* Screen::obtain_font()
       throw std::runtime_error("Screen::obtain_font: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Regular.ttf -32");
+}
+
+ALLEGRO_FONT* Screen::obtain_banner_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::obtain_banner_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::obtain_banner_font: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Oswald-Medium.ttf -200");
 }
 
 

@@ -15,6 +15,7 @@
   ],
   "AllegroFlare/Logger": [
     "Tracko/Board",
+    "Tracko/Gameplay/Screen",
     "Tracko/Piece",
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
