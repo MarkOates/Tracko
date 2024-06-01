@@ -138,6 +138,8 @@ void PieceRenderer::render()
    float center_y = height * 0.5;
    float dist = width * 0.5 * 0.6;
 
+   ALLEGRO_COLOR hidden_appearance_color = ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22};
+
    if (piece->is_hidden())
    {
       // Draw hidden appearance
@@ -148,12 +150,12 @@ void PieceRenderer::render()
          height-4,
          8.0f,
          8.0f,
-         ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22},
+         hidden_appearance_color,
          4.0f
       );
 
       int font_line_height = al_get_font_line_height(font);
-      al_draw_text(font, ALLEGRO_COLOR{0.4, 0.4, 0.2, 0.4}, center_x, center_y-font_line_height * 0.5f,
+      al_draw_text(font, hidden_appearance_color, center_x, center_y-font_line_height * 0.5f,
          ALLEGRO_ALIGN_CENTER, "?");
    }
    else
@@ -203,6 +205,29 @@ void PieceRenderer::render()
    }
 
    return;
+}
+
+std::string PieceRenderer::get_model_identifier_for_type(Tracko::Piece::TileType tile_type)
+{
+   std::map<Piece::TileType, std::string> model_identifiers = {
+      { Piece::TILE_TYPE_HORIZONTAL_BAR,     "tiles_4x3-01-horizontal-01.obj" },
+      { Piece::TILE_TYPE_VERTICAL_BAR,       "tiles_4x3-01-horizontal-01.obj" },
+      { Piece::TILE_TYPE_TOP_RIGHT_CURVE,    "tiles_4x3-01-horizontal-01.obj" },
+      { Piece::TILE_TYPE_RIGHT_BOTTOM_CURVE, "tiles_4x3-01-horizontal-01.obj" },
+      { Piece::TILE_TYPE_BOTTOM_LEFT_CURVE,  "tiles_4x3-01-horizontal-01.obj" },
+      { Piece::TILE_TYPE_LEFT_TOP_CURVE,     "tiles_4x3-01-horizontal-01.obj" },
+   };
+
+   if (model_identifiers.find(tile_type) == model_identifiers.end())
+   {
+      AllegroFlare::Logger::throw_error(
+         "Tracko::PieceRenderer::get_model_identifier_for_type",
+         "Unable to handle case for the Tracko::Piece::TileType \""
+            + std::to_string(tile_type) + "\""
+      );
+   }
+
+   return model_identifiers[tile_type];
 }
 
 std::pair<AllegroFlare::Vec2D, AllegroFlare::Vec2D> PieceRenderer::get_connecting_coords_for_type(Tracko::Piece::TileType tile_type)
