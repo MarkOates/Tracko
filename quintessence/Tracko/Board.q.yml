@@ -163,13 +163,17 @@ methods:
 
       if (adjacency_connections.find(adjacency) == adjacency_connections.end())
       {
-         // TODO: Throw
+         AllegroFlare::Logger::throw_error(
+            "Tracko::Piece::have_connecting_edges",
+            "Unable to handle case for the adjacency coordinates { "
+               + std::to_string(adjacency.first) + ", " + std::to_string(adjacency.second) + " }."
+         );
       }
 
       std::pair<Piece::ConnectingPosition, Piece::ConnectingPosition> required_connections =
          adjacency_connections[adjacency];
       if (!piece_a->has_connecting_position(required_connections.first)) return false;
-      if (!piece_b->has_connecting_position(required_connections.first)) return false;
+      if (!piece_b->has_connecting_position(required_connections.second)) return false;
 
       // HERE
       // TODO: This method, need to take into account if:
@@ -185,6 +189,7 @@ methods:
       return true;
     body_dependency_symbols:
       - std::map
+      - AllegroFlare::Logger
 
 
   - name: cursor_is_in_valid_position
@@ -355,5 +360,7 @@ dependencies:
     headers: [ AllegroFlare/Random.hpp ]
   - symbol: Tracko::Piece::ConnectingPosition
     headers: [ Tracko/Piece.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

@@ -2,6 +2,7 @@
 
 #include <Tracko/Board.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Random.hpp>
 #include <iostream>
 #include <map>
@@ -174,13 +175,17 @@ bool Board::have_connecting_edges(int x1, int y1, int x2, int y2)
 
    if (adjacency_connections.find(adjacency) == adjacency_connections.end())
    {
-      // TODO: Throw
+      AllegroFlare::Logger::throw_error(
+         "Tracko::Piece::have_connecting_edges",
+         "Unable to handle case for the adjacency coordinates { "
+            + std::to_string(adjacency.first) + ", " + std::to_string(adjacency.second) + " }."
+      );
    }
 
    std::pair<Piece::ConnectingPosition, Piece::ConnectingPosition> required_connections =
       adjacency_connections[adjacency];
    if (!piece_a->has_connecting_position(required_connections.first)) return false;
-   if (!piece_b->has_connecting_position(required_connections.first)) return false;
+   if (!piece_b->has_connecting_position(required_connections.second)) return false;
 
    // HERE
    // TODO: This method, need to take into account if:
