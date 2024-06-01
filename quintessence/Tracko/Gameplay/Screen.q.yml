@@ -71,7 +71,7 @@ properties:
     type: Tracko::Piece::ConnectingPosition
     init_with: Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF
 
-  - name: current_board_exit_tile
+  - name: current_board_exit_tile_coordinates
     type: AllegroFlare::Int2D
     init_with: '{}'
 
@@ -143,7 +143,7 @@ methods:
 
       current_board_start_tile = { 0, 1 };
       current_board_start_tile_start_connecting_position = Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT;
-      current_board_exit_tile = { 6, 2 };
+      current_board_exit_tile_coordinates = { 6, 2 };
       current_board_exit_tile_exit_connecting_position = Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT;
       current_board = new Tracko::Board;
       current_board->resize(7, 5);
@@ -233,8 +233,8 @@ methods:
   - name: update
     body: |
       double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
-      fill_rate /= 6.0f; // TODO: Use a bpm to sync with music(?)
-      if (current_board_current_filling_piece)
+      //fill_rate /= 6.0f; // TODO: Use a bpm to sync with music(?)
+      if (current_board_current_filling_piece && current_board)
       {
          bool was_filled = false;
          float overflow = 0.0f;
@@ -245,8 +245,19 @@ methods:
 
          if (was_filled)
          {
+            // DEBUG
             // TODO: Handle going to next piece
             bool current_piece_is_last_piece = false;
+
+            // TODO: Test this conditional
+            if (current_board_exit_tile_coordinates.x == current_board_current_filling_piece_coordinates.x
+                  && current_board_exit_tile_coordinates.y == current_board_current_filling_piece_coordinates.y
+                  && exit_connecting_position == current_board_exit_tile_exit_connecting_position
+               )
+            {
+               current_piece_is_last_piece = true;
+            }
+
             if (current_piece_is_last_piece)
             {
                // Level won! Jump to win state
@@ -255,32 +266,53 @@ methods:
             }
             else
             {
-               bool current_piece_connects_to_next = false;
-               if (!current_piece_connects_to_next)
+               Tracko::Piece* connecting_to_piece = nullptr;
+               std::pair<int, int> connecting_to_coordinates = { 0, 0 };
+               
+               std::tie(connecting_to_piece, connecting_to_coordinates) = current_board->get_connecting_to_piece(
+                     current_board_current_filling_piece_coordinates.x,
+                     current_board_current_filling_piece_coordinates.y,
+                     exit_connecting_position
+                  );
+
+               bool current_connecting_piece_connects_to_next = (connecting_to_piece != nullptr);
+
+               if (!current_connecting_piece_connects_to_next)
                {
-                  // Lost lost! Jump to you lose state
+                  // Lost game! Jump to you lose state
                   // TODO: Handle this case
                   throw std::runtime_error("Game lost!");
                }
                else
                {
-                  // HERE
-                  // TODO: Get connecting piece
-                  // TODO: Get connecting piece entrance connection position
-                  throw std::runtime_error("Connection logic still to do!");
+                  // TODO: Test this section
+                  //Tracko::Piece* connecting_to_piece = nullptr;
+                  //std::pair<int, int> connecting_to_coordinates = { 0, 0 };
+                  
+                  //std::tie(connecting_to_piece, connecting_to_coordinates) = current_board->get_connecting_to_piece(
+                        //current_board_current_filling_piece_coordinates.x,
+                        //current_board_current_filling_piece_coordinates.y,
+                        //exit_connecting_position
+                     //);
+
+                  // Get the new entrance position
+                  Tracko::Piece::ConnectingPosition entrance_connecting_position =
+                     current_board->get_inverse_connection_position(exit_connecting_position);
+
+                  // Get connecting piece entrance connection position
                   Tracko::Piece::ConnectingPosition entrance_connection_position_of_next_piece =
                      Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
 
-                  // TODO: These variables are not properly assigned
+                  // These variables are not properly assigned
                   current_board_current_filling_piece_coordinates =
-                     { current_board_start_tile.x, current_board_start_tile.y };
+                     { connecting_to_coordinates.first, connecting_to_coordinates.second };
                   current_board_current_filling_piece =
                      current_board->get_piece(
                         current_board_current_filling_piece_coordinates.x,
                         current_board_current_filling_piece_coordinates.y
                      );
                   current_board_current_filling_piece->set_entrance_connecting_position(
-                        entrance_connection_position_of_next_piece
+                        entrance_connecting_position
                      );
                }
             }

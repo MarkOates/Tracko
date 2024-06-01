@@ -183,8 +183,8 @@ std::pair<Tracko::Piece*, std::pair<int, int>> Board::get_connecting_to_piece(in
    // Get the connecting direction
    std::map<Piece::ConnectingPosition, std::pair<int, int>> connecting_to_next_directions = {
       { Piece::CONNECTING_POSITION_TOP, { 0, -1 } },
-      { Piece::CONNECTING_POSITION_RIGHT, { 0, 1 } },
-      { Piece::CONNECTING_POSITION_BOTTOM, { 1, 0 } },
+      { Piece::CONNECTING_POSITION_RIGHT, { 1, 0 } },
+      { Piece::CONNECTING_POSITION_BOTTOM, { 0, 1 } },
       { Piece::CONNECTING_POSITION_LEFT, { -1, 0 } },
    };
 
