@@ -14,7 +14,7 @@ properties:
     setter: explicit
 
   - name: entrance_connecting_position
-    type: uint32_t
+    type: Tracko::Piece::ConnectingPosition
     init_with: CONNECTING_POSITION_UNDEF
     getter: true
     setter: explicit
@@ -207,8 +207,7 @@ methods:
         default_argument: CONNECTING_POSITION_UNDEF
     guards:
       - (entrance_connecting_position != CONNECTING_POSITION_UNDEF)
-      - (!is_state(STATE_FILLING))
-      - (!is_state(STATE_FILLED))
+      - is_state(STATE_REVEALED)
     body: |
       this->entrance_connecting_position = entrance_connecting_position;
       return;
@@ -295,7 +294,7 @@ methods:
       Tracko::Piece::ConnectingPosition inferred_exit_position = CONNECTING_POSITION_UNDEF;
       if (connections_on_this_piece.first == entrance_connecting_position)
       {
-         inferred_exit_position = connections_on_this_piece.first;
+         inferred_exit_position = connections_on_this_piece.second;
       }
       else if (connections_on_this_piece.second == entrance_connecting_position)
       {

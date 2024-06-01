@@ -308,7 +308,6 @@ void Screen::update()
 
       if (was_filled)
       {
-         // DEBUG
          // TODO: Handle going to next piece
          bool current_piece_is_last_piece = false;
 
@@ -331,7 +330,7 @@ void Screen::update()
          {
             Tracko::Piece* connecting_to_piece = nullptr;
             std::pair<int, int> connecting_to_coordinates = { 0, 0 };
-            
+
             std::tie(connecting_to_piece, connecting_to_coordinates) = current_board->get_connecting_to_piece(
                   current_board_current_filling_piece_coordinates.x,
                   current_board_current_filling_piece_coordinates.y,
@@ -349,22 +348,10 @@ void Screen::update()
             else
             {
                // TODO: Test this section
-               //Tracko::Piece* connecting_to_piece = nullptr;
-               //std::pair<int, int> connecting_to_coordinates = { 0, 0 };
-               
-               //std::tie(connecting_to_piece, connecting_to_coordinates) = current_board->get_connecting_to_piece(
-                     //current_board_current_filling_piece_coordinates.x,
-                     //current_board_current_filling_piece_coordinates.y,
-                     //exit_connecting_position
-                  //);
 
                // Get the new entrance position
                Tracko::Piece::ConnectingPosition entrance_connecting_position =
                   current_board->get_inverse_connection_position(exit_connecting_position);
-
-               // Get connecting piece entrance connection position
-               Tracko::Piece::ConnectingPosition entrance_connection_position_of_next_piece =
-                  Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF;
 
                // These variables are not properly assigned
                current_board_current_filling_piece_coordinates =

@@ -45,7 +45,7 @@ Tracko::Piece::TileType Piece::get_tile_type() const
 }
 
 
-uint32_t Piece::get_entrance_connecting_position() const
+Tracko::Piece::ConnectingPosition Piece::get_entrance_connecting_position() const
 {
    return entrance_connecting_position;
 }
@@ -216,19 +216,12 @@ void Piece::set_entrance_connecting_position(Tracko::Piece::ConnectingPosition e
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"(entrance_connecting_position != CONNECTING_POSITION_UNDEF)\" not met");
    }
-   if (!((!is_state(STATE_FILLING))))
+   if (!(is_state(STATE_REVEALED)))
    {
       std::stringstream error_message;
-      error_message << "[Piece::set_entrance_connecting_position]: error: guard \"(!is_state(STATE_FILLING))\" not met.";
+      error_message << "[Piece::set_entrance_connecting_position]: error: guard \"is_state(STATE_REVEALED)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"(!is_state(STATE_FILLING))\" not met");
-   }
-   if (!((!is_state(STATE_FILLED))))
-   {
-      std::stringstream error_message;
-      error_message << "[Piece::set_entrance_connecting_position]: error: guard \"(!is_state(STATE_FILLED))\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"(!is_state(STATE_FILLED))\" not met");
+      throw std::runtime_error("Piece::set_entrance_connecting_position: error: guard \"is_state(STATE_REVEALED)\" not met");
    }
    this->entrance_connecting_position = entrance_connecting_position;
    return;
@@ -302,7 +295,7 @@ Tracko::Piece::ConnectingPosition Piece::infer_exit_connecting_position()
    Tracko::Piece::ConnectingPosition inferred_exit_position = CONNECTING_POSITION_UNDEF;
    if (connections_on_this_piece.first == entrance_connecting_position)
    {
-      inferred_exit_position = connections_on_this_piece.first;
+      inferred_exit_position = connections_on_this_piece.second;
    }
    else if (connections_on_this_piece.second == entrance_connecting_position)
    {
