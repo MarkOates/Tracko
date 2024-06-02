@@ -338,8 +338,15 @@ methods:
       - name: seed
         type: uint32_t
         default_argument: 76414 /*TRAIN*/
+      - name: always_random
+        type: bool
+        default_argument: false
     body: |
-      static AllegroFlare::Random random(seed);
+      AllegroFlare::Random random_consistent(seed);
+      static AllegroFlare::Random random_always_random(seed);
+
+      AllegroFlare::Random &random = always_random ? random_always_random : random_consistent;
+      
 
       std::vector<Tracko::Piece::TileType> tile_types = {
          Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR,

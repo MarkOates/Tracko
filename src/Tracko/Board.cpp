@@ -377,9 +377,13 @@ void Board::resize(int num_columns, int num_rows)
    return;
 }
 
-void Board::fill_with_random_types(uint32_t seed)
+void Board::fill_with_random_types(uint32_t seed, bool always_random)
 {
-   static AllegroFlare::Random random(seed);
+   AllegroFlare::Random random_consistent(seed);
+   static AllegroFlare::Random random_always_random(seed);
+
+   AllegroFlare::Random &random = always_random ? random_always_random : random_consistent;
+
 
    std::vector<Tracko::Piece::TileType> tile_types = {
       Tracko::Piece::TILE_TYPE_HORIZONTAL_BAR,

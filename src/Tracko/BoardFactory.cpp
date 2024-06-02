@@ -30,6 +30,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
    static float UPDATE_RATE_DENOMINATOR_EASY = 8.0f;
    static float UPDATE_RATE_DENOMINATOR_MEDIUM = 4.0f;
    static float UPDATE_RATE_DENOMINATOR_HARD = 2.0f;
+   static float UPDATE_RATE_DENOMINATOR_ULTRA_HARD = 1.5f;
 
    // TODO: Add board names
    std::map<std::string, std::function<Tracko::Board*()>> factory = {
@@ -41,7 +42,8 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_ULTRA_EASY,
-            1 // 1 approved
+            1, // 1 approved
+            false
          );
       }},
       { "level_2", [](){ return create_board(
@@ -49,7 +51,8 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_EASY,
-            2
+            2,
+            false
          );
       }},
       { "level_3", [](){ return create_board(
@@ -57,19 +60,101 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_EASY,
-            4
+            4,
+            false
          );
       }},
 
 
-      // Levels 10-12 (Hardest)
+      // Levels 4-6 (Easy)
 
-      { "level_12", [](){ return create_board(
+      { "level_4", [](){ return create_board(
+            6, 4,
+            { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            5, // 1 approved
+            false
+         );
+      }},
+      { "level_5", [](){ return create_board(
+            6, 4,
+            { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            6,
+            false
+         );
+      }},
+      { "level_6", [](){ return create_board(
+            6, 4,
+            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            7,
+            false
+         );
+      }},
+
+
+      // Levels 7-9 (Easy)
+
+      { "level_7", [](){ return create_board(
+            6, 4,
+            { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            5, // 1 approved
+            false
+         );
+      }},
+      { "level_8", [](){ return create_board(
+            6, 4,
+            { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            6, // NOT APPROVED
+            false
+         );
+      }},
+      { "level_9", [](){ return create_board(
+            6, 4,
+            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            7,
+            false
+         );
+      }},
+
+
+      // Levels 10-12 (Hardest, consider making them random)
+
+      { "level_10", [](){ return create_board(
             7, 5,
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_HARD,
-            123
+            101,
+            true
+         );
+      }},
+      { "level_11", [](){ return create_board(
+            7, 5,
+            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_HARD,
+            102,
+            true
+         );
+      }},
+      { "level_12", [](){ return create_board(
+            7, 5,
+            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_ULTRA_HARD,
+            123,
+            true
          );
       }},
    };
@@ -130,7 +215,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
    return nullptr;
 }
 
-Tracko::Board* BoardFactory::create_board(int num_columns, int num_rows, AllegroFlare::Int2D start_coordinate, Tracko::Piece::ConnectingPosition start_connecting_position, AllegroFlare::Int2D end_coordinate, Tracko::Piece::ConnectingPosition end_connecting_position, float update_rate_denominator, int seed)
+Tracko::Board* BoardFactory::create_board(int num_columns, int num_rows, AllegroFlare::Int2D start_coordinate, Tracko::Piece::ConnectingPosition start_connecting_position, AllegroFlare::Int2D end_coordinate, Tracko::Piece::ConnectingPosition end_connecting_position, float update_rate_denominator, int seed, bool always_random)
 {
    if (!((num_columns >= 1)))
    {
@@ -161,7 +246,7 @@ Tracko::Board* BoardFactory::create_board(int num_columns, int num_rows, Allegro
    //board->set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
    board->set_exit_tile_exit_connecting_position(end_connecting_position);
    board->resize(num_columns, num_rows);
-   board->fill_with_random_types(seed);
+   board->fill_with_random_types(seed, always_random);
    board->set_random_tile_with_connection(
          board->get_start_tile_coordinates().x,
          board->get_start_tile_coordinates().y,

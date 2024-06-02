@@ -62,7 +62,7 @@ namespace Tracko
       bool have_connecting_edges(int x1=0, int y1=0, int x2=0, int y2=0);
       bool cursor_is_in_valid_position();
       void resize(int num_columns=8, int num_rows=8);
-      void fill_with_random_types(uint32_t seed=76414 /*TRAIN*/);
+      void fill_with_random_types(uint32_t seed=76414 /*TRAIN*/, bool always_random=false);
       void set_random_tile_with_connection(int x=0, int y=0, Tracko::Piece::ConnectingPosition connecting_position=Tracko::Piece::CONNECTING_POSITION_UNDEF, uint32_t seed=76414 /*TRAIN*/);
       void initialize_pieces();
       Tracko::Piece* get_piece_at_cursor();
