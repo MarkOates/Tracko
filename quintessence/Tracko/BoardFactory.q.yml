@@ -10,6 +10,17 @@ methods:
         default_argument: '"[unset-board_identifier]"'
     body: |
       // TODO: Add board names
+      std::map<std::string, std::function<Tracko::Board*()>> factory = {
+         { "level_1", [](){
+            return create_board(
+               6, 4,
+               { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+               { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+               4
+            );
+         }},
+      };
+
       if (board_identifier == "")
       {
          throw std::runtime_error("missing level identifier");
@@ -37,6 +48,8 @@ methods:
          throw std::runtime_error("unfound level identifier");
       }
       return nullptr;
+    body_dependency_symbols:
+      - std::map
 
 
   - name: create_board

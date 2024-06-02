@@ -3,6 +3,7 @@
 #include <Tracko/BoardFactory.hpp>
 
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <stdexcept>
 
@@ -24,6 +25,17 @@ BoardFactory::~BoardFactory()
 Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identifier)
 {
    // TODO: Add board names
+   std::map<std::string, std::function<Tracko::Board*()>> factory = {
+      { "level_1", [](){
+         return create_board(
+            6, 4,
+            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            4
+         );
+      }},
+   };
+
    if (board_identifier == "")
    {
       throw std::runtime_error("missing level identifier");
