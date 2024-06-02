@@ -4,6 +4,7 @@
 #include <AllegroFlare/Achievement.hpp>
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
+#include <AllegroFlare/Elements/Backgrounds/Base.hpp>
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
 #include <AllegroFlare/GameConfigurations/Complete.hpp>
 #include <AllegroFlare/GameEvent.hpp>
@@ -17,6 +18,8 @@
 #include <Tracko/ForwardDeclarations/Tracko/GameConfigurations/Main.hpp>
 #include <Tracko/ForwardDeclarations/Tracko/Gameplay/Screen.hpp>
 #include <Tracko/Gameplay/Screen.hpp>
+#include <Tracko/SharedBackground.hpp>
+#include <Tracko/SharedForeground.hpp>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -36,6 +39,8 @@ namespace Tracko
          Tracko::Gameplay::Screen* primary_gameplay_screen;
          AllegroFlare::Screens::Subscreen::Screen* primary_gameplay_subscreen;
          AllegroFlare::Screens::PauseScreen* pause_screen;
+         Tracko::SharedBackground* shared_background;
+         Tracko::SharedForeground* shared_foreground;
 
       protected:
 
@@ -47,6 +52,8 @@ namespace Tracko
          virtual std::string app_title() override;
          virtual std::string title_screen_title() override;
          virtual std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> build_achievements() override;
+         virtual AllegroFlare::Elements::Backgrounds::Base* create_shared_background() override;
+         virtual AllegroFlare::Elements::Backgrounds::Base* create_shared_foreground() override;
          virtual AllegroFlare::Screens::Gameplay* create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner=nullptr) override;
          virtual void handle_primary_gameplay_screen_finished() override;
          virtual AllegroFlare::Screens::Subscreen::Screen* create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner=nullptr) override;

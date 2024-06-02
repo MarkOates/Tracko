@@ -21,6 +21,14 @@ properties:
     type: AllegroFlare::Screens::PauseScreen*
     init_with: nullptr
 
+  - name: shared_background
+    type: Tracko::SharedBackground*
+    init_with: nullptr
+
+  - name: shared_foreground
+    type: Tracko::SharedForeground*
+    init_with: nullptr
+
   - name: TYPE
     type: char*
     init_with: '(char*)"Tracko/GameConfigurations/Main"'
@@ -56,6 +64,36 @@ methods:
       return {};
     body_dependency_symbols:
       - AllegroFlare::Achievement
+
+
+  - name: create_shared_background
+    virtual: true
+    override: true
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    guards: [ shared_background ]
+    body: |
+      // TODO: Customize this
+      this->shared_background = new Tracko::SharedBackground();
+      return shared_background;
+      //return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
+      //- AllegroFlare::Elements::Backgrounds::ClearToColor
+    body_dependency_symbols:
+      - Tracko::SharedBackground
+
+
+  - name: create_shared_foreground
+    virtual: true
+    override: true
+    type: AllegroFlare::Elements::Backgrounds::Base*
+    guards: [ shared_foreground ]
+    body: |
+      // TODO: Customize this
+      this->shared_foreground = new Tracko::SharedForeground();
+      return shared_foreground;
+      //return new AllegroFlare::Elements::Backgrounds::None();
+      //- AllegroFlare::Elements::Backgrounds::None
+    body_dependency_symbols:
+      - Tracko::SharedBackground
 
 
   - name: create_primary_gameplay_screen
@@ -219,7 +257,8 @@ methods:
       pause_screen->set_event_emitter(event_emitter);
       pause_screen->set_menu_options(menu_options);
 
-      //pause_screen->set_background(shared_background); // TODO: Look into adding this
+      pause_screen->set_foreground(shared_foreground);
+      pause_screen->set_background(shared_background);
       // TODO: Configure menu items
       // TODO: Add actions to menu items
 
@@ -650,5 +689,11 @@ dependencies:
     headers: [ Tracko/ForwardDeclarations/Tracko/GameConfigurations/Main.hpp ]
   - symbol: Tracko::ForwardDeclarations::Tracko::Gameplay::Screen
     headers: [ Tracko/ForwardDeclarations/Tracko/Gameplay/Screen.hpp ]
+  - symbol: Tracko::SharedBackground
+    headers: [ Tracko/SharedBackground.hpp ]
+  - symbol: Tracko::SharedForeground
+    headers: [ Tracko/SharedForeground.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
 
 

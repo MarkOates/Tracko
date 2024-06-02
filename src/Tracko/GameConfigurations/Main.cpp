@@ -10,6 +10,7 @@
 #include <AllegroFlare/Runners/Complete.hpp>
 #include <Tracko/Gameplay/Level.hpp>
 #include <Tracko/Gameplay/Screen.hpp>
+#include <Tracko/SharedBackground.hpp>
 #include <functional>
 #include <iostream>
 #include <map>
@@ -28,6 +29,8 @@ Main::Main()
    , primary_gameplay_screen(nullptr)
    , primary_gameplay_subscreen(nullptr)
    , pause_screen(nullptr)
+   , shared_background(nullptr)
+   , shared_foreground(nullptr)
 {
 }
 
@@ -51,6 +54,38 @@ std::string Main::title_screen_title()
 std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Main::build_achievements()
 {
    return {};
+}
+
+AllegroFlare::Elements::Backgrounds::Base* Main::create_shared_background()
+{
+   if (!(shared_background))
+   {
+      std::stringstream error_message;
+      error_message << "[Main::create_shared_background]: error: guard \"shared_background\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Main::create_shared_background: error: guard \"shared_background\" not met");
+   }
+   // TODO: Customize this
+   this->shared_background = new Tracko::SharedBackground();
+   return shared_background;
+   //return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
+   //- AllegroFlare::Elements::Backgrounds::ClearToColor
+}
+
+AllegroFlare::Elements::Backgrounds::Base* Main::create_shared_foreground()
+{
+   if (!(shared_foreground))
+   {
+      std::stringstream error_message;
+      error_message << "[Main::create_shared_foreground]: error: guard \"shared_foreground\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Main::create_shared_foreground: error: guard \"shared_foreground\" not met");
+   }
+   // TODO: Customize this
+   this->shared_foreground = new Tracko::SharedForeground();
+   return shared_foreground;
+   //return new AllegroFlare::Elements::Backgrounds::None();
+   //- AllegroFlare::Elements::Backgrounds::None
 }
 
 AllegroFlare::Screens::Gameplay* Main::create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner)
@@ -209,7 +244,8 @@ AllegroFlare::Screens::PauseScreen* Main::create_pause_screen(AllegroFlare::Runn
    pause_screen->set_event_emitter(event_emitter);
    pause_screen->set_menu_options(menu_options);
 
-   //pause_screen->set_background(shared_background); // TODO: Look into adding this
+   pause_screen->set_foreground(shared_foreground);
+   pause_screen->set_background(shared_background);
    // TODO: Configure menu items
    // TODO: Add actions to menu items
 

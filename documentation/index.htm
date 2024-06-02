@@ -62,6 +62,8 @@ table td
   <li><a href="#quintessence/Tracko/Gameplay/Screen.q.yml">quintessence/Tracko/Gameplay/Screen.q.yml</a></li>
   <li><a href="#quintessence/Tracko/Piece.q.yml">quintessence/Tracko/Piece.q.yml</a></li>
   <li><a href="#quintessence/Tracko/PieceRenderer.q.yml">quintessence/Tracko/PieceRenderer.q.yml</a></li>
+  <li><a href="#quintessence/Tracko/SharedBackground.q.yml">quintessence/Tracko/SharedBackground.q.yml</a></li>
+  <li><a href="#quintessence/Tracko/SharedForeground.q.yml">quintessence/Tracko/SharedForeground.q.yml</a></li>
   <li><a href="#quintessence/Tracko/Visuals/TrackPath.q.yml">quintessence/Tracko/Visuals/TrackPath.q.yml</a></li>
 </ul>
 <h1>Components</h1>
@@ -337,6 +339,14 @@ table td
   <td class="property">AllegroFlare::Screens::PauseScreen*</td>
 </tr>
 <tr>
+  <td class="property">shared_background</td>
+  <td class="property">Tracko::SharedBackground*</td>
+</tr>
+<tr>
+  <td class="property">shared_foreground</td>
+  <td class="property">Tracko::SharedForeground*</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -354,6 +364,14 @@ table td
 <tr>
   <td class="method">std::vector&lt;std::tuple&lt;std::string, AllegroFlare::Achievement*, bool, bool&gt;&gt;</td>
   <td class="method"><b>build_achievements</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Elements::Backgrounds::Base*</td>
+  <td class="method"><b>create_shared_background</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Elements::Backgrounds::Base*</td>
+  <td class="method"><b>create_shared_foreground</b>()</td>
 </tr>
 <tr>
   <td class="method">AllegroFlare::Screens::Gameplay*</td>
@@ -502,6 +520,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::ForwardDeclarations::Tracko::Gameplay::Screen&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/ForwardDeclarations/Tracko/Gameplay/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::SharedBackground&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/SharedBackground.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::SharedForeground&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/SharedForeground.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1126,6 +1153,296 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/Tracko/SharedBackground.q.yml">quintessence/Tracko/SharedBackground.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">using_clear_color</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">clear_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">using_parallax</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">parallax</td>
+  <td class="property">AllegroFlare::Elements::Backgrounds::Parallax</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_CLEAR_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>activate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>deactivate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_parallax_offset</b>(float offset_x=0.0f, float offset_y=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_parallax_layers</b>(std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt; parallax_layers={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>show</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>hide</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_font_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_html&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Parallax&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Parallax.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ParallaxLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::ColorAdjust&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/ColorAdjust.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tracko/SharedForeground.q.yml">quintessence/Tracko/SharedForeground.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">curtain_position</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">curtain_state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">curtain_state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">curtain_state_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">CURTAIN_OPENED_GAME_EVENT_NAME</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">CURTAIN_CLOSED_GAME_EVENT_NAME</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>open_curtain</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>close_curtain</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>curtain_is_open</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>curtain_is_closed</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>activate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>deactivate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_curtains</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>show</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>hide</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>set_curtain_state</b>(uint32_t curtain_state=CURTAIN_STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>update_curtain_state</b>(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>emit_curtain_opened_event</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>emit_curtain_closed_event</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_valid_curtain_state</b>(uint32_t curtain_state=CURTAIN_STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_curtain_state</b>(uint32_t possible_curtain_state=CURTAIN_STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>infer_current_curtain_state_age</b>(float time_now=al_get_time())</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_font_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/Tracko/Visuals/TrackPath.q.yml">quintessence/Tracko/Visuals/TrackPath.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -1214,12 +1531,16 @@ table td
   "AllegroFlare/BitmapBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
   ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer",
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground",
     "Tracko/Visuals/TrackPath"
   ],
   "ALLEGRO_FONT": [
@@ -1361,6 +1682,17 @@ table td
   "Tracko/ForwardDeclarations/Tracko/Gameplay/Screen": [
     "Tracko/GameConfigurations/Main"
   ],
+  "Tracko/SharedBackground": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "Tracko/SharedForeground": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/Elements/Backgrounds/Base": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
+  ],
   "Tracko/JSONLoaders/Tracko/GameProgressAndStateInfo": [
     "Tracko/GameProgressAndStateInfo"
   ],
@@ -1368,10 +1700,14 @@ table td
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/EventEmitter": [
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
   ],
   "al_is_primitives_addon_initialized": [
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
   ],
   "AllegroFlare/Player": [
     "Tracko/Gameplay/Screen"
@@ -1407,6 +1743,30 @@ table td
   ],
   "AllegroFlare/Model3D": [
     "Tracko/PieceRenderer"
+  ],
+  "al_is_font_addon_initialized": [
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
+  ],
+  "al_color_html": [
+    "Tracko/SharedBackground"
+  ],
+  "al_draw_filled_rectangle": [
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
+  ],
+  "ALLEGRO_COLOR": [
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
+  ],
+  "AllegroFlare/Elements/Backgrounds/Parallax": [
+    "Tracko/SharedBackground"
+  ],
+  "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
+    "Tracko/SharedBackground"
+  ],
+  "AllegroFlare/Shaders/ColorAdjust": [
+    "Tracko/SharedBackground"
   ],
   "AllegroFlare/Path2D": [
     "Tracko/Visuals/TrackPath"
