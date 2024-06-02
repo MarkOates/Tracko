@@ -337,8 +337,15 @@ void SharedBackground::swap_to_level_select()
 {
    clear_all_usings();
    set_using_fill_image(true);
+   set_fill_image_identifier("level-select-bg-02.jpg");
+}
+
+void SharedBackground::swap_to_gameplay()
+{
+   clear_all_usings();
+   clear_all_usings();
+   set_using_fill_image(true);
    set_fill_image_identifier("level-select-bg.jpg");
-   //background-general-01.jpg");
 }
 
 void SharedBackground::swap_to_unknown()

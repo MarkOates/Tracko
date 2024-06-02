@@ -224,8 +224,15 @@ methods:
     body: |
       clear_all_usings();
       set_using_fill_image(true);
+      set_fill_image_identifier("level-select-bg-02.jpg");
+
+
+  - name: swap_to_gameplay
+    body: |
+      clear_all_usings();
+      clear_all_usings();
+      set_using_fill_image(true);
       set_fill_image_identifier("level-select-bg.jpg");
-      //background-general-01.jpg");
 
 
   - name: swap_to_unknown

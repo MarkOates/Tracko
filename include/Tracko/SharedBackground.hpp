@@ -68,6 +68,7 @@ namespace Tracko
       virtual void hide() override;
       void swap_to_title();
       void swap_to_level_select();
+      void swap_to_gameplay();
       void swap_to_unknown();
    };
 }

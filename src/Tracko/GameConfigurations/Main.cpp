@@ -208,10 +208,18 @@ void Main::before_activate_screen_callback(std::string screen_identifier_that_wi
       //shared_background->set_using_clear_color(true);
       //shared_background->set_clear_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
    }
+   else if (screen_identifier_that_will_activate ==
+      AllegroFlare::Routers::Standard::PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER)
+   {
+      shared_background->swap_to_gameplay();
+      //shared_background->swap_to_level_select();
+      //shared_background->set_using_clear_color(true);
+      //shared_background->set_clear_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
+   }
    else
    {
-      shared_background->swap_to_level_select();
-      //shared_background->swap_to_unknown();
+      //shared_background->swap_to_gameplay();
+      shared_background->swap_to_unknown();
       //shared_background->set_using_clear_color(true);
       //shared_background->set_clear_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
    }
@@ -360,6 +368,8 @@ void Main::on_runner_after_initialization_func(AllegroFlare::Runners::Complete* 
    level_select_element->set_selection_box_height(140);
    level_select_element->set_selection_box_spacing_x(50);
    level_select_element->set_selection_box_spacing_y(50);
+   level_select_element->disable_drawing_title_text();
+   level_select_element->disable_drawing_backfill_and_frame();
    return;
 }
 
