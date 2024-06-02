@@ -5,6 +5,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
+#include <Tracko/BoardFactory.hpp>
 #include <Tracko/BoardRenderer.hpp>
 #include <Tracko/GameConfigurations/Main.hpp>
 #include <Tracko/Gameplay/Level.hpp>
@@ -180,6 +181,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
    if (level_identifier == "level_1")
    {
+      /*
       current_board = new Tracko::Board;
       current_board->set_start_tile_coordinates({ 0, 2 });
       current_board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
@@ -199,10 +201,15 @@ void Screen::load_level_by_identifier(std::string level_identifier)
             current_board->get_start_tile_coordinates().y
          );
       start_piece->reveal();
+      */
+      //current_level_identifier = "level_1";
+
+      current_board = Tracko::BoardFactory::create_board_by_identifier("level_1");
       current_level_identifier = "level_1";
    }
    else if (level_identifier == "level_1234")
    {
+      /*
       current_board = new Tracko::Board;
       current_board->set_start_tile_coordinates({ 0, 1 });
       current_board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
@@ -222,6 +229,10 @@ void Screen::load_level_by_identifier(std::string level_identifier)
          );
       start_piece->reveal();
       current_level_identifier = "level_1234";
+      */
+
+      current_board = Tracko::BoardFactory::create_board_by_identifier("level_1234");
+      current_level_identifier = "level_1";
    }
    else
    {

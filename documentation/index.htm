@@ -55,6 +55,7 @@ table td
 <h1>Table of Contents</h1>
 <ul>
   <li><a href="#quintessence/Tracko/Board.q.yml">quintessence/Tracko/Board.q.yml</a></li>
+  <li><a href="#quintessence/Tracko/BoardFactory.q.yml">quintessence/Tracko/BoardFactory.q.yml</a></li>
   <li><a href="#quintessence/Tracko/BoardRenderer.q.yml">quintessence/Tracko/BoardRenderer.q.yml</a></li>
   <li><a href="#quintessence/Tracko/GameConfigurations/Main.q.yml">quintessence/Tracko/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Tracko/GameProgressAndStateInfo.q.yml">quintessence/Tracko/GameProgressAndStateInfo.q.yml</a></li>
@@ -211,6 +212,38 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Int2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Int2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tracko/BoardFactory.q.yml">quintessence/Tracko/BoardFactory.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">Tracko::Board*</td>
+  <td class="method"><b>create_board_by_identifier</b>(std::string board_identifier=&quot;[unset-board_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">Tracko::Board*</td>
+  <td class="method"><b>create_board</b>(int num_columns=6, int num_rows=4, AllegroFlare::Int2D start_coordinate={ 0, 2 }, Tracko::Piece::ConnectingPosition start_connecting_position=Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT, AllegroFlare::Int2D end_coordinate={ 5, 1 }, Tracko::Piece::ConnectingPosition end_connecting_position=Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT, int seed=0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Board&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Board.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Int2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Int2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::ConnectingPosition&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -902,6 +935,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::BoardFactory&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/BoardFactory.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -1541,6 +1577,7 @@ table td
   ],
   "Tracko/Piece/ConnectingPosition": [
     "Tracko/Board",
+    "Tracko/BoardFactory",
     "Tracko/Gameplay/Screen",
     "Tracko/Piece",
     "Tracko/PieceRenderer"
@@ -1554,6 +1591,12 @@ table td
   ],
   "AllegroFlare/Int2D": [
     "Tracko/Board",
+    "Tracko/BoardFactory",
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/Board": [
+    "Tracko/BoardFactory",
+    "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/BitmapBin": [
@@ -1610,10 +1653,6 @@ table td
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
-  ],
-  "Tracko/Board": [
-    "Tracko/BoardRenderer",
-    "Tracko/Gameplay/Screen"
   ],
   "Tracko/PieceRenderer": [
     "Tracko/BoardRenderer",
@@ -1759,6 +1798,9 @@ table td
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Camera3D": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/BoardFactory": [
     "Tracko/Gameplay/Screen"
   ],
   "al_get_time": [

@@ -1,0 +1,104 @@
+methods:
+
+
+  - name: create_board_by_identifier
+    type: Tracko::Board*
+    static: true
+    parameters:
+      - name: board_identifier
+        type: std::string
+        default_argument: '"[unset-board_identifier]"'
+    body: |
+      // TODO: Add board names
+      if (board_identifier == "")
+      {
+         throw std::runtime_error("missing level identifier");
+      }
+      else if (board_identifier == "level_1")
+      {
+         return create_board(
+            6, 4,
+            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            4
+         );
+      }
+      else if (board_identifier == "level_1234")
+      {
+         return create_board(
+            7, 5,
+            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            123
+         );
+      }
+      else
+      {
+         throw std::runtime_error("unfound level identifier");
+      }
+      return nullptr;
+
+
+  - name: create_board
+    type: Tracko::Board*
+    static: true
+    parameters:
+      - name: num_columns
+        type: int
+        default_argument: 6
+      - name: num_rows
+        type: int
+        default_argument: 4
+      - name: start_coordinate
+        type: AllegroFlare::Int2D
+        default_argument: '{ 0, 2 }'
+      - name: start_connecting_position
+        type: Tracko::Piece::ConnectingPosition
+        default_argument: Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT
+      - name: end_coordinate
+        type: AllegroFlare::Int2D
+        default_argument: '{ 5, 1 }'
+      - name: end_connecting_position
+        type: Tracko::Piece::ConnectingPosition
+        default_argument: Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT
+      - name: seed
+        type: int
+        default_argument: 0
+    guards: [ (num_columns >= 1), (num_rows >= 1), (seed != 0) ]
+    body: |
+      Tracko::Board* board = new Tracko::Board;
+      board->set_start_tile_coordinates(start_coordinate);
+      //board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
+      board->set_start_tile_start_connecting_position(start_connecting_position);
+      board->set_exit_tile_coordinates(end_coordinate);
+      //board->set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
+      board->set_exit_tile_exit_connecting_position(end_connecting_position);
+      board->resize(num_columns, num_rows);
+      board->fill_with_random_types(seed);
+      board->set_random_tile_with_connection(
+            board->get_start_tile_coordinates().x,
+            board->get_start_tile_coordinates().y,
+            start_connecting_position,
+            //Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            seed
+         );
+      board->initialize_pieces();
+      Tracko::Piece *start_piece = board->get_piece(
+            board->get_start_tile_coordinates().x,
+            board->get_start_tile_coordinates().y
+         );
+      start_piece->reveal();
+      return board;
+
+
+dependencies:
+
+
+  - symbol: Tracko::Board
+    headers: [ Tracko/Board.hpp ]
+  - symbol: AllegroFlare::Int2D
+    headers: [ AllegroFlare/Int2D.hpp ]
+  - symbol: Tracko::Piece::ConnectingPosition
+    headers: [ Tracko/Piece.hpp ]
+
+

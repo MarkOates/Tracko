@@ -178,6 +178,7 @@ methods:
 
       if (level_identifier == "level_1")
       {
+         /*
          current_board = new Tracko::Board;
          current_board->set_start_tile_coordinates({ 0, 2 });
          current_board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
@@ -197,10 +198,15 @@ methods:
                current_board->get_start_tile_coordinates().y
             );
          start_piece->reveal();
+         */
+         //current_level_identifier = "level_1";
+
+         current_board = Tracko::BoardFactory::create_board_by_identifier("level_1");
          current_level_identifier = "level_1";
       }
       else if (level_identifier == "level_1234")
       {
+         /*
          current_board = new Tracko::Board;
          current_board->set_start_tile_coordinates({ 0, 1 });
          current_board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
@@ -220,6 +226,10 @@ methods:
             );
          start_piece->reveal();
          current_level_identifier = "level_1234";
+         */
+
+         current_board = Tracko::BoardFactory::create_board_by_identifier("level_1234");
+         current_level_identifier = "level_1";
       }
       else
       {
@@ -251,6 +261,7 @@ methods:
     body_dependency_symbols:
      - Tracko::GameConfigurations::Main
      - Tracko::Gameplay::Level
+     - Tracko::BoardFactory
 
 
   - name: initialize
@@ -949,5 +960,7 @@ dependencies:
     headers: [ Tracko/Piece.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: Tracko::BoardFactory
+    headers: [ Tracko/BoardFactory.hpp ]
 
 

@@ -9,6 +9,7 @@
   ],
   "Tracko/Piece/ConnectingPosition": [
     "Tracko/Board",
+    "Tracko/BoardFactory",
     "Tracko/Gameplay/Screen",
     "Tracko/Piece",
     "Tracko/PieceRenderer"
@@ -22,6 +23,12 @@
   ],
   "AllegroFlare/Int2D": [
     "Tracko/Board",
+    "Tracko/BoardFactory",
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/Board": [
+    "Tracko/BoardFactory",
+    "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/BitmapBin": [
@@ -78,10 +85,6 @@
     "Tracko/BoardRenderer",
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
-  ],
-  "Tracko/Board": [
-    "Tracko/BoardRenderer",
-    "Tracko/Gameplay/Screen"
   ],
   "Tracko/PieceRenderer": [
     "Tracko/BoardRenderer",
@@ -227,6 +230,9 @@
     "Tracko/Gameplay/Screen"
   ],
   "AllegroFlare/Camera3D": [
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/BoardFactory": [
     "Tracko/Gameplay/Screen"
   ],
   "al_get_time": [
