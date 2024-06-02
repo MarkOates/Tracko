@@ -672,7 +672,7 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
             current_board->move_cursor_right();
          break;
 
-         case ALLEGRO_KEY_ENTER:
+         case ALLEGRO_KEY_SPACE:
             perform_primary_board_action();
          break;
 
@@ -827,9 +827,13 @@ void Screen::update_state(float time_now)
          set_state(STATE_REVEALING);
       break;
 
-      case STATE_REVEALING:
-         if (age > 1.0) start_game();
-      break;
+      case STATE_REVEALING: {
+         double revealing_duration = 3.0;
+         if (age >= revealing_duration)
+         {
+            start_game();
+         }
+      } break;
 
       case STATE_COUNTDOWN_TO_START:
          if (age > 3.0) set_state(STATE_PLAYING);

@@ -120,6 +120,8 @@ AllegroFlare::Screens::Gameplay* Main::create_primary_gameplay_screen(AllegroFla
    result->set_model_bin(runner->get_model_bin());
    result->set_event_emitter(runner->get_event_emitter());
    result->set_game_configuration(this);
+   result->set_background(shared_background);
+   result->set_foreground(shared_foreground);
 
    primary_gameplay_screen = result;
 

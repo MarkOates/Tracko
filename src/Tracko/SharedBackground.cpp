@@ -337,7 +337,8 @@ void SharedBackground::swap_to_level_select()
 {
    clear_all_usings();
    set_using_fill_image(true);
-   set_fill_image_identifier("background-general-01.jpg");
+   set_fill_image_identifier("level-select-bg.jpg");
+   //background-general-01.jpg");
 }
 
 void SharedBackground::swap_to_unknown()
