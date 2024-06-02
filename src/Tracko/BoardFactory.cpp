@@ -42,8 +42,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_ULTRA_EASY,
-            1, // 1 approved
-            false
+            1 // 1 approved
          );
       }},
       { "level_2", [](){ return create_board(
@@ -51,8 +50,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_EASY,
-            2,
-            false
+            2
          );
       }},
       { "level_3", [](){ return create_board(
@@ -60,8 +58,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_EASY,
-            4,
-            false
+            4
          );
       }},
 
@@ -73,8 +70,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_MEDIUM,
-            5, // 1 approved
-            false
+            5 // 1 approved
          );
       }},
       { "level_5", [](){ return create_board(
@@ -82,8 +78,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_MEDIUM,
-            6,
-            false
+            6
          );
       }},
       { "level_6", [](){ return create_board(
@@ -91,8 +86,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_MEDIUM,
-            7,
-            false
+            7
          );
       }},
 
@@ -104,8 +98,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_MEDIUM,
-            5, // 1 approved
-            false
+            5 // 1 approved
          );
       }},
       { "level_8", [](){ return create_board(
@@ -113,8 +106,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_MEDIUM,
-            6, // NOT APPROVED
-            false
+            6 // NOT APPROVED
          );
       }},
       { "level_9", [](){ return create_board(
@@ -122,8 +114,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_MEDIUM,
-            7,
-            false
+            7
          );
       }},
 
@@ -135,8 +126,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_HARD,
-            101,
-            true
+            -1
          );
       }},
       { "level_11", [](){ return create_board(
@@ -144,8 +134,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_HARD,
-            102,
-            true
+            -1
          );
       }},
       { "level_12", [](){ return create_board(
@@ -153,8 +142,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_ULTRA_HARD,
-            123,
-            true
+            -1
          );
       }},
    };
@@ -215,7 +203,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
    return nullptr;
 }
 
-Tracko::Board* BoardFactory::create_board(int num_columns, int num_rows, AllegroFlare::Int2D start_coordinate, Tracko::Piece::ConnectingPosition start_connecting_position, AllegroFlare::Int2D end_coordinate, Tracko::Piece::ConnectingPosition end_connecting_position, float update_rate_denominator, int seed, bool always_random)
+Tracko::Board* BoardFactory::create_board(int num_columns, int num_rows, AllegroFlare::Int2D start_coordinate, Tracko::Piece::ConnectingPosition start_connecting_position, AllegroFlare::Int2D end_coordinate, Tracko::Piece::ConnectingPosition end_connecting_position, float update_rate_denominator, int seed)
 {
    if (!((num_columns >= 1)))
    {
@@ -246,7 +234,7 @@ Tracko::Board* BoardFactory::create_board(int num_columns, int num_rows, Allegro
    //board->set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
    board->set_exit_tile_exit_connecting_position(end_connecting_position);
    board->resize(num_columns, num_rows);
-   board->fill_with_random_types(seed, always_random);
+   board->fill_with_random_types(seed, (seed < 0));
    board->set_random_tile_with_connection(
          board->get_start_tile_coordinates().x,
          board->get_start_tile_coordinates().y,
