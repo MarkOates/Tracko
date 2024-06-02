@@ -21,6 +21,7 @@ namespace Tracko
       Tracko::Piece::ConnectingPosition start_tile_start_connecting_position;
       AllegroFlare::Int2D exit_tile_coordinates;
       Tracko::Piece::ConnectingPosition exit_tile_exit_connecting_position;
+      float update_rate_denominator;
       int cursor_x;
       int cursor_y;
 
@@ -37,6 +38,7 @@ namespace Tracko
       void set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition start_tile_start_connecting_position);
       void set_exit_tile_coordinates(AllegroFlare::Int2D exit_tile_coordinates);
       void set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition exit_tile_exit_connecting_position);
+      void set_update_rate_denominator(float update_rate_denominator);
       std::vector<std::vector<Tracko::Piece>> get_pieces() const;
       int get_num_rows() const;
       int get_num_columns() const;
@@ -44,6 +46,7 @@ namespace Tracko
       Tracko::Piece::ConnectingPosition get_start_tile_start_connecting_position() const;
       AllegroFlare::Int2D get_exit_tile_coordinates() const;
       Tracko::Piece::ConnectingPosition get_exit_tile_exit_connecting_position() const;
+      float get_update_rate_denominator() const;
       int get_cursor_x() const;
       int get_cursor_y() const;
       std::vector<std::vector<Tracko::Piece>> &get_pieces_ref();

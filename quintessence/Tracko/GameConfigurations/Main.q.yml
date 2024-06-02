@@ -568,8 +568,21 @@ methods:
         default_argument: '"[unset-identifier]"'
     body: |
       std::vector<std::pair<std::string, std::string>> result = {
-         { "Level 1",    "level_1" },
-         { "Level 1234", "level_1234" },
+         { "Level 1",  "level_1" },
+         { "Level 2",  "level_2" },
+         { "Level 3",  "level_3" },
+
+         { "Level 4",  "level_4" },
+         { "Level 5",  "level_5" },
+         { "Level 6",  "level_6" },
+
+         { "Level 7",  "level_7" },
+         { "Level 8",  "level_8" },
+         { "Level 9",  "level_9" },
+
+         { "Level 10", "level_10" },
+         { "Level 11", "level_11" },
+         { "Level 12", "level_12" },
          //{ "Forest Village 1", "forest_village_1" },
          //{ "Forest Village 2", "forest_village_2" },
          //{ "Forest", "forest_1" },

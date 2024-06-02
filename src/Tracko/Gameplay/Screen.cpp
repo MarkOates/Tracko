@@ -141,7 +141,7 @@ AllegroFlare::AssetStudio::Database* &Screen::get_asset_studio_database_ref()
 
 bool Screen::current_level_is_final_level()
 {
-   std::string last_level_identifier = "level_1234";
+   std::string last_level_identifier = "level_12";
    return current_level_identifier == last_level_identifier;
 }
 
@@ -349,10 +349,13 @@ void Screen::update_gameplay()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::update_gameplay: error: guard \"is_state(STATE_PLAYING)\" not met");
    }
-   double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
-   fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
    if (current_board_current_filling_piece && current_board)
    {
+   //fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
+      double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
+      //fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
+      fill_rate /= current_board->get_update_rate_denominator();
+
       bool was_filled = false;
       float overflow = 0.0f;
       Tracko::Piece::ConnectingPosition exit_connecting_position =

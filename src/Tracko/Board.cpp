@@ -24,6 +24,7 @@ Board::Board()
    , start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
    , exit_tile_coordinates({})
    , exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_UNDEF)
+   , update_rate_denominator(8.0f)
    , cursor_x(0)
    , cursor_y(0)
 {
@@ -71,6 +72,12 @@ void Board::set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosi
 }
 
 
+void Board::set_update_rate_denominator(float update_rate_denominator)
+{
+   this->update_rate_denominator = update_rate_denominator;
+}
+
+
 std::vector<std::vector<Tracko::Piece>> Board::get_pieces() const
 {
    return pieces;
@@ -110,6 +117,12 @@ AllegroFlare::Int2D Board::get_exit_tile_coordinates() const
 Tracko::Piece::ConnectingPosition Board::get_exit_tile_exit_connecting_position() const
 {
    return exit_tile_exit_connecting_position;
+}
+
+
+float Board::get_update_rate_denominator() const
+{
+   return update_rate_denominator;
 }
 
 

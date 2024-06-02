@@ -109,6 +109,10 @@ table td
   <td class="property">Tracko::Piece::ConnectingPosition</td>
 </tr>
 <tr>
+  <td class="property">update_rate_denominator</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">cursor_x</td>
   <td class="property">int</td>
 </tr>
@@ -231,7 +235,7 @@ table td
 </tr>
 <tr>
   <td class="method">Tracko::Board*</td>
-  <td class="method"><b>create_board</b>(int num_columns=6, int num_rows=4, AllegroFlare::Int2D start_coordinate={ 0, 2 }, Tracko::Piece::ConnectingPosition start_connecting_position=Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT, AllegroFlare::Int2D end_coordinate={ 5, 1 }, Tracko::Piece::ConnectingPosition end_connecting_position=Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT, int seed=0)</td>
+  <td class="method"><b>create_board</b>(int num_columns=6, int num_rows=4, AllegroFlare::Int2D start_coordinate={ 0, 2 }, Tracko::Piece::ConnectingPosition start_connecting_position=Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT, AllegroFlare::Int2D end_coordinate={ 5, 1 }, Tracko::Piece::ConnectingPosition end_connecting_position=Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT, float update_rate_denominator=8.0f, int seed=0)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>

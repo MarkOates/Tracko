@@ -24,18 +24,82 @@ BoardFactory::~BoardFactory()
 
 Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identifier)
 {
+   auto &identifier = board_identifier;
+
+   static float UPDATE_RATE_DENOMINATOR_ULTRA_EASY = 9.0f;
+   static float UPDATE_RATE_DENOMINATOR_EASY = 8.0f;
+   static float UPDATE_RATE_DENOMINATOR_MEDIUM = 4.0f;
+   static float UPDATE_RATE_DENOMINATOR_HARD = 2.0f;
+
    // TODO: Add board names
    std::map<std::string, std::function<Tracko::Board*()>> factory = {
-      { "level_1", [](){
-         return create_board(
+
+      // Levels 1-3 (Easy)
+
+      { "level_1", [](){ return create_board(
+            5, 3,
+            { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            1, // 1 approved
+            UPDATE_RATE_DENOMINATOR_ULTRA_EASY
+         );
+      }},
+      { "level_2", [](){ return create_board(
+            5, 3,
+            { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            2,
+            UPDATE_RATE_DENOMINATOR_EASY
+         );
+      }},
+      { "level_3", [](){ return create_board(
             6, 4,
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
-            4
+            4,
+            UPDATE_RATE_DENOMINATOR_EASY
+         );
+      }},
+
+
+      // Levels 10-12 (Hardest)
+
+      { "level_12", [](){ return create_board(
+            7, 5,
+            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            123,
+            UPDATE_RATE_DENOMINATOR_HARD
          );
       }},
    };
 
+
+   if (factory.count(identifier) == 0)
+   {
+      //bool item_handled = false;
+      //if (unrecognized_key_callback_func)
+      //{
+         //item_handled = unrecognized_key_callback_func();
+      //}
+
+      //if (!item_handled)
+      //{
+         // item not found
+         std::stringstream error_message;
+         error_message << "[CubeShooter::LevelFactory::load_level]: error: Cannot load the item with the board_identifier \""
+                       << identifier << "\", it does not exist.";
+         throw std::runtime_error(error_message.str());
+      //}
+   }
+   else
+   {
+      // call the item
+      return factory[identifier]();
+   }
+
+
+   /*
    if (board_identifier == "")
    {
       throw std::runtime_error("missing level identifier");
@@ -62,10 +126,11 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
    {
       throw std::runtime_error("unfound level identifier");
    }
+   */
    return nullptr;
 }
 
-Tracko::Board* BoardFactory::create_board(int num_columns, int num_rows, AllegroFlare::Int2D start_coordinate, Tracko::Piece::ConnectingPosition start_connecting_position, AllegroFlare::Int2D end_coordinate, Tracko::Piece::ConnectingPosition end_connecting_position, int seed)
+Tracko::Board* BoardFactory::create_board(int num_columns, int num_rows, AllegroFlare::Int2D start_coordinate, Tracko::Piece::ConnectingPosition start_connecting_position, AllegroFlare::Int2D end_coordinate, Tracko::Piece::ConnectingPosition end_connecting_position, float update_rate_denominator, int seed)
 {
    if (!((num_columns >= 1)))
    {

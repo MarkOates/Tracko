@@ -138,7 +138,7 @@ methods:
   - name: current_level_is_final_level
     type: bool
     body: |
-       std::string last_level_identifier = "level_1234";
+       std::string last_level_identifier = "level_12";
        return current_level_identifier == last_level_identifier;
 
 
@@ -285,10 +285,13 @@ methods:
   - name: update_gameplay
     guards: [ is_state(STATE_PLAYING) ]
     body: |
-      double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
-      fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
       if (current_board_current_filling_piece && current_board)
       {
+      //fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
+         double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
+         //fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
+         fill_rate /= current_board->get_update_rate_denominator();
+
          bool was_filled = false;
          float overflow = 0.0f;
          Tracko::Piece::ConnectingPosition exit_connecting_position =

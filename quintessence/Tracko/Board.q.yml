@@ -50,6 +50,12 @@ properties:
     getter: true
     setter: true
 
+  - name: update_rate_denominator
+    type: float
+    init_with: 8.0f
+    getter: true
+    setter: true
+
   - name: cursor_x
     type: int
     init_with: 0
