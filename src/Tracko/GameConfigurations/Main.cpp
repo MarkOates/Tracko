@@ -25,6 +25,7 @@ namespace GameConfigurations
 
 Main::Main()
    : AllegroFlare::GameConfigurations::Complete(Tracko::GameConfigurations::Main::TYPE)
+   , primary_gameplay_screen(nullptr)
    , primary_gameplay_subscreen(nullptr)
    , pause_screen(nullptr)
 {
@@ -63,10 +64,69 @@ AllegroFlare::Screens::Gameplay* Main::create_primary_gameplay_screen(AllegroFla
    result->set_event_emitter(runner->get_event_emitter());
    result->set_game_configuration(this);
 
-   //primary_gameplay_screen = result;
+   primary_gameplay_screen = result;
 
    result->initialize();
    return result;
+}
+
+void Main::handle_primary_gameplay_screen_finished()
+{
+   if (!(primary_gameplay_screen))
+   {
+      std::stringstream error_message;
+      error_message << "[Main::handle_primary_gameplay_screen_finished]: error: guard \"primary_gameplay_screen\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Main::handle_primary_gameplay_screen_finished: error: guard \"primary_gameplay_screen\" not met");
+   }
+   // TODO: Document how this routing takes place from the EVENT_GAMEPLAY_SCREEN_FINISHED to here
+
+   // TODO: Avoid using the primary_gameplay_screen's event emitter
+   AllegroFlare::EventEmitter* event_emitter = primary_gameplay_screen->get_event_emitter();
+
+   //bool game_is_won = false; // TODO: Create the evaluation for this
+   // TODO: Consider exiting gameplayscreen not through "finishing" or whatever
+   bool game_is_won = primary_gameplay_screen->current_level_is_final_level();
+   if (game_is_won)
+   {
+      // TODO: Test this emission works as expected
+      event_emitter->emit_router_event(
+         AllegroFlare::Routers::Standard::EVENT_WIN_GAME,
+         nullptr,
+         al_get_time()
+      );
+   }
+   else
+   {
+      //std::string last_level_completed = primary_gameplay_screen->get_current_level_identifier();
+
+      //if (last_level_completed == "level_3")
+      //{
+         //arbitrary_storyboard_identifier_to_play_next = "after_cast_out_by_ghost";
+
+         //event_emitter->emit_router_event(
+            //AllegroFlare::Routers::Standard::EVENT_ACTIVATE_ARBITRARY_STORYBOARD_SCREEN,
+            //nullptr, // TODO: Find a way to pass along the identifier of the storyboard to play
+            //al_get_time()
+         //);
+      //}
+      //else
+      //{
+         // Emit the event to return to the level select screen
+         event_emitter->emit_router_event(
+            AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LEVEL_SELECT_SCREEN,
+            nullptr,
+            al_get_time()
+         );
+      //}
+
+      //event_emitter->emit_router_event(
+         //AllegroFlare::Routers::Standard::EVENT_ACTIVATE_ARBITRARY_STORYBOARD_SCREEN,
+         //nullptr, // TODO: Find a way to pass along the identifier of the storyboard to play
+         //al_get_time()
+      //);
+   }
+   return;
 }
 
 AllegroFlare::Screens::Subscreen::Screen* Main::create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner)

@@ -325,6 +325,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">primary_gameplay_screen</td>
+  <td class="property">Tracko::Gameplay::Screen*</td>
+</tr>
+<tr>
   <td class="property">primary_gameplay_subscreen</td>
   <td class="property">AllegroFlare::Screens::Subscreen::Screen*</td>
 </tr>
@@ -346,6 +350,10 @@ table td
 <tr>
   <td class="method">AllegroFlare::Screens::Gameplay*</td>
   <td class="method"><b>create_primary_gameplay_screen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>handle_primary_gameplay_screen_finished</b>()</td>
 </tr>
 <tr>
   <td class="method">AllegroFlare::Screens::Subscreen::Screen*</td>
@@ -407,6 +415,9 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Gameplay::Screen&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Gameplay/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameConfigurations::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameConfigurations/Complete.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -452,9 +463,6 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Gameplay::Screen&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Gameplay/Screen.hpp&quot;]}</td>
-</tr>
-<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Gameplay&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Gameplay.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -477,6 +485,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Gameplay::Screen&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Gameplay/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::ForwardDeclarations::Tracko::GameConfigurations::Main&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/ForwardDeclarations/Tracko/GameConfigurations/Main.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::ForwardDeclarations::Tracko::Gameplay::Screen&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/ForwardDeclarations/Tracko/Gameplay/Screen.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -652,6 +669,10 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">bool</td>
+  <td class="method"><b>current_level_is_final_level</b>()</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>load_level_by_identifier</b>(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
@@ -759,6 +780,9 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::ForwardDeclarations::Tracko::GameConfigurations::Main&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/ForwardDeclarations/Tracko/GameConfigurations/Main.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
@@ -792,10 +816,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Gameplay::Screen&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Gameplay/Screen.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::GameConfigurations::Main&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/GameConfigurations/Main.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::GameConfigurations::Main&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/GameConfigurations/Main.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Gameplay::Screen&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Gameplay/Screen.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Gameplay::Level&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Gameplay/Level.hpp&quot;]}</td>
@@ -1243,6 +1267,11 @@ table td
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer"
   ],
+  "Tracko/Gameplay/Screen": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/GameConfigurations/Main",
+    "Tracko/Gameplay/Screen"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "Tracko/GameConfigurations/Main"
   ],
@@ -1291,10 +1320,6 @@ table td
   "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
     "Tracko/GameConfigurations/Main"
   ],
-  "Tracko/Gameplay/Screen": [
-    "Tracko/GameConfigurations/Main",
-    "Tracko/Gameplay/Screen"
-  ],
   "AllegroFlare/Screens/Gameplay": [
     "Tracko/GameConfigurations/Main",
     "Tracko/Gameplay/Screen"
@@ -1319,6 +1344,13 @@ table td
     "Tracko/GameConfigurations/Main"
   ],
   "AllegroFlare/Screens/Subscreen/Screen": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "Tracko/ForwardDeclarations/Tracko/GameConfigurations/Main": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/ForwardDeclarations/Tracko/Gameplay/Screen": [
     "Tracko/GameConfigurations/Main"
   ],
   "Tracko/JSONLoaders/Tracko/GameProgressAndStateInfo": [

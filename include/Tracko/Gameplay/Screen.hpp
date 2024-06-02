@@ -81,10 +81,12 @@ namespace Tracko
          void set_model_bin(AllegroFlare::ModelBin* model_bin);
          void set_game_configuration(Tracko::GameConfigurations::Main* game_configuration);
          std::string get_data_folder_path() const;
+         AllegroFlare::EventEmitter* get_event_emitter() const;
          Tracko::GameConfigurations::Main* get_game_configuration() const;
          uint32_t get_state() const;
          bool get_initialized() const;
          AllegroFlare::AssetStudio::Database* &get_asset_studio_database_ref();
+         bool current_level_is_final_level();
          virtual void load_level_by_identifier(std::string level_identifier="[unset-level_identifier]") override;
          void initialize();
          void start_game();

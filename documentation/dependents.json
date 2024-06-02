@@ -88,6 +88,11 @@
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer"
   ],
+  "Tracko/Gameplay/Screen": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/GameConfigurations/Main",
+    "Tracko/Gameplay/Screen"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "Tracko/GameConfigurations/Main"
   ],
@@ -136,10 +141,6 @@
   "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
     "Tracko/GameConfigurations/Main"
   ],
-  "Tracko/Gameplay/Screen": [
-    "Tracko/GameConfigurations/Main",
-    "Tracko/Gameplay/Screen"
-  ],
   "AllegroFlare/Screens/Gameplay": [
     "Tracko/GameConfigurations/Main",
     "Tracko/Gameplay/Screen"
@@ -164,6 +165,13 @@
     "Tracko/GameConfigurations/Main"
   ],
   "AllegroFlare/Screens/Subscreen/Screen": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "Tracko/ForwardDeclarations/Tracko/GameConfigurations/Main": [
+    "Tracko/GameConfigurations/Main",
+    "Tracko/Gameplay/Screen"
+  ],
+  "Tracko/ForwardDeclarations/Tracko/Gameplay/Screen": [
     "Tracko/GameConfigurations/Main"
   ],
   "Tracko/JSONLoaders/Tracko/GameProgressAndStateInfo": [

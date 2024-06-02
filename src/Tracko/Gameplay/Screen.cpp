@@ -108,6 +108,12 @@ std::string Screen::get_data_folder_path() const
 }
 
 
+AllegroFlare::EventEmitter* Screen::get_event_emitter() const
+{
+   return event_emitter;
+}
+
+
 Tracko::GameConfigurations::Main* Screen::get_game_configuration() const
 {
    return game_configuration;
@@ -131,6 +137,12 @@ AllegroFlare::AssetStudio::Database* &Screen::get_asset_studio_database_ref()
    return asset_studio_database;
 }
 
+
+bool Screen::current_level_is_final_level()
+{
+   std::string last_level_identifier = "level_1234";
+   return current_level_identifier == last_level_identifier;
+}
 
 void Screen::load_level_by_identifier(std::string level_identifier)
 {
@@ -184,7 +196,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
          current_board->get_start_tile_coordinates().y
       );
    start_piece->reveal();
+   current_level_identifier = "level_1234";
 
+   /*
    // Load the new level
    AllegroFlare::Levels::Base *loaded_level = game_configuration->load_level_by_identifier(level_identifier);
    if (loaded_level)
@@ -198,6 +212,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
       current_level_identifier = level_identifier;
       current_level = static_cast<Tracko::Gameplay::Level*>(loaded_level);
    }
+   */
    return;
 }
 

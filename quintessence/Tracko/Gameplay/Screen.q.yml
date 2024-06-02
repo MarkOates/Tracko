@@ -25,6 +25,7 @@ properties:
     type: AllegroFlare::EventEmitter*
     init_with: nullptr
     setter: before_initialized
+    getter: true
 
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
@@ -133,6 +134,13 @@ enums:
 methods:
 
 
+  - name: current_level_is_final_level
+    type: bool
+    body: |
+       std::string last_level_identifier = "level_1234";
+       return current_level_identifier == last_level_identifier;
+
+
   - name: load_level_by_identifier
     virtual: true
     override: true
@@ -185,7 +193,9 @@ methods:
             current_board->get_start_tile_coordinates().y
          );
       start_piece->reveal();
+      current_level_identifier = "level_1234";
 
+      /*
       // Load the new level
       AllegroFlare::Levels::Base *loaded_level = game_configuration->load_level_by_identifier(level_identifier);
       if (loaded_level)
@@ -199,6 +209,7 @@ methods:
          current_level_identifier = level_identifier;
          current_level = static_cast<Tracko::Gameplay::Level*>(loaded_level);
       }
+      */
       return;
     body_dependency_symbols:
      - Tracko::GameConfigurations::Main
@@ -811,6 +822,8 @@ methods:
 dependencies:
 
 
+  - symbol: Tracko::ForwardDeclarations::Tracko::GameConfigurations::Main
+    headers: [ Tracko/ForwardDeclarations/Tracko/GameConfigurations/Main.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_EVENT
@@ -833,10 +846,10 @@ dependencies:
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
   - symbol: AllegroFlare::VirtualControllers::GenericController
     headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
-  - symbol: Tracko::Gameplay::Screen
-    headers: [ Tracko/Gameplay/Screen.hpp ]
   - symbol: Tracko::GameConfigurations::Main
     headers: [ Tracko/GameConfigurations/Main.hpp ]
+  - symbol: Tracko::Gameplay::Screen
+    headers: [ Tracko/Gameplay/Screen.hpp ]
   - symbol: Tracko::Gameplay::Level
     headers: [ Tracko/Gameplay/Level.hpp ]
   - symbol: AllegroFlare::GameEvent
