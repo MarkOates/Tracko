@@ -561,11 +561,17 @@ void Screen::render()
       al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 220, ALLEGRO_ALIGN_CENTER, "Game Lost");
       al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2, ALLEGRO_ALIGN_CENTER, "Press ENTER");
    }
+   else if (is_state(STATE_REVEALING))
+   {
+      ALLEGRO_FONT *font = obtain_banner_font();
+      //int count = 5 - (infer_current_state_age() + 1);
+      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 120, ALLEGRO_ALIGN_CENTER, "READY");
+   }
    else if (is_state(STATE_COUNTDOWN_TO_START))
    {
       ALLEGRO_FONT *font = obtain_banner_font();
-      int count = infer_current_state_age() + 1;
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 220, ALLEGRO_ALIGN_CENTER, "%d", count);
+      int count = 5 - (infer_current_state_age() + 1);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 120, ALLEGRO_ALIGN_CENTER, "%d", count);
    }
 
    //ALLEGRO_FONT *font = obtain_font();

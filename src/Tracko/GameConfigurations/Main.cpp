@@ -37,6 +37,17 @@ Main::~Main()
 }
 
 
+std::string Main::app_title()
+{
+   //return "Return of the Wanderer";
+   return "Tracko Metropolitan";
+}
+
+std::string Main::title_screen_title()
+{
+   return "Tracko Metropolitan";
+}
+
 std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Main::build_achievements()
 {
    return {};

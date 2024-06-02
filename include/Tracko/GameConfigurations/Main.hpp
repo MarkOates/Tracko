@@ -44,6 +44,8 @@ namespace Tracko
          Main();
          virtual ~Main();
 
+         virtual std::string app_title() override;
+         virtual std::string title_screen_title() override;
          virtual std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> build_achievements() override;
          virtual AllegroFlare::Screens::Gameplay* create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner=nullptr) override;
          virtual void handle_primary_gameplay_screen_finished() override;

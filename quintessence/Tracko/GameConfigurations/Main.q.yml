@@ -31,6 +31,23 @@ properties:
 methods:
 
 
+  - name: app_title
+    type: std::string
+    virtual: true
+    override: true
+    body: |
+      //return "Return of the Wanderer";
+      return "Tracko Metropolitan";
+
+
+  - name: title_screen_title
+    type: std::string
+    virtual: true
+    override: true
+    body: |
+      return "Tracko Metropolitan";
+
+
   - name: build_achievements
     virtual: true
     override: true
