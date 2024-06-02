@@ -1,0 +1,382 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Backgrounds::Base
+    scope: public
+    init_with: Tracko::SharedForeground::TYPE
+
+
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: before_initialized
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: before_initialized
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: before_initialized
+
+  - name: curtain_position
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: curtain_state
+    type: uint32_t
+    init_with: CURTAIN_STATE_UNDEF
+    getter: true
+    setter: explicit
+
+  - name: curtain_state_is_busy
+    type: bool
+    init_with: false
+
+  - name: curtain_state_changed_at
+    type: float
+    init_with: 0.0f
+
+  - name: initialized
+    type: bool
+    constructor_arg: false
+    init_with: false
+    getter: true
+
+  - name: CURTAIN_OPENED_GAME_EVENT_NAME
+    type: char*
+    init_with: '(char*)"Tracko/SharedForeground::curtain_opened"'
+    static: true
+    constexpr: true
+
+  - name: CURTAIN_CLOSED_GAME_EVENT_NAME
+    type: char*
+    init_with: '(char*)"Tracko/SharedForeground::curtain_closed"'
+    static: true
+    constexpr: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"Tracko/SharedForeground"'
+    static: true
+    constexpr: true
+
+
+enums:
+
+
+  - name: CurtainState
+    enumerators:
+      - CURTAIN_STATE_UNDEF
+      - CURTAIN_STATE_OPENING
+      - CURTAIN_STATE_OPEN
+      - CURTAIN_STATE_CLOSING
+      - CURTAIN_STATE_CLOSED
+
+
+methods:
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - event_emitter
+      - font_bin
+      - bitmap_bin
+    body: |
+      set_curtain_state(CURTAIN_STATE_OPEN);
+      initialized = true;
+      return;
+
+
+  - name: open_curtain
+    guards: [ initialized ]
+    body: |
+      if (is_curtain_state(CURTAIN_STATE_OPENING) || is_curtain_state(CURTAIN_STATE_OPEN)) return;
+      set_curtain_state(CURTAIN_STATE_OPENING);
+      return;
+
+
+  - name: close_curtain
+    guards: [ initialized ]
+    body: |
+      if (is_curtain_state(CURTAIN_STATE_CLOSING) || is_curtain_state(CURTAIN_STATE_CLOSED)) return;
+      set_curtain_state(CURTAIN_STATE_CLOSING);
+      return;
+
+
+  - name: curtain_is_open
+    type: bool
+    guards: [ initialized ]
+    body: |
+      return is_curtain_state(CURTAIN_STATE_OPEN);
+
+
+  - name: curtain_is_closed
+    type: bool
+    guards: [ initialized ]
+    body: |
+      return is_curtain_state(CURTAIN_STATE_CLOSED);
+
+
+  - name: activate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: deactivate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: update
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      // TODO: Consider a proper time-step
+      update_curtain_state();
+      return;
+
+
+  - name: render
+    virtual: true
+    override: true
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+    body: |
+      // TODO: Fix initialization requirements here and in tests
+      render_curtains();
+      return;
+    body_dependency_symbols:
+      - al_is_font_addon_initialized
+      - al_is_primitives_addon_initialized
+      - al_draw_filled_rectangle
+      - ALLEGRO_COLOR
+
+
+  - name: render_curtains
+    guards: [ initialized ]
+    body: |
+      if (is_curtain_state(CURTAIN_STATE_OPEN)) return;
+
+      //ALLEGRO_COLOR color = ALLEGRO_COLOR{0, 0.3, 0, 0.5};
+      ALLEGRO_COLOR color = ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 1.0f}; // Consider a different color
+      float width = 1920;
+      float height = 1080;
+      float curtain_size = width/2*curtain_position;
+
+      // left_curtain
+      al_draw_filled_rectangle(0, 0, curtain_size, height, color);
+
+      // right_curtain
+      al_draw_filled_rectangle(width-curtain_size, 0, width, height, color);
+      return;
+
+
+  - name: show
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: hide
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: set_curtain_state
+    private: true
+    parameters:
+      - name: curtain_state
+        type: uint32_t
+        default_argument: CURTAIN_STATE_UNDEF
+      - name: override_if_busy
+        type: bool
+        default_argument: false
+    guards: [ is_valid_curtain_state(curtain_state) ]
+    body: |
+      if (this->curtain_state == curtain_state) return;
+      if (!override_if_busy && curtain_state_is_busy) return;
+      uint32_t previous_curtain_state = this->curtain_state;
+
+      switch (curtain_state)
+      {
+         case CURTAIN_STATE_OPENING:
+            // Nothing to do
+         break;
+
+         case CURTAIN_STATE_OPEN:
+            curtain_position = 0.0f;
+         break;
+
+         case CURTAIN_STATE_CLOSING:
+            // Nothing to do
+         break;
+
+         case CURTAIN_STATE_CLOSED:
+            curtain_position = 1.0f;
+         break;
+
+         default:
+            throw std::runtime_error("weird error");
+         break;
+      }
+
+      this->curtain_state = curtain_state;
+      curtain_state_changed_at = al_get_time();
+
+      return;
+
+
+  - name: update_curtain_state
+    private: true
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    guards: [ is_valid_curtain_state(curtain_state) ]
+    body: |
+      float age = infer_current_curtain_state_age(time_now);
+
+      switch (curtain_state)
+      {
+         case CURTAIN_STATE_OPENING:
+            curtain_position -= 0.04;
+            if (curtain_position < 0.0f)
+            {
+               curtain_position = 0.0f;
+               set_curtain_state(CURTAIN_STATE_OPEN);
+               emit_curtain_opened_event();
+            }
+         break;
+
+         case CURTAIN_STATE_OPEN:
+            // Nothing to do
+         break;
+
+         case CURTAIN_STATE_CLOSING:
+            curtain_position += 0.04f;
+            if (curtain_position > 1.0f)
+            {
+               curtain_position = 1.0f;
+               set_curtain_state(CURTAIN_STATE_CLOSED);
+               emit_curtain_closed_event();
+            }
+         break;
+
+         case CURTAIN_STATE_CLOSED:
+            // Nothing to do
+         break;
+
+         default:
+            throw std::runtime_error("weird error");
+         break;
+      }
+
+      return;
+
+
+  - name: emit_curtain_opened_event
+    private: true
+    guards: [ initialized ]
+    body: |
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(CURTAIN_OPENED_GAME_EVENT_NAME));
+      return;
+
+
+  - name: emit_curtain_closed_event
+    private: true
+    guards: [ initialized ]
+    body: |
+      event_emitter->emit_game_event(AllegroFlare::GameEvent(CURTAIN_CLOSED_GAME_EVENT_NAME));
+      return;
+
+
+  - name: is_valid_curtain_state
+    type: bool
+    static: true
+    parameters:
+      - name: curtain_state
+        type: uint32_t
+        default_argument: CURTAIN_STATE_UNDEF
+    body: |
+      std::set<uint32_t> valid_curtain_states =
+      {
+         CURTAIN_STATE_OPENING,
+         CURTAIN_STATE_OPEN,
+         CURTAIN_STATE_CLOSING,
+         CURTAIN_STATE_CLOSED,
+      };
+      return (valid_curtain_states.count(curtain_state) > 0);
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: is_curtain_state
+    type: bool
+    parameters:
+      - name: possible_curtain_state
+        type: uint32_t
+        default_argument: CURTAIN_STATE_UNDEF
+    body: |
+     return (curtain_state == possible_curtain_state);
+
+
+  - name: infer_current_curtain_state_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      return (time_now - curtain_state_changed_at);
+
+
+dependencies:
+
+
+  - symbol: al_is_font_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_draw_filled_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+
+

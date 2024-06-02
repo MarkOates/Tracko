@@ -37,7 +37,7 @@ methods:
     override: true
     body: |
       //return "Return of the Wanderer";
-      return "Tracko Metropolitan";
+      return "Metropolitan";
 
 
   - name: title_screen_title
@@ -45,7 +45,7 @@ methods:
     virtual: true
     override: true
     body: |
-      return "Tracko Metropolitan";
+      return "Metropolitan";
 
 
   - name: build_achievements

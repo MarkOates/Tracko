@@ -1,0 +1,217 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Backgrounds::Base
+    scope: public
+    init_with: Tracko::SharedBackground::TYPE
+
+
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: before_initialized
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: before_initialized
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: before_initialized
+
+  - name: using_clear_color
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: clear_color
+    type: ALLEGRO_COLOR
+    constructor_arg: true
+    init_with: DEFAULT_CLEAR_COLOR
+    getter: true
+    setter: true
+
+  - name: using_parallax
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: parallax
+    type: AllegroFlare::Elements::Backgrounds::Parallax
+    init_with: ''
+
+  - name: initialized
+    type: bool
+    constructor_arg: false
+    init_with: false
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"Tracko/SharedBackground"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_CLEAR_COLOR
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - event_emitter
+      - font_bin
+      - bitmap_bin
+    guards: [ bitmap_bin ]
+    body: |
+      initialized = true;
+      return;
+
+
+  - name: activate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: deactivate
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: update
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      // TODO: Consider a proper time-step
+      return;
+
+
+  - name: set_parallax_offset
+    parameters:
+      - name: offset_x
+        type: float
+        default_argument: 0.0f
+      - name: offset_y
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      parallax.set_offset_x(offset_x);
+      parallax.set_offset_y(offset_y);
+      return;
+
+
+  - name: set_parallax_layers
+    parameters:
+      - name: parallax_layers
+        type: std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
+        default_argument: '{}'
+    guards: [ initialized ]
+    body: |
+      parallax.set_layers(parallax_layers);
+      // NOTE: Example
+      //parallax.set_layers({
+         //{0, 0, 0.1, bitmap_bin->auto_get("backgrounds/Sky3.png") },
+         //{0, 0, 0.4, bitmap_bin->auto_get("backgrounds/Cloud3a.png") },
+         //{0, 0, 0.8, bitmap_bin->auto_get("backgrounds/Cloud3b.png") },
+      //});
+      return;
+
+
+  - name: render
+    virtual: true
+    override: true
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+    body: |
+      // TODO: Fix initialization requirements here and in tests
+      if (using_clear_color) al_clear_to_color(clear_color);
+      if (using_parallax)
+      {
+         //if (parallax_background_shader) parallax_background_shader->activate();
+         parallax.render();
+         //if (parallax_background_shader) parallax_background_shader->deactivate();
+      }
+      return;
+    body_dependency_symbols:
+      - al_is_font_addon_initialized
+      - al_is_primitives_addon_initialized
+      - al_draw_filled_rectangle
+      - al_color_html
+      - ALLEGRO_COLOR
+
+
+  - name: show
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+  - name: hide
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      return;
+
+
+dependencies:
+
+
+  - symbol: al_is_font_addon_initialized
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_color_html
+    headers: [ allegro5/allegro_color.h ]
+  - symbol: al_draw_filled_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Base
+    headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Parallax
+    headers: [ AllegroFlare/Elements/Backgrounds/Parallax.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::ParallaxLayer
+    headers: [ AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
+  - symbol: AllegroFlare::Shaders::ColorAdjust
+    headers: [ AllegroFlare/Shaders/ColorAdjust.hpp ]
+
+
