@@ -175,25 +175,58 @@ methods:
       // DEVELOPMENT: build random board
       if (current_board) delete current_board;
 
-      current_board = new Tracko::Board;
-      current_board->set_start_tile_coordinates({ 0, 1 });
-      current_board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
-      current_board->set_exit_tile_coordinates({ 6, 3 });
-      current_board->set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
-      current_board->resize(7, 5);
-      current_board->fill_with_random_types(1234);
-      current_board->set_random_tile_with_connection(
-            current_board->get_start_tile_coordinates().x,
-            current_board->get_start_tile_coordinates().y,
-            Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT
-         );
-      current_board->initialize_pieces();
-      Tracko::Piece *start_piece = current_board->get_piece(
-            current_board->get_start_tile_coordinates().x,
-            current_board->get_start_tile_coordinates().y
-         );
-      start_piece->reveal();
-      current_level_identifier = "level_1234";
+      if (level_identifier == "level_1")
+      {
+         current_board = new Tracko::Board;
+         current_board->set_start_tile_coordinates({ 0, 2 });
+         current_board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
+         current_board->set_exit_tile_coordinates({ 5, 1 });
+         current_board->set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
+         current_board->resize(6, 4);
+         current_board->fill_with_random_types(2);
+         current_board->set_random_tile_with_connection(
+               current_board->get_start_tile_coordinates().x,
+               current_board->get_start_tile_coordinates().y,
+               Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+               3
+            );
+         current_board->initialize_pieces();
+         Tracko::Piece *start_piece = current_board->get_piece(
+               current_board->get_start_tile_coordinates().x,
+               current_board->get_start_tile_coordinates().y
+            );
+         start_piece->reveal();
+         current_level_identifier = "level_1";
+      }
+      else if (level_identifier == "level_1234")
+      {
+         current_board = new Tracko::Board;
+         current_board->set_start_tile_coordinates({ 0, 1 });
+         current_board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
+         current_board->set_exit_tile_coordinates({ 6, 3 });
+         current_board->set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
+         current_board->resize(7, 5);
+         current_board->fill_with_random_types(1234);
+         current_board->set_random_tile_with_connection(
+               current_board->get_start_tile_coordinates().x,
+               current_board->get_start_tile_coordinates().y,
+               Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT
+            );
+         current_board->initialize_pieces();
+         Tracko::Piece *start_piece = current_board->get_piece(
+               current_board->get_start_tile_coordinates().x,
+               current_board->get_start_tile_coordinates().y
+            );
+         start_piece->reveal();
+         current_level_identifier = "level_1234";
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+               "Tracko::Gameplay::Screen",
+               "Case not found to load level with identifier \"" + level_identifier + "\"."
+            );
+      }
 
       /*
       // Load the new level
@@ -522,57 +555,48 @@ methods:
         default_argument: nullptr
     guards: [ ev ]
     body: |
-      switch (ev->keyboard.keycode)
+      bool in_playing_state = is_state(STATE_REVEALING) || is_state(STATE_PLAYING);
+      bool in_win_or_loss_state = is_state(STATE_LEVEL_WON) || is_state(STATE_LEVEL_LOST);
+
+      if (in_playing_state)
       {
-         case ALLEGRO_KEY_UP:
-            current_board->move_cursor_up();
-         break;
+         switch (ev->keyboard.keycode)
+         {
+            case ALLEGRO_KEY_UP:
+               current_board->move_cursor_up();
+            break;
 
-         case ALLEGRO_KEY_DOWN:
-            current_board->move_cursor_down();
-         break;
+            case ALLEGRO_KEY_DOWN:
+               current_board->move_cursor_down();
+            break;
 
-         case ALLEGRO_KEY_LEFT:
-            current_board->move_cursor_left();
-         break;
+            case ALLEGRO_KEY_LEFT:
+               current_board->move_cursor_left();
+            break;
 
-         case ALLEGRO_KEY_RIGHT:
-            current_board->move_cursor_right();
-         break;
+            case ALLEGRO_KEY_RIGHT:
+               current_board->move_cursor_right();
+            break;
 
-         case ALLEGRO_KEY_ENTER:
-            if (is_state(STATE_LEVEL_WON) || is_state(STATE_LEVEL_LOST))
-            {
-               trigger_gameplay_exit();
-            }
-            else
-            {
+            case ALLEGRO_KEY_ENTER:
                perform_primary_board_action();
-            }
-            //universe.move_camera_left();
-         break;
+            break;
 
-         case ALLEGRO_KEY_SPACE:
-            if (!game_started) start_game();
-         break;
-
-         //case ALLEGRO_KEY_S: {
-            //bool command_pressed = ev->keyboard.modifiers & ALLEGRO_KEYMOD_COMMAND;
-            //if (command_pressed)
-            //{
-               //universe.save_score_to_filename();
-               //handled = true;
-            //}
-         //} break;
-         //case ALLEGRO_KEY_L: {
-            //bool command_pressed = ev->keyboard.modifiers & ALLEGRO_KEYMOD_COMMAND;
-            //if (command_pressed)
-            //{
-               //universe.load_score_from_filename();
-               //handled = true;
-            //}
-         //} break;
+            case ALLEGRO_KEY_SPACE:
+               if (!game_started) start_game();
+            break;
+         }
       }
+      else if (in_win_or_loss_state)
+      {
+         switch (ev->keyboard.keycode)
+         {
+            case ALLEGRO_KEY_ENTER:
+               trigger_gameplay_exit();
+            break;
+         }
+      }
+
       return;
 
 

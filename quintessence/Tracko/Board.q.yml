@@ -378,7 +378,7 @@ methods:
         default_argument: 76414 /*TRAIN*/
     guards: [ '(connecting_position != Tracko::Piece::CONNECTING_POSITION_UNDEF)' ]
     body: |
-      static AllegroFlare::Random random(seed);
+      AllegroFlare::Random random(seed);
 
       Tracko::Piece *piece = get_piece(x, y);
       std::vector<Tracko::Piece::TileType> tile_types_with_connecting_position =

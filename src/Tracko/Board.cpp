@@ -402,7 +402,7 @@ void Board::set_random_tile_with_connection(int x, int y, Tracko::Piece::Connect
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Board::set_random_tile_with_connection: error: guard \"(connecting_position != Tracko::Piece::CONNECTING_POSITION_UNDEF)\" not met");
    }
-   static AllegroFlare::Random random(seed);
+   AllegroFlare::Random random(seed);
 
    Tracko::Piece *piece = get_piece(x, y);
    std::vector<Tracko::Piece::TileType> tile_types_with_connecting_position =
