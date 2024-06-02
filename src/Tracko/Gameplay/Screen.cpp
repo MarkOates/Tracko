@@ -40,6 +40,7 @@ Screen::Screen()
    , current_board_current_filling_piece(nullptr)
    , current_board_current_filling_piece_coordinates({})
    , game_started(false)
+   , level_won(false)
    , current_board_placement({})
    , state(STATE_UNDEF)
    , state_is_busy(false)
@@ -121,6 +122,12 @@ Tracko::GameConfigurations::Main* Screen::get_game_configuration() const
 }
 
 
+bool Screen::get_level_won() const
+{
+   return level_won;
+}
+
+
 uint32_t Screen::get_state() const
 {
    return state;
@@ -163,6 +170,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
 
    // Set state
    //set_state(STATE_LEVEL_LOADED);
+   level_won = false;
 
    // Reset the camera2D position
    camera.position = { 0, 0 };
@@ -740,6 +748,7 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
       break;
 
       case STATE_LEVEL_WON:
+         level_won = true;
       break;
 
       case STATE_LEVEL_LOST:

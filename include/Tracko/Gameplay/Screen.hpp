@@ -61,6 +61,7 @@ namespace Tracko
          Tracko::Piece* current_board_current_filling_piece;
          AllegroFlare::Int2D current_board_current_filling_piece_coordinates;
          bool game_started;
+         bool level_won;
          AllegroFlare::Placement2D current_board_placement;
          uint32_t state;
          bool state_is_busy;
@@ -84,6 +85,7 @@ namespace Tracko
          std::string get_data_folder_path() const;
          AllegroFlare::EventEmitter* get_event_emitter() const;
          Tracko::GameConfigurations::Main* get_game_configuration() const;
+         bool get_level_won() const;
          uint32_t get_state() const;
          bool get_initialized() const;
          AllegroFlare::AssetStudio::Database* &get_asset_studio_database_ref();

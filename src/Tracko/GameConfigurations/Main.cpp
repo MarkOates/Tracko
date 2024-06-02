@@ -145,7 +145,9 @@ void Main::handle_primary_gameplay_screen_finished()
 
    //bool game_is_won = false; // TODO: Create the evaluation for this
    // TODO: Consider exiting gameplayscreen not through "finishing" or whatever
-   bool game_is_won = primary_gameplay_screen->current_level_is_final_level();
+   bool game_is_won = (
+         primary_gameplay_screen->get_level_won() && primary_gameplay_screen->current_level_is_final_level()
+      );
    if (game_is_won)
    {
       // TODO: Test this emission works as expected

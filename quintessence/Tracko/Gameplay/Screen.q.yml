@@ -80,6 +80,11 @@ properties:
     type: bool
     init_with: false
 
+  - name: level_won
+    type: bool
+    init_with: false
+    getter: true
+
   - name: current_board_placement
     type: AllegroFlare::Placement2D
     init_with: '{}'
@@ -160,6 +165,7 @@ methods:
 
       // Set state
       //set_state(STATE_LEVEL_LOADED);
+      level_won = false;
 
       // Reset the camera2D position
       camera.position = { 0, 0 };
@@ -700,6 +706,7 @@ methods:
          break;
 
          case STATE_LEVEL_WON:
+            level_won = true;
          break;
 
          case STATE_LEVEL_LOST:
