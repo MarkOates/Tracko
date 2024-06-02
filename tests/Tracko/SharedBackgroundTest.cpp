@@ -36,6 +36,7 @@ TEST_F(Tracko_SharedBackgroundTest, type__has_the_expected_value_matching_TYPE)
 }
 
 
+/*
 TEST_F(Tracko_SharedBackgroundTest, render__without_allegro_initialized__raises_an_error)
 {
    Tracko::SharedBackground shared_foreground;
@@ -82,6 +83,7 @@ TEST_F(Tracko_SharedBackgroundTest, render__without_a_font_bin__raises_an_error)
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }   
+*/
 
 
 TEST_F(Tracko_SharedBackgroundTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)

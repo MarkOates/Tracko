@@ -8,6 +8,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
+#include <string>
 #include <vector>
 
 
@@ -27,6 +28,8 @@ namespace Tracko
       ALLEGRO_COLOR clear_color;
       bool using_parallax;
       AllegroFlare::Elements::Backgrounds::Parallax parallax;
+      bool using_fill_image;
+      std::string fill_image_identifier;
       bool initialized;
 
    protected:
@@ -42,12 +45,16 @@ namespace Tracko
       void set_using_clear_color(bool using_clear_color);
       void set_clear_color(ALLEGRO_COLOR clear_color);
       void set_using_parallax(bool using_parallax);
+      void set_using_fill_image(bool using_fill_image);
+      void set_fill_image_identifier(std::string fill_image_identifier);
       AllegroFlare::EventEmitter* get_event_emitter() const;
       AllegroFlare::BitmapBin* get_bitmap_bin() const;
       AllegroFlare::FontBin* get_font_bin() const;
       bool get_using_clear_color() const;
       ALLEGRO_COLOR get_clear_color() const;
       bool get_using_parallax() const;
+      bool get_using_fill_image() const;
+      std::string get_fill_image_identifier() const;
       bool get_initialized() const;
       void initialize();
       virtual void activate() override;

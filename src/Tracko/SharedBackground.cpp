@@ -24,6 +24,8 @@ SharedBackground::SharedBackground(AllegroFlare::EventEmitter* event_emitter, Al
    , clear_color(clear_color)
    , using_parallax(false)
    , parallax()
+   , using_fill_image(false)
+   , fill_image_identifier("[unset-fill_image_identifier]")
    , initialized(false)
 {
 }
@@ -73,6 +75,18 @@ void SharedBackground::set_using_parallax(bool using_parallax)
 }
 
 
+void SharedBackground::set_using_fill_image(bool using_fill_image)
+{
+   this->using_fill_image = using_fill_image;
+}
+
+
+void SharedBackground::set_fill_image_identifier(std::string fill_image_identifier)
+{
+   this->fill_image_identifier = fill_image_identifier;
+}
+
+
 AllegroFlare::EventEmitter* SharedBackground::get_event_emitter() const
 {
    return event_emitter;
@@ -109,6 +123,18 @@ bool SharedBackground::get_using_parallax() const
 }
 
 
+bool SharedBackground::get_using_fill_image() const
+{
+   return using_fill_image;
+}
+
+
+std::string SharedBackground::get_fill_image_identifier() const
+{
+   return fill_image_identifier;
+}
+
+
 bool SharedBackground::get_initialized() const
 {
    return initialized;
@@ -123,6 +149,27 @@ void SharedBackground::initialize()
       error_message << "[SharedBackground::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("SharedBackground::initialize: error: guard \"(!initialized)\" not met");
+   }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[SharedBackground::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SharedBackground::initialize: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[SharedBackground::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SharedBackground::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   if (!(al_is_font_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[SharedBackground::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("SharedBackground::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(event_emitter))
    {
@@ -221,36 +268,23 @@ void SharedBackground::set_parallax_layers(std::vector<AllegroFlare::Elements::B
 
 void SharedBackground::render()
 {
-   if (!(al_is_system_installed()))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[SharedBackground::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[SharedBackground::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SharedBackground::render: error: guard \"al_is_system_installed()\" not met");
-   }
-   if (!(al_is_primitives_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "[SharedBackground::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SharedBackground::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
-   }
-   if (!(al_is_font_addon_initialized()))
-   {
-      std::stringstream error_message;
-      error_message << "[SharedBackground::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SharedBackground::render: error: guard \"al_is_font_addon_initialized()\" not met");
-   }
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[SharedBackground::render]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SharedBackground::render: error: guard \"font_bin\" not met");
+      throw std::runtime_error("SharedBackground::render: error: guard \"initialized\" not met");
    }
    // TODO: Fix initialization requirements here and in tests
-   if (using_clear_color) al_clear_to_color(clear_color);
+   if (using_clear_color)
+   {
+      al_clear_to_color(clear_color);
+   }
+   if (using_fill_image)
+   {
+      ALLEGRO_BITMAP *image = bitmap_bin->auto_get(fill_image_identifier);
+      al_draw_bitmap(image, 0, 0, 0);
+   }
    if (using_parallax)
    {
       //if (parallax_background_shader) parallax_background_shader->activate();

@@ -76,6 +76,11 @@ methods:
       shared_background->set_event_emitter(get_runner()->get_event_emitter());
       shared_background->set_font_bin(get_runner()->get_font_bin());
       shared_background->set_bitmap_bin(get_runner()->get_bitmap_bin());
+      // Some configuration
+      {
+         shared_background->set_using_clear_color(true);
+         shared_background->set_clear_color(ALLEGRO_COLOR{0.2, 0.3, 0.4, 1.0});
+      }
       shared_background->initialize();
       return shared_background;
       //return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});

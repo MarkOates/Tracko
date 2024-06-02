@@ -53,6 +53,18 @@ properties:
     type: AllegroFlare::Elements::Backgrounds::Parallax
     init_with: ''
 
+  - name: using_fill_image
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: fill_image_identifier
+    type: std::string
+    init_with: '"[unset-fill_image_identifier]"'
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     constructor_arg: false
@@ -78,13 +90,19 @@ methods:
   - name: initialize
     guards:
       - (!initialized)
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
       - event_emitter
       - font_bin
       - bitmap_bin
-    guards: [ bitmap_bin ]
     body: |
       initialized = true;
       return;
+    body_dependency_symbols:
+      - al_is_font_addon_initialized
+      - al_is_primitives_addon_initialized
+      - al_draw_filled_rectangle
 
 
   - name: activate
@@ -147,14 +165,18 @@ methods:
   - name: render
     virtual: true
     override: true
-    guards:
-      - al_is_system_installed()
-      - al_is_primitives_addon_initialized()
-      - al_is_font_addon_initialized()
-      - font_bin
+    guards: [ initialized ]
     body: |
       // TODO: Fix initialization requirements here and in tests
-      if (using_clear_color) al_clear_to_color(clear_color);
+      if (using_clear_color)
+      {
+         al_clear_to_color(clear_color);
+      }
+      if (using_fill_image)
+      {
+         ALLEGRO_BITMAP *image = bitmap_bin->auto_get(fill_image_identifier);
+         al_draw_bitmap(image, 0, 0, 0);
+      }
       if (using_parallax)
       {
          //if (parallax_background_shader) parallax_background_shader->activate();
@@ -163,9 +185,6 @@ methods:
       }
       return;
     body_dependency_symbols:
-      - al_is_font_addon_initialized
-      - al_is_primitives_addon_initialized
-      - al_draw_filled_rectangle
       - al_color_html
       - ALLEGRO_COLOR
 
