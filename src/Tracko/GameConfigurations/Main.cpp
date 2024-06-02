@@ -48,7 +48,7 @@ std::string Main::app_title()
 
 std::string Main::title_screen_title()
 {
-   return "Metropolitan";
+   return "";
 }
 
 std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Main::build_achievements()
@@ -182,6 +182,33 @@ void Main::handle_primary_gameplay_screen_finished()
          //nullptr, // TODO: Find a way to pass along the identifier of the storyboard to play
          //al_get_time()
       //);
+   }
+   return;
+}
+
+void Main::before_activate_screen_callback(std::string screen_identifier_that_will_activate, std::string currently_active_screen_identifier)
+{
+   if (screen_identifier_that_will_activate == AllegroFlare::Routers::Standard::TITLE_SCREEN_IDENTIFIER)
+   {
+      // Trigger title screen background configuration
+      shared_background->swap_to_title();
+      //shared_background->disable_all_usings();
+      //shared_background->set_using_fill_image(true);
+      //shared_background->set_fill_image_identifier("metropolitan-general-01.jpg");
+      //shared_background->set_using_clear_color(true);
+      //shared_background->set_clear_color(ALLEGRO_COLOR{0.4, 0.3, 0.2, 1.0});
+   }
+   else if (screen_identifier_that_will_activate == AllegroFlare::Routers::Standard::LEVEL_SELECT_SCREEN_IDENTIFIER)
+   {
+      shared_background->swap_to_level_select();
+      //shared_background->set_using_clear_color(true);
+      //shared_background->set_clear_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
+   }
+   else
+   {
+      shared_background->swap_to_unknown();
+      //shared_background->set_using_clear_color(true);
+      //shared_background->set_clear_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
    }
    return;
 }

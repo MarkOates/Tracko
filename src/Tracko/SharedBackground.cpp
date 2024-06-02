@@ -196,6 +196,14 @@ void SharedBackground::initialize()
    return;
 }
 
+void SharedBackground::clear_all_usings()
+{
+   using_clear_color = false;
+   using_fill_image = false;
+   using_parallax = false;
+   return;
+}
+
 void SharedBackground::activate()
 {
    if (!(initialized))
@@ -316,6 +324,27 @@ void SharedBackground::hide()
       throw std::runtime_error("SharedBackground::hide: error: guard \"initialized\" not met");
    }
    return;
+}
+
+void SharedBackground::swap_to_title()
+{
+   clear_all_usings();
+   set_using_fill_image(true);
+   set_fill_image_identifier("metropolitan-title-01.jpg");
+}
+
+void SharedBackground::swap_to_level_select()
+{
+   clear_all_usings();
+   set_using_fill_image(true);
+   set_fill_image_identifier("background-general-01.jpg");
+}
+
+void SharedBackground::swap_to_unknown()
+{
+   clear_all_usings();
+   set_using_clear_color(true);
+   set_clear_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
 }
 
 

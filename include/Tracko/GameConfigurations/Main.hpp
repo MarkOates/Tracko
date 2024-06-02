@@ -56,6 +56,7 @@ namespace Tracko
          virtual AllegroFlare::Elements::Backgrounds::Base* create_shared_foreground() override;
          virtual AllegroFlare::Screens::Gameplay* create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner=nullptr) override;
          virtual void handle_primary_gameplay_screen_finished() override;
+         virtual void before_activate_screen_callback(std::string screen_identifier_that_will_activate="[unset-screen_identifier_that_will_activate]", std::string currently_active_screen_identifier="[unset-currently_active_screen_identifier]") override;
          virtual AllegroFlare::Screens::Subscreen::Screen* create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner=nullptr) override;
          virtual AllegroFlare::Screens::PauseScreen* create_pause_screen(AllegroFlare::Runners::Complete* runner=nullptr) override;
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_logos_storyboard_pages() override;

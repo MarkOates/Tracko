@@ -57,6 +57,7 @@ namespace Tracko
       std::string get_fill_image_identifier() const;
       bool get_initialized() const;
       void initialize();
+      void clear_all_usings();
       virtual void activate() override;
       virtual void deactivate() override;
       virtual void update() override;
@@ -65,6 +66,9 @@ namespace Tracko
       virtual void render() override;
       virtual void show() override;
       virtual void hide() override;
+      void swap_to_title();
+      void swap_to_level_select();
+      void swap_to_unknown();
    };
 }
 

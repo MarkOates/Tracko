@@ -105,6 +105,14 @@ methods:
       - al_draw_filled_rectangle
 
 
+  - name: clear_all_usings
+    body: |
+      using_clear_color = false;
+      using_fill_image = false;
+      using_parallax = false;
+      return;
+
+
   - name: activate
     virtual: true
     override: true
@@ -203,6 +211,27 @@ methods:
     guards: [ initialized ]
     body: |
       return;
+
+
+  - name: swap_to_title
+    body: |
+      clear_all_usings();
+      set_using_fill_image(true);
+      set_fill_image_identifier("metropolitan-title-01.jpg");
+
+
+  - name: swap_to_level_select
+    body: |
+      clear_all_usings();
+      set_using_fill_image(true);
+      set_fill_image_identifier("background-general-01.jpg");
+
+
+  - name: swap_to_unknown
+    body: |
+      clear_all_usings();
+      set_using_clear_color(true);
+      set_clear_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
 
 
 dependencies:

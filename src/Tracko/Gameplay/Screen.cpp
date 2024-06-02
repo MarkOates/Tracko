@@ -490,6 +490,7 @@ void Screen::update_gameplay()
 
 void Screen::render()
 {
+   //if (background) background->render();
    //
    // Draw world
    //
@@ -576,6 +577,7 @@ void Screen::render()
 
    //ALLEGRO_FONT *font = obtain_font();
    //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 30, ALLEGRO_ALIGN_CENTER, "Hello");
+   //if (foreground) foreground->render();
 
    return;
 }
