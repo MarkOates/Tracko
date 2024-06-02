@@ -50,7 +50,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_EASY,
-            2
+            15 // ? approved // denied: 2
          );
       }},
       { "level_3", [](){ return create_board(

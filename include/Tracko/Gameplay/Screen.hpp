@@ -62,6 +62,7 @@ namespace Tracko
          AllegroFlare::Int2D current_board_current_filling_piece_coordinates;
          bool game_started;
          bool level_won;
+         bool fast_train_mode_activated;
          AllegroFlare::Placement2D current_board_placement;
          uint32_t state;
          bool state_is_busy;
@@ -105,6 +106,7 @@ namespace Tracko
          virtual void primary_update_func(double time_now=0.0f, double delta_time=1.0f) override;
          virtual void primary_render_func() override;
          void perform_primary_board_action();
+         void activate_fast_train_mode();
          virtual void key_char_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;

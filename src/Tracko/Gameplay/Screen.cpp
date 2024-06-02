@@ -41,6 +41,7 @@ Screen::Screen()
    , current_board_current_filling_piece_coordinates({})
    , game_started(false)
    , level_won(false)
+   , fast_train_mode_activated(false)
    , current_board_placement({})
    , state(STATE_UNDEF)
    , state_is_busy(false)
@@ -171,6 +172,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Set state
    //set_state(STATE_LEVEL_LOADED);
    level_won = false;
+   fast_train_mode_activated = false;
 
    // Reset the camera2D position
    camera.position = { 0, 0 };
@@ -362,7 +364,15 @@ void Screen::update_gameplay()
    //fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
       double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
       //fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
-      fill_rate /= current_board->get_update_rate_denominator();
+      //fill_rate /= current_board->get_update_rate_denominator();
+      if (fast_train_mode_activated)
+      {
+         fill_rate *= 2;
+      }
+      else
+      {
+         fill_rate /= current_board->get_update_rate_denominator();
+      }
 
       bool was_filled = false;
       float overflow = 0.0f;
@@ -603,6 +613,19 @@ void Screen::perform_primary_board_action()
    return;
 }
 
+void Screen::activate_fast_train_mode()
+{
+   if (!((!fast_train_mode_activated)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::activate_fast_train_mode]: error: guard \"(!fast_train_mode_activated)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::activate_fast_train_mode: error: guard \"(!fast_train_mode_activated)\" not met");
+   }
+   fast_train_mode_activated = true;
+   return;
+}
+
 void Screen::key_char_func(ALLEGRO_EVENT* ev)
 {
    if (!(ev))
@@ -637,6 +660,10 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
 
          case ALLEGRO_KEY_SPACE:
             perform_primary_board_action();
+         break;
+
+         case ALLEGRO_KEY_F:
+            if (!fast_train_mode_activated) activate_fast_train_mode(); //perform_primary_board_action();
          break;
 
          //case ALLEGRO_KEY_SPACE:

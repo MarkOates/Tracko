@@ -85,6 +85,10 @@ properties:
     init_with: false
     getter: true
 
+  - name: fast_train_mode_activated
+    type: bool
+    init_with: false
+
   - name: current_board_placement
     type: AllegroFlare::Placement2D
     init_with: '{}'
@@ -166,6 +170,7 @@ methods:
       // Set state
       //set_state(STATE_LEVEL_LOADED);
       level_won = false;
+      fast_train_mode_activated = false;
 
       // Reset the camera2D position
       camera.position = { 0, 0 };
@@ -296,7 +301,15 @@ methods:
       //fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
          double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
          //fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
-         fill_rate /= current_board->get_update_rate_denominator();
+         //fill_rate /= current_board->get_update_rate_denominator();
+         if (fast_train_mode_activated)
+         {
+            fill_rate *= 2;
+         }
+         else
+         {
+            fill_rate /= current_board->get_update_rate_denominator();
+         }
 
          bool was_filled = false;
          float overflow = 0.0f;
@@ -540,6 +553,13 @@ methods:
       return;
 
 
+  - name: activate_fast_train_mode
+    guards: [ (!fast_train_mode_activated) ]
+    body: |
+      fast_train_mode_activated = true;
+      return;
+
+
   - name: key_char_func
     virtual: true
     override: true
@@ -574,6 +594,10 @@ methods:
 
             case ALLEGRO_KEY_SPACE:
                perform_primary_board_action();
+            break;
+
+            case ALLEGRO_KEY_F:
+               if (!fast_train_mode_activated) activate_fast_train_mode(); //perform_primary_board_action();
             break;
 
             //case ALLEGRO_KEY_SPACE:
