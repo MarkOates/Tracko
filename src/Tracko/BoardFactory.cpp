@@ -40,24 +40,24 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             5, 3,
             { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
-            1, // 1 approved
-            UPDATE_RATE_DENOMINATOR_ULTRA_EASY
+            UPDATE_RATE_DENOMINATOR_ULTRA_EASY,
+            1 // 1 approved
          );
       }},
       { "level_2", [](){ return create_board(
             5, 3,
             { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
-            2,
-            UPDATE_RATE_DENOMINATOR_EASY
+            UPDATE_RATE_DENOMINATOR_EASY,
+            2
          );
       }},
       { "level_3", [](){ return create_board(
             6, 4,
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
-            4,
-            UPDATE_RATE_DENOMINATOR_EASY
+            UPDATE_RATE_DENOMINATOR_EASY,
+            4
          );
       }},
 
@@ -68,8 +68,8 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             7, 5,
             { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
-            123,
-            UPDATE_RATE_DENOMINATOR_HARD
+            UPDATE_RATE_DENOMINATOR_HARD,
+            123
          );
       }},
    };
@@ -169,6 +169,7 @@ Tracko::Board* BoardFactory::create_board(int num_columns, int num_rows, Allegro
          //Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
          seed
       );
+   board->set_update_rate_denominator(update_rate_denominator);
    board->initialize_pieces();
    Tracko::Piece *start_piece = board->get_piece(
          board->get_start_tile_coordinates().x,
