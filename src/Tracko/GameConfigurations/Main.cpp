@@ -206,7 +206,8 @@ void Main::before_activate_screen_callback(std::string screen_identifier_that_wi
    }
    else
    {
-      shared_background->swap_to_unknown();
+      shared_background->swap_to_level_select();
+      //shared_background->swap_to_unknown();
       //shared_background->set_using_clear_color(true);
       //shared_background->set_clear_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
    }

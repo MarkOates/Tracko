@@ -490,7 +490,9 @@ void Screen::update_gameplay()
 
 void Screen::render()
 {
-   //if (background) background->render();
+   //al_draw_bitmap(bitmap_bin->auto_get("background-general-01.jpg"), 0, 0, 0);
+
+   //if (get_background()) get_background()->render();
    //
    // Draw world
    //
