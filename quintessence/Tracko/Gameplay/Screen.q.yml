@@ -124,6 +124,7 @@ enums:
       - STATE_UNDEF
       - STATE_LEVEL_LOADED
       - STATE_REVEALING
+      - STATE_COUNTDOWN_TO_START
       - STATE_PLAYING
       - STATE_LEVEL_WON
       - STATE_LEVEL_LOST
@@ -158,7 +159,7 @@ methods:
       }
 
       // Set state
-      set_state(STATE_LEVEL_LOADED);
+      //set_state(STATE_LEVEL_LOADED);
 
       // Reset the camera2D position
       camera.position = { 0, 0 };
@@ -228,6 +229,9 @@ methods:
             );
       }
 
+      // Set state
+      set_state(STATE_LEVEL_LOADED);
+
       /*
       // Load the new level
       AllegroFlare::Levels::Base *loaded_level = game_configuration->load_level_by_identifier(level_identifier);
@@ -281,7 +285,7 @@ methods:
       current_board_current_filling_piece->set_entrance_connecting_position(
             current_board->get_start_tile_start_connecting_position()
          );
-      set_state(STATE_PLAYING);
+      set_state(STATE_COUNTDOWN_TO_START);
       return;
 
 
@@ -330,7 +334,7 @@ methods:
     guards: [ is_state(STATE_PLAYING) ]
     body: |
       double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
-      //fill_rate /= 6.0f; // TODO: Use a bpm to sync with music(?)
+      fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
       if (current_board_current_filling_piece && current_board)
       {
          bool was_filled = false;
@@ -480,6 +484,12 @@ methods:
          al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 220, ALLEGRO_ALIGN_CENTER, "Game Lost");
          al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2, ALLEGRO_ALIGN_CENTER, "Press ENTER");
       }
+      else if (is_state(STATE_COUNTDOWN_TO_START))
+      {
+         ALLEGRO_FONT *font = obtain_banner_font();
+         int count = infer_current_state_age() + 1;
+         al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 220, ALLEGRO_ALIGN_CENTER, "%d", count);
+      }
 
       //ALLEGRO_FONT *font = obtain_font();
       //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 30, ALLEGRO_ALIGN_CENTER, "Hello");
@@ -555,7 +565,7 @@ methods:
         default_argument: nullptr
     guards: [ ev ]
     body: |
-      bool in_playing_state = is_state(STATE_REVEALING) || is_state(STATE_PLAYING);
+      bool in_playing_state = is_state(STATE_COUNTDOWN_TO_START) || is_state(STATE_PLAYING);
       bool in_win_or_loss_state = is_state(STATE_LEVEL_WON) || is_state(STATE_LEVEL_LOST);
 
       if (in_playing_state)
@@ -582,9 +592,9 @@ methods:
                perform_primary_board_action();
             break;
 
-            case ALLEGRO_KEY_SPACE:
-               if (!game_started) start_game();
-            break;
+            //case ALLEGRO_KEY_SPACE:
+               //if (!game_started) start_game();
+            //break;
          }
       }
       else if (in_win_or_loss_state)
@@ -705,6 +715,9 @@ methods:
          case STATE_REVEALING:
          break;
 
+         case STATE_COUNTDOWN_TO_START:
+         break;
+
          case STATE_PLAYING:
          break;
 
@@ -748,9 +761,15 @@ methods:
       switch (state)
       {
          case STATE_LEVEL_LOADED:
+            set_state(STATE_REVEALING);
          break;
 
          case STATE_REVEALING:
+            if (age > 1.0) start_game();
+         break;
+
+         case STATE_COUNTDOWN_TO_START:
+            if (age > 3.0) set_state(STATE_PLAYING);
          break;
 
          case STATE_PLAYING:
@@ -798,6 +817,7 @@ methods:
       {
          STATE_LEVEL_LOADED,
          STATE_REVEALING,
+         STATE_COUNTDOWN_TO_START,
          STATE_PLAYING,
          STATE_LEVEL_WON,
          STATE_LEVEL_LOST,

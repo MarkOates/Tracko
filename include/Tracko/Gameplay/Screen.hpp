@@ -39,6 +39,7 @@ namespace Tracko
             STATE_UNDEF = 0,
             STATE_LEVEL_LOADED,
             STATE_REVEALING,
+            STATE_COUNTDOWN_TO_START,
             STATE_PLAYING,
             STATE_LEVEL_WON,
             STATE_LEVEL_LOST,

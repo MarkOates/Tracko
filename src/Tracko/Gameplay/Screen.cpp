@@ -161,7 +161,7 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    }
 
    // Set state
-   set_state(STATE_LEVEL_LOADED);
+   //set_state(STATE_LEVEL_LOADED);
 
    // Reset the camera2D position
    camera.position = { 0, 0 };
@@ -230,6 +230,9 @@ void Screen::load_level_by_identifier(std::string level_identifier)
             "Case not found to load level with identifier \"" + level_identifier + "\"."
          );
    }
+
+   // Set state
+   set_state(STATE_LEVEL_LOADED);
 
    /*
    // Load the new level
@@ -332,7 +335,7 @@ void Screen::start_game()
    current_board_current_filling_piece->set_entrance_connecting_position(
          current_board->get_start_tile_start_connecting_position()
       );
-   set_state(STATE_PLAYING);
+   set_state(STATE_COUNTDOWN_TO_START);
    return;
 }
 
@@ -395,7 +398,7 @@ void Screen::update_gameplay()
       throw std::runtime_error("Screen::update_gameplay: error: guard \"is_state(STATE_PLAYING)\" not met");
    }
    double fill_rate = 1.0 / 60.0; // TODO: Use a more reliable time step
-   //fill_rate /= 6.0f; // TODO: Use a bpm to sync with music(?)
+   fill_rate /= 8.0f; // TODO: Use a bpm to sync with music(?)
    if (current_board_current_filling_piece && current_board)
    {
       bool was_filled = false;
@@ -545,6 +548,12 @@ void Screen::render()
       al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 220, ALLEGRO_ALIGN_CENTER, "Game Lost");
       al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2, ALLEGRO_ALIGN_CENTER, "Press ENTER");
    }
+   else if (is_state(STATE_COUNTDOWN_TO_START))
+   {
+      ALLEGRO_FONT *font = obtain_banner_font();
+      int count = infer_current_state_age() + 1;
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 220, ALLEGRO_ALIGN_CENTER, "%d", count);
+   }
 
    //ALLEGRO_FONT *font = obtain_font();
    //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 30, ALLEGRO_ALIGN_CENTER, "Hello");
@@ -617,7 +626,7 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_char_func: error: guard \"ev\" not met");
    }
-   bool in_playing_state = is_state(STATE_REVEALING) || is_state(STATE_PLAYING);
+   bool in_playing_state = is_state(STATE_COUNTDOWN_TO_START) || is_state(STATE_PLAYING);
    bool in_win_or_loss_state = is_state(STATE_LEVEL_WON) || is_state(STATE_LEVEL_LOST);
 
    if (in_playing_state)
@@ -644,9 +653,9 @@ void Screen::key_char_func(ALLEGRO_EVENT* ev)
             perform_primary_board_action();
          break;
 
-         case ALLEGRO_KEY_SPACE:
-            if (!game_started) start_game();
-         break;
+         //case ALLEGRO_KEY_SPACE:
+            //if (!game_started) start_game();
+         //break;
       }
    }
    else if (in_win_or_loss_state)
@@ -746,6 +755,9 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
       case STATE_REVEALING:
       break;
 
+      case STATE_COUNTDOWN_TO_START:
+      break;
+
       case STATE_PLAYING:
       break;
 
@@ -789,9 +801,15 @@ void Screen::update_state(float time_now)
    switch (state)
    {
       case STATE_LEVEL_LOADED:
+         set_state(STATE_REVEALING);
       break;
 
       case STATE_REVEALING:
+         if (age > 1.0) start_game();
+      break;
+
+      case STATE_COUNTDOWN_TO_START:
+         if (age > 3.0) set_state(STATE_PLAYING);
       break;
 
       case STATE_PLAYING:
@@ -831,6 +849,7 @@ bool Screen::is_valid_state(uint32_t state)
    {
       STATE_LEVEL_LOADED,
       STATE_REVEALING,
+      STATE_COUNTDOWN_TO_START,
       STATE_PLAYING,
       STATE_LEVEL_WON,
       STATE_LEVEL_LOST,
