@@ -176,71 +176,12 @@ void Screen::load_level_by_identifier(std::string level_identifier)
    // Reset the game started counter
    game_started = false;
 
-   // DEVELOPMENT: build random board
+   // Clear the previous level
    if (current_board) delete current_board;
 
-   if (level_identifier == "level_1")
-   {
-      /*
-      current_board = new Tracko::Board;
-      current_board->set_start_tile_coordinates({ 0, 2 });
-      current_board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
-      current_board->set_exit_tile_coordinates({ 5, 1 });
-      current_board->set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
-      current_board->resize(6, 4);
-      current_board->fill_with_random_types(2);
-      current_board->set_random_tile_with_connection(
-            current_board->get_start_tile_coordinates().x,
-            current_board->get_start_tile_coordinates().y,
-            Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
-            3
-         );
-      current_board->initialize_pieces();
-      Tracko::Piece *start_piece = current_board->get_piece(
-            current_board->get_start_tile_coordinates().x,
-            current_board->get_start_tile_coordinates().y
-         );
-      start_piece->reveal();
-      */
-      //current_level_identifier = "level_1";
-
-      current_board = Tracko::BoardFactory::create_board_by_identifier("level_1");
-      current_level_identifier = "level_1";
-   }
-   else if (level_identifier == "level_1234")
-   {
-      /*
-      current_board = new Tracko::Board;
-      current_board->set_start_tile_coordinates({ 0, 1 });
-      current_board->set_start_tile_start_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT);
-      current_board->set_exit_tile_coordinates({ 6, 3 });
-      current_board->set_exit_tile_exit_connecting_position(Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT);
-      current_board->resize(7, 5);
-      current_board->fill_with_random_types(1234);
-      current_board->set_random_tile_with_connection(
-            current_board->get_start_tile_coordinates().x,
-            current_board->get_start_tile_coordinates().y,
-            Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT
-         );
-      current_board->initialize_pieces();
-      Tracko::Piece *start_piece = current_board->get_piece(
-            current_board->get_start_tile_coordinates().x,
-            current_board->get_start_tile_coordinates().y
-         );
-      start_piece->reveal();
-      current_level_identifier = "level_1234";
-      */
-
-      current_board = Tracko::BoardFactory::create_board_by_identifier("level_1234");
-      current_level_identifier = "level_1";
-   }
-   else
-   {
-      AllegroFlare::Logger::throw_error(
-            "Tracko::Gameplay::Screen",
-            "Case not found to load level with identifier \"" + level_identifier + "\"."
-         );
-   }
+   // Load the level
+   current_board = Tracko::BoardFactory::create_board_by_identifier(level_identifier);
+   current_level_identifier = level_identifier;
 
    // Set state
    set_state(STATE_LEVEL_LOADED);
