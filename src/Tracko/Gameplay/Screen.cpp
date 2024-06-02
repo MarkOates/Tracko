@@ -440,9 +440,22 @@ void Screen::update_gameplay()
                   exit_connecting_position
                );
 
-            bool current_connecting_piece_connects_to_next = (connecting_to_piece != nullptr);
+            Tracko::Piece::ConnectingPosition next_entrance_connecting_position =
+               current_board->get_inverse_connection_position(exit_connecting_position);
 
-            if (!current_connecting_piece_connects_to_next)
+            bool pieces_can_connect = true;
+            if (connecting_to_piece == nullptr)
+            {
+               pieces_can_connect = false;
+            }
+            else
+            {
+               if (!connecting_to_piece->infer_is_available_for_connection()) pieces_can_connect = false;
+               if (!connecting_to_piece->has_connecting_position(next_entrance_connecting_position))
+                  pieces_can_connect = false;
+            }
+
+            if (!pieces_can_connect)
             {
                // Lost game! Jump to you lose state
                // TODO: Handle this case
@@ -454,8 +467,8 @@ void Screen::update_gameplay()
                // TODO: Test this section
 
                // Get the new entrance position
-               Tracko::Piece::ConnectingPosition entrance_connecting_position =
-                  current_board->get_inverse_connection_position(exit_connecting_position);
+               //Tracko::Piece::ConnectingPosition next_entrance_connecting_position =
+                  //current_board->get_inverse_connection_position(exit_connecting_position);
 
                // These variables are not properly assigned
                current_board_current_filling_piece_coordinates =
@@ -466,7 +479,7 @@ void Screen::update_gameplay()
                      current_board_current_filling_piece_coordinates.y
                   );
                current_board_current_filling_piece->set_entrance_connecting_position(
-                     entrance_connecting_position
+                     next_entrance_connecting_position
                   );
             }
          }

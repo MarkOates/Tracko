@@ -66,7 +66,7 @@ namespace Tracko
       bool infer_can_swap();
       bool infer_can_fill();
       bool infer_can_reveal();
-      bool infer_can_connect();
+      bool infer_is_available_for_connection();
       bool has_connecting_position(Tracko::Piece::ConnectingPosition connecting_position=CONNECTING_POSITION_UNDEF);
       void reveal();
       bool is_hidden();

@@ -126,7 +126,7 @@ bool Piece::infer_can_reveal()
    return (revealable_states.count(state) > 0);
 }
 
-bool Piece::infer_can_connect()
+bool Piece::infer_is_available_for_connection()
 {
    // TODO: Test this
    std::set<uint32_t> fillable_states =
@@ -134,7 +134,7 @@ bool Piece::infer_can_connect()
       //STATE_UNDEF,
       //STATE_HIDDEN,
       STATE_REVEALED,
-      STATE_FILLING,
+      //STATE_FILLING,
       //STATE_FILLED,
    };
    return (fillable_states.count(state) > 0);

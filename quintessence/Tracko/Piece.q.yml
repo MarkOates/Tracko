@@ -133,7 +133,7 @@ methods:
       return (revealable_states.count(state) > 0);
 
 
-  - name: infer_can_connect
+  - name: infer_is_available_for_connection
     type: bool
     body: |
       // TODO: Test this
@@ -142,7 +142,7 @@ methods:
          //STATE_UNDEF,
          //STATE_HIDDEN,
          STATE_REVEALED,
-         STATE_FILLING,
+         //STATE_FILLING,
          //STATE_FILLED,
       };
       return (fillable_states.count(state) > 0);
