@@ -70,10 +70,13 @@ methods:
     virtual: true
     override: true
     type: AllegroFlare::Elements::Backgrounds::Base*
-    guards: [ shared_background ]
+    guards: [ (!shared_background) ]
     body: |
-      // TODO: Customize this
-      this->shared_background = new Tracko::SharedBackground();
+      shared_background = new Tracko::SharedBackground;
+      shared_background->set_event_emitter(get_runner()->get_event_emitter());
+      shared_background->set_font_bin(get_runner()->get_font_bin());
+      shared_background->set_bitmap_bin(get_runner()->get_bitmap_bin());
+      shared_background->initialize();
       return shared_background;
       //return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
       //- AllegroFlare::Elements::Backgrounds::ClearToColor
@@ -85,11 +88,14 @@ methods:
     virtual: true
     override: true
     type: AllegroFlare::Elements::Backgrounds::Base*
-    guards: [ shared_foreground ]
+    guards: [ (!shared_foreground) ]
     body: |
-      // TODO: Customize this
-      this->shared_foreground = new Tracko::SharedForeground();
-      return shared_foreground;
+      this->shared_foreground = new Tracko::SharedForeground;
+      shared_foreground->set_event_emitter(get_runner()->get_event_emitter());
+      shared_foreground->set_font_bin(get_runner()->get_font_bin());
+      shared_foreground->set_bitmap_bin(get_runner()->get_bitmap_bin());
+      this->shared_foreground->initialize();
+      return this->shared_foreground;
       //return new AllegroFlare::Elements::Backgrounds::None();
       //- AllegroFlare::Elements::Backgrounds::None
     body_dependency_symbols:

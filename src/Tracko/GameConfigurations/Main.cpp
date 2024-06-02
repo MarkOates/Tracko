@@ -58,15 +58,18 @@ std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Mai
 
 AllegroFlare::Elements::Backgrounds::Base* Main::create_shared_background()
 {
-   if (!(shared_background))
+   if (!((!shared_background)))
    {
       std::stringstream error_message;
-      error_message << "[Main::create_shared_background]: error: guard \"shared_background\" not met.";
+      error_message << "[Main::create_shared_background]: error: guard \"(!shared_background)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Main::create_shared_background: error: guard \"shared_background\" not met");
+      throw std::runtime_error("Main::create_shared_background: error: guard \"(!shared_background)\" not met");
    }
-   // TODO: Customize this
-   this->shared_background = new Tracko::SharedBackground();
+   shared_background = new Tracko::SharedBackground;
+   shared_background->set_event_emitter(get_runner()->get_event_emitter());
+   shared_background->set_font_bin(get_runner()->get_font_bin());
+   shared_background->set_bitmap_bin(get_runner()->get_bitmap_bin());
+   shared_background->initialize();
    return shared_background;
    //return new AllegroFlare::Elements::Backgrounds::ClearToColor(ALLEGRO_COLOR{0, 0.05, 0.1, 1});
    //- AllegroFlare::Elements::Backgrounds::ClearToColor
@@ -74,16 +77,19 @@ AllegroFlare::Elements::Backgrounds::Base* Main::create_shared_background()
 
 AllegroFlare::Elements::Backgrounds::Base* Main::create_shared_foreground()
 {
-   if (!(shared_foreground))
+   if (!((!shared_foreground)))
    {
       std::stringstream error_message;
-      error_message << "[Main::create_shared_foreground]: error: guard \"shared_foreground\" not met.";
+      error_message << "[Main::create_shared_foreground]: error: guard \"(!shared_foreground)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Main::create_shared_foreground: error: guard \"shared_foreground\" not met");
+      throw std::runtime_error("Main::create_shared_foreground: error: guard \"(!shared_foreground)\" not met");
    }
-   // TODO: Customize this
-   this->shared_foreground = new Tracko::SharedForeground();
-   return shared_foreground;
+   this->shared_foreground = new Tracko::SharedForeground;
+   shared_foreground->set_event_emitter(get_runner()->get_event_emitter());
+   shared_foreground->set_font_bin(get_runner()->get_font_bin());
+   shared_foreground->set_bitmap_bin(get_runner()->get_bitmap_bin());
+   this->shared_foreground->initialize();
+   return this->shared_foreground;
    //return new AllegroFlare::Elements::Backgrounds::None();
    //- AllegroFlare::Elements::Backgrounds::None
 }
