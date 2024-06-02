@@ -540,7 +540,7 @@ void Screen::render()
    else if (is_state(STATE_REVEALING))
    {
       ALLEGRO_FONT *font = obtain_banner_font();
-      //int count = 5 - (infer_current_state_age() + 1);
+      int count = 5 - (infer_current_state_age() + 1);
       al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 1080/2 - 120, ALLEGRO_ALIGN_CENTER, "READY");
    }
    else if (is_state(STATE_COUNTDOWN_TO_START))
@@ -827,7 +827,17 @@ void Screen::update_state(float time_now)
       } break;
 
       case STATE_COUNTDOWN_TO_START:
-         if (age > 3.0) set_state(STATE_PLAYING);
+         if (age > 3.0)
+         {
+            bool first_piece_has_valid_entry_connection = true; // TODO: Work out this logic
+            if (!first_piece_has_valid_entry_connection)
+            {
+            }
+            else
+            {
+               set_state(STATE_PLAYING);
+            }
+         }
       break;
 
       case STATE_PLAYING:

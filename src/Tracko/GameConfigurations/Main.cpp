@@ -342,6 +342,27 @@ AllegroFlare::Screens::PauseScreen* Main::create_pause_screen(AllegroFlare::Runn
    return pause_screen;
 }
 
+void Main::on_runner_after_initialization_func(AllegroFlare::Runners::Complete* runner)
+{
+   if (!(runner))
+   {
+      std::stringstream error_message;
+      error_message << "[Main::on_runner_after_initialization_func]: error: guard \"runner\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Main::on_runner_after_initialization_func: error: guard \"runner\" not met");
+   }
+   // Tweak the level select
+   AllegroFlare::Screens::LevelSelectScreen *level_select_screen = &runner->get_level_select_screen_ref();
+   AllegroFlare::Elements::LevelSelect *level_select_element = &level_select_screen->get_level_select_element_ref();
+   level_select_element->set_num_columns(6);
+   level_select_element->set_num_rows(2);
+   level_select_element->set_selection_box_width(160);
+   level_select_element->set_selection_box_height(140);
+   level_select_element->set_selection_box_spacing_x(50);
+   level_select_element->set_selection_box_spacing_y(50);
+   return;
+}
+
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Main::create_intro_logos_storyboard_pages()
 {
    //AllegroFlare::StoryboardPageFactory page_factory;

@@ -364,6 +364,30 @@ methods:
       return pause_screen;
 
 
+  - name: on_runner_after_initialization_func
+    virtual: true
+    override: true
+    parameters:
+      - name: runner
+        type: AllegroFlare::Runners::Complete*
+        default_argument: nullptr
+        default_argument_dependency_symbols:
+          - Tracko::ForwardDeclarations::Tracko::Gameplay::Screen
+          - Tracko::ForwardDeclarations::Tracko::GameConfigurations::Main
+    guards: [ runner ]
+    body: |
+      // Tweak the level select
+      AllegroFlare::Screens::LevelSelectScreen *level_select_screen = &runner->get_level_select_screen_ref();
+      AllegroFlare::Elements::LevelSelect *level_select_element = &level_select_screen->get_level_select_element_ref();
+      level_select_element->set_num_columns(6);
+      level_select_element->set_num_rows(2);
+      level_select_element->set_selection_box_width(160);
+      level_select_element->set_selection_box_height(140);
+      level_select_element->set_selection_box_spacing_x(50);
+      level_select_element->set_selection_box_spacing_y(50);
+      return;
+
+
   - name: create_intro_logos_storyboard_pages
     virtual: true
     override: true
