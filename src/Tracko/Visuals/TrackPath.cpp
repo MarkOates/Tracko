@@ -150,6 +150,28 @@ std::vector<AllegroFlare::Vec2D> TrackPath::build_points_for_tile_type(Tracko::P
       path.refresh_segment_info();
       return path.point;
    }
+   else if (tile_type == Piece::TILE_TYPE_BOTTOM_LEFT_CURVE)
+   {
+      AllegroFlare::Path2D path;
+      path.add_arc(0.0, 0.0, 0.5, 0.5, 0.0 * ALLEGRO_PI * 2, -0.25 * ALLEGRO_PI * 2, 24, false);
+      path.scale(0.666666);
+      path.move(0.5*0.333333, 1.0-0.5*0.333333);
+      path.insert_point(0, 0.5, 1.0);
+      path.add_point(0.0, 0.5);
+      path.refresh_segment_info();
+      return path.point;
+   }
+   else if (tile_type == Piece::TILE_TYPE_LEFT_TOP_CURVE)
+   {
+      AllegroFlare::Path2D path;
+      path.add_arc(0.0, 0.0, 0.5, 0.5, 0.25 * ALLEGRO_PI * 2, -0.25 * ALLEGRO_PI * 2, 24, false);
+      path.scale(0.666666);
+      path.move(0.5*0.333333, 0.5*0.333333);
+      path.insert_point(0, 0.0, 0.5);
+      path.add_point(0.5, 0.0);
+      path.refresh_segment_info();
+      return path.point;
+   }
 
    //path_coordinates[TILE_TYPE_TOP_RIGHT_CURVE] = {};
    //path_coordinates.add_point({ 0.5, 0.0 });
