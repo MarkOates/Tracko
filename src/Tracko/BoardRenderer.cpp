@@ -241,7 +241,9 @@ void BoardRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BoardRenderer::render: error: guard \"board\" not met");
    }
+   bool train_is_on_board = false;
    AllegroFlare::Vec2D train_position;
+   AllegroFlare::Int2D train_tile_xy;
    //get_path_pos
 
    int num_rows = board->get_num_rows();
@@ -283,12 +285,14 @@ void BoardRenderer::render()
          if (piece->is_state(Piece::STATE_FILLING))
          {
             // Train is on this piece
+            train_is_on_board = true;
             train_is_on_this_piece = true;
             bool is_on_path = false;
             AllegroFlare::Vec2D path_pos = { 0, 0 };
             std::tie(is_on_path, path_pos) = piece->get_path_pos();
             train_position.x = path_pos.x * column_width;
             train_position.y = path_pos.y * row_height;
+            train_tile_xy = { x, y };
          }
 
          Tracko::PieceRenderer piece_renderer;//(font_bin, model_bin, piece);
@@ -334,6 +338,15 @@ void BoardRenderer::render()
    float exit_tile_exit_x = exit_tile_center_x + exit_tile_connecting_offset.x;
    float exit_tile_exit_y = exit_tile_center_y + exit_tile_connecting_offset.y;
    al_draw_filled_circle(exit_tile_exit_x, exit_tile_exit_y, 9, al_color_name("aliceblue"));
+
+   // Draw the train
+   if (train_is_on_board)
+   {
+      float train_x = train_tile_xy.x * column_width + train_position.x;
+      float train_y = train_tile_xy.y * row_height + train_position.y;
+      ALLEGRO_COLOR train_color = ALLEGRO_COLOR{ 1, 0, 1, 1 };
+      al_draw_circle(train_x, train_y, 8, train_color, 2.0);
+   }
 
    // Draw the position of the cursor
    float cursor_column = board->get_cursor_x();
