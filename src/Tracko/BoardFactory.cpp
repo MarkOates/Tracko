@@ -29,7 +29,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
    static float UPDATE_RATE_DENOMINATOR_ULTRA_EASY = 9.0f;
    static float UPDATE_RATE_DENOMINATOR_EASY = 8.5f;
    static float UPDATE_RATE_DENOMINATOR_MEDIUM = 6.75f;
-   static float UPDATE_RATE_DENOMINATOR_MEDIUM_PLUS = 6.00f;
+   static float UPDATE_RATE_DENOMINATOR_MEDIUM_PLUS = 5.00f;
    static float UPDATE_RATE_DENOMINATOR_HARD = 2.5f;
    static float UPDATE_RATE_DENOMINATOR_ULTRA_HARD = 2.0f;
 
@@ -86,7 +86,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             7, 3,
             { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_TOP,
             { 6, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_BOTTOM,
-            UPDATE_RATE_DENOMINATOR_MEDIUM_PLUS,
+            UPDATE_RATE_DENOMINATOR_MEDIUM,
             63 // denied: 7, 654, 64
          );
       }},
@@ -97,24 +97,24 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
       { "level_7", [](){ return create_board(
             6, 4,
             { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
-            { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
-            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_MEDIUM_PLUS,
             5 // 1 approved
          );
       }},
       { "level_8", [](){ return create_board(
             6, 4,
             { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
-            { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
-            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            { 5, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_MEDIUM_PLUS,
             6 // NOT APPROVED
          );
       }},
       { "level_9", [](){ return create_board(
-            6, 4,
-            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
-            { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
-            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            7, 4,
+            { 1, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 6, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            UPDATE_RATE_DENOMINATOR_MEDIUM_PLUS,
             321 // denied: 7
          );
       }},
