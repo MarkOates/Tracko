@@ -11,6 +11,7 @@ Your goal is to line up the tracks to get the train from the start to the end, b
 crashes!
 
 ### During Gameplay
+
 - Move the cursor with the ARROW KEYS.
 - Press SPACEBAR to either 1) reveal a hidden piece or 2) swap the revealed piece with your "swap tile".
 - If you win or lose, press ENTER to continue.
@@ -32,3 +33,13 @@ ChatGPT was used, mostly for rubber ducking, but no generated code was copied.
 Unfortunately, I was not able to get the quadratic formula OR a custom paint job feature. I was going to be cool, I swear. ;)  My idea for the quadratic was to add a bouncing animation on the train, and customizable train colors for the paint job. I started with a class for the latter, but it the feature ultimately didn't make it to production due to time constraints.
 
 Again, I hope you enjoy the game!  Thanks for playing :)
+
+
+## Prior Code
+
+The majority of code written for the hackathon is everything in the `src/Tracko/` and `include/Tracko/` folder.  The `AllegroFlare` code is 99% prewritten (some additions are included), and the first 2 commits in https://github.com/MarkOates/Tracko/commits/master/ are the generated template files.
+
+
+## How to Build
+
+To build, be sure to have Allegro 5 installed and then run `make` from this project's source project folder.
