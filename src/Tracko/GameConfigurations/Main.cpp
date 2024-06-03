@@ -382,6 +382,8 @@ void Main::on_runner_after_initialization_func(AllegroFlare::Runners::Complete* 
 
    title_screen->set_menu_font_name("Amarante-Regular.ttf");
 
+   // HACK: Just play the dang music
+   primary_gameplay_screen->get_event_emitter()->emit_play_music_track_event("the_entertainer");
 
    // HACK
    //runner->get_router()->
@@ -471,9 +473,10 @@ void Main::load_audio_controller(AllegroFlare::AudioController* audio_controller
    // event_emitter->emit_play_music_track_event("menu_select");
 
    //// An example of how to load a music track:
-   //audio_controller.set_and_load_music_track_elements({
-      ////{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
-   //});
+   audio_controller->set_and_load_music_track_elements({
+      //{ "intro_music", { "wanderer-01.ogg", true, "ignore" } },
+      { "the_entertainer", { "TheEntertainer.ogg", true, "ignore" } },
+   });
 
    // How to play a music track:
    // event_emitter->emit_play_music_track_event("intro_music");
