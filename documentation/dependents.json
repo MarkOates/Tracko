@@ -243,6 +243,13 @@
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
   ],
+  "Tracko/Visuals/TrackPath": [
+    "Tracko/Piece"
+  ],
+  "AllegroFlare/Path2D": [
+    "Tracko/Piece",
+    "Tracko/Visuals/TrackPath"
+  ],
   "AllegroFlare/Model3D": [
     "Tracko/PieceRenderer"
   ],
@@ -269,8 +276,5 @@
   ],
   "AllegroFlare/Shaders/ColorAdjust": [
     "Tracko/SharedBackground"
-  ],
-  "AllegroFlare/Path2D": [
-    "Tracko/Visuals/TrackPath"
   ]
 }

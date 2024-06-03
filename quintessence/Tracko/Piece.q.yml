@@ -19,6 +19,13 @@ properties:
     getter: true
     setter: explicit
 
+  - name: path
+    type: AllegroFlare::Path2D
+    init_with: ''
+    getter: true
+    getter_ref: true
+    setter: false
+
   - name: state
     type: uint32_t
     init_with: STATE_UNDEF
@@ -83,9 +90,16 @@ methods:
       - (!initialized)
       - (tile_type != TILE_TYPE_UNDEF)
     body: |
+      Tracko::Visuals::TrackPath::build_points_for_tile_type(tile_type);
+      std::vector<AllegroFlare::Vec2D> points = Tracko::Visuals::TrackPath::build_points_for_tile_type(tile_type);
+      path.point = points;
+      path.refresh_segment_info();
+
       initialized = true;
       set_state(STATE_HIDDEN);
       return;
+    body_dependency_symbols:
+      - Tracko::Visuals::TrackPath
 
 
   - name: infer_can_swap
@@ -492,5 +506,9 @@ dependencies:
     headers: [ Tracko/Piece.hpp ]
   - symbol: Tracko::Piece::ConnectingPosition
     headers: [ Tracko/Piece.hpp ]
+  - symbol: Tracko::Visuals::TrackPath
+    headers: [ Tracko/Visuals/TrackPath.hpp ]
+  - symbol: AllegroFlare::Path2D
+    headers: [ AllegroFlare/Path2D.hpp ]
 
 

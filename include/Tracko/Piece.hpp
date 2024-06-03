@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Path2D.hpp>
 #include <Tracko/Piece.hpp>
 #include <allegro5/allegro.h>
 #include <cstdint>
@@ -45,6 +46,7 @@ namespace Tracko
       float fill_counter;
       Tracko::Piece::TileType tile_type;
       Tracko::Piece::ConnectingPosition entrance_connecting_position;
+      AllegroFlare::Path2D path;
       uint32_t state;
       bool state_is_busy;
       float state_changed_at;
@@ -60,8 +62,10 @@ namespace Tracko
       float get_fill_counter() const;
       Tracko::Piece::TileType get_tile_type() const;
       Tracko::Piece::ConnectingPosition get_entrance_connecting_position() const;
+      AllegroFlare::Path2D get_path() const;
       uint32_t get_state() const;
       bool get_initialized() const;
+      AllegroFlare::Path2D &get_path_ref();
       void initialize();
       bool infer_can_swap();
       bool infer_can_fill();

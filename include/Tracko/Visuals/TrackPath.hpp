@@ -28,7 +28,7 @@ namespace Tracko
          AllegroFlare::Path2D &get_path_ref();
          void render();
          void reverse_points();
-         std::vector<AllegroFlare::Vec2D> build_points_for_tile_type(Tracko::Piece::TileType tile_type=Tracko::Piece::TileType::TILE_TYPE_UNDEF);
+         static std::vector<AllegroFlare::Vec2D> build_points_for_tile_type(Tracko::Piece::TileType tile_type=Tracko::Piece::TileType::TILE_TYPE_UNDEF);
          void render_point_at(float position=0.0f);
       };
    }

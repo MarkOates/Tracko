@@ -3,6 +3,7 @@
 #include <Tracko/Piece.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <Tracko/Visuals/TrackPath.hpp>
 #include <allegro5/allegro.h>
 #include <iostream>
 #include <map>
@@ -20,6 +21,7 @@ Piece::Piece()
    : fill_counter(0.0f)
    , tile_type(TILE_TYPE_UNDEF)
    , entrance_connecting_position(CONNECTING_POSITION_UNDEF)
+   , path()
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
@@ -51,6 +53,12 @@ Tracko::Piece::ConnectingPosition Piece::get_entrance_connecting_position() cons
 }
 
 
+AllegroFlare::Path2D Piece::get_path() const
+{
+   return path;
+}
+
+
 uint32_t Piece::get_state() const
 {
    return state;
@@ -60,6 +68,12 @@ uint32_t Piece::get_state() const
 bool Piece::get_initialized() const
 {
    return initialized;
+}
+
+
+AllegroFlare::Path2D &Piece::get_path_ref()
+{
+   return path;
 }
 
 
@@ -79,6 +93,11 @@ void Piece::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Piece::initialize: error: guard \"(tile_type != TILE_TYPE_UNDEF)\" not met");
    }
+   Tracko::Visuals::TrackPath::build_points_for_tile_type(tile_type);
+   std::vector<AllegroFlare::Vec2D> points = Tracko::Visuals::TrackPath::build_points_for_tile_type(tile_type);
+   path.point = points;
+   path.refresh_segment_info();
+
    initialized = true;
    set_state(STATE_HIDDEN);
    return;

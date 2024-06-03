@@ -982,6 +982,10 @@ table td
   <td class="property">Tracko::Piece::ConnectingPosition</td>
 </tr>
 <tr>
+  <td class="property">path</td>
+  <td class="property">AllegroFlare::Path2D</td>
+</tr>
+<tr>
   <td class="property">state</td>
   <td class="property">uint32_t</td>
 </tr>
@@ -1098,6 +1102,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Piece::ConnectingPosition&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Piece.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Visuals::TrackPath&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Visuals/TrackPath.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Path2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Path2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1835,6 +1845,13 @@ table td
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
   ],
+  "Tracko/Visuals/TrackPath": [
+    "Tracko/Piece"
+  ],
+  "AllegroFlare/Path2D": [
+    "Tracko/Piece",
+    "Tracko/Visuals/TrackPath"
+  ],
   "AllegroFlare/Model3D": [
     "Tracko/PieceRenderer"
   ],
@@ -1861,9 +1878,6 @@ table td
   ],
   "AllegroFlare/Shaders/ColorAdjust": [
     "Tracko/SharedBackground"
-  ],
-  "AllegroFlare/Path2D": [
-    "Tracko/Visuals/TrackPath"
   ]
 }
 </pre>

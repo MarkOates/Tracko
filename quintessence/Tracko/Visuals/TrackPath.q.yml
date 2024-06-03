@@ -33,6 +33,7 @@ methods:
 
   - name: build_points_for_tile_type
     type: std::vector<AllegroFlare::Vec2D>
+    static: true
     parameters:
       - name: tile_type
         type: Tracko::Piece::TileType
