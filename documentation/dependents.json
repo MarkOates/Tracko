@@ -235,6 +235,9 @@
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [
     "Tracko/GameConfigurations/Main"
   ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Text": [
+    "Tracko/GameConfigurations/Main"
+  ],
   "AllegroFlare/Elements/RollingCredits/SectionFactory": [
     "Tracko/GameConfigurations/Main"
   ],

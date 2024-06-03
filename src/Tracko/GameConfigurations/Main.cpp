@@ -6,6 +6,7 @@
 #include <AllegroFlare/DialogTree/NodeBankFactory.hpp>
 #include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
 #include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Text.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/GameEventDatas/AchievementUnlocked.hpp>
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
@@ -728,6 +729,26 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Main::build
       ),
 
       section_factory.create_spacer(),
+
+      section_factory.create_text(
+         "\"THE ENTERTAINER\" BY SCOTT JOPLIN\n"
+            "by Kevin MacLeod (incompetech.com)\n"
+            "Licensed under Creative Commons: By Attribution 4.0 License\n"
+            "http://creativecommons.org/licenses/by/4.0/\n",
+         AllegroFlare::Elements::RollingCredits::Sections::Text::ALIGN_CENTER
+      ),
+
+      section_factory.create_spacer(),
+
+      //section_factory.create_header("Programming"),
+      //section_factory.create_column_with_labels({
+         //{ "Made with", "Allegro (5.2.9)" },
+         //{          "", "https://liballeg.org/" },
+         ////{          "", "by Allegro Developers" },
+         //{ "Framework", "AllegroFlare (0.8.11-wip)" },
+         //{          "", "https://github.com/allegroflare/allegro_flare" },
+         //{          "", "by Mark Oates" },
+      //}),
 
       section_factory.create_text(
          "Thank you for playing."
