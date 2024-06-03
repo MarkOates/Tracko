@@ -4,6 +4,8 @@
 
 #include <AllegroFlare/Achievement.hpp>
 #include <AllegroFlare/DialogTree/NodeBankFactory.hpp>
+#include <AllegroFlare/Elements/RollingCredits/SectionFactory.hpp>
+#include <AllegroFlare/Elements/RollingCredits/Sections/Base.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/GameEventDatas/AchievementUnlocked.hpp>
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
@@ -672,6 +674,71 @@ AllegroFlare::Levels::Base* Main::load_level_by_identifier(std::string identifie
    }
 
    return result;
+}
+
+std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Main::build_rolling_credits_sections()
+{
+   /*
+   AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
+   std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
+      section_factory.create_spacer(),
+
+      section_factory.create_text(
+         "A game by Mark Oates"
+      ),
+
+      //section_factory.create_spacer(),
+
+      //section_factory.create_text(
+         //"KrampusHack 2024\nhttps://tins.amarillion.org/krampu23"
+      //),
+
+      section_factory.create_section_spacer(),
+
+      section_factory.create_header("Programming"),
+      section_factory.create_column_with_labels({
+         { "Made with", "Allegro (5.2.9)" },
+         {          "", "https://liballeg.org/" },
+         //{          "", "by Allegro Developers" },
+         { "Framework", "AllegroFlare (0.8.11-wip)" },
+         {          "", "https://github.com/allegroflare/allegro_flare" },
+         {          "", "by Mark Oates" },
+      }),
+
+      section_factory.create_section_spacer(),
+
+      section_factory.create_header("People who have contributed code to Allegro 5"),
+      section_factory.create_allegro5_contributors_list(3),
+
+      section_factory.create_section_spacer(),
+   //});
+   //std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
+   };
+   // TODO: Append disclaimers
+   rolling_credits_screen.append_sections(section_factory.create_standard_disclaimers_text());
+   return result;
+   */
+
+   AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
+   std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
+      section_factory.create_spacer(),
+
+      section_factory.create_text(
+         "A game by Mark Oates"
+      ),
+
+      section_factory.create_spacer(),
+
+      section_factory.create_text(
+         "Thank you for playing."
+      ),
+
+   };
+   //rolling_credits_screen.append_sections(section_factory.create_standard_disclaimers_text());
+   return result;
+
+
+   //return {};
 }
 
 

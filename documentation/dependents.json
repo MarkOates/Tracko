@@ -232,6 +232,12 @@
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
   ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Base": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
+    "Tracko/GameConfigurations/Main"
+  ],
   "Tracko/JSONLoaders/Tracko/GameProgressAndStateInfo": [
     "Tracko/GameProgressAndStateInfo"
   ],

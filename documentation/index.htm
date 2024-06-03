@@ -705,6 +705,10 @@ table td
   <td class="method">AllegroFlare::Levels::Base*</td>
   <td class="method"><b>load_level_by_identifier</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
 </tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Elements::RollingCredits::Sections::Base*&gt;</td>
+  <td class="method"><b>build_rolling_credits_sections</b>()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -797,6 +801,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::Sections::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/Sections/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::RollingCredits::SectionFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/RollingCredits/SectionFactory.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -2230,6 +2240,12 @@ table td
     "Tracko/Screens/CustomizeYourTrain",
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
+  ],
+  "AllegroFlare/Elements/RollingCredits/Sections/Base": [
+    "Tracko/GameConfigurations/Main"
+  ],
+  "AllegroFlare/Elements/RollingCredits/SectionFactory": [
+    "Tracko/GameConfigurations/Main"
   ],
   "Tracko/JSONLoaders/Tracko/GameProgressAndStateInfo": [
     "Tracko/GameProgressAndStateInfo"
