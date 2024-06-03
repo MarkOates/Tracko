@@ -330,7 +330,7 @@ void SharedBackground::swap_to_title()
 {
    clear_all_usings();
    set_using_fill_image(true);
-   set_fill_image_identifier("metropolitan-title-01.jpg");
+   set_fill_image_identifier("title-screen-03.jpg");
 }
 
 void SharedBackground::swap_to_level_select()

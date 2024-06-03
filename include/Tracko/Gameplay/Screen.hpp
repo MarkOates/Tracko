@@ -60,6 +60,7 @@ namespace Tracko
          Tracko::Board* current_board;
          Tracko::Piece* current_board_current_filling_piece;
          AllegroFlare::Int2D current_board_current_filling_piece_coordinates;
+         std::string train_icon_bitmap_identifier;
          bool game_started;
          bool level_won;
          bool fast_train_mode_activated;
@@ -83,9 +84,11 @@ namespace Tracko
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_model_bin(AllegroFlare::ModelBin* model_bin);
          void set_game_configuration(Tracko::GameConfigurations::Main* game_configuration);
+         void set_train_icon_bitmap_identifier(std::string train_icon_bitmap_identifier);
          std::string get_data_folder_path() const;
          AllegroFlare::EventEmitter* get_event_emitter() const;
          Tracko::GameConfigurations::Main* get_game_configuration() const;
+         std::string get_train_icon_bitmap_identifier() const;
          bool get_level_won() const;
          uint32_t get_state() const;
          bool get_initialized() const;

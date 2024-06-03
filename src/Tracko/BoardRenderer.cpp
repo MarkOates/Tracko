@@ -18,11 +18,12 @@ namespace Tracko
 {
 
 
-BoardRenderer::BoardRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, Tracko::Board* board)
+BoardRenderer::BoardRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, Tracko::Board* board, std::string train_icon_bitmap_identifier)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , model_bin(model_bin)
    , board(board)
+   , train_icon_bitmap_identifier(train_icon_bitmap_identifier)
    , column_width(120.0f)
    , row_height(120.0f)
 {
@@ -55,6 +56,12 @@ void BoardRenderer::set_model_bin(AllegroFlare::ModelBin* model_bin)
 void BoardRenderer::set_board(Tracko::Board* board)
 {
    this->board = board;
+}
+
+
+void BoardRenderer::set_train_icon_bitmap_identifier(std::string train_icon_bitmap_identifier)
+{
+   this->train_icon_bitmap_identifier = train_icon_bitmap_identifier;
 }
 
 
@@ -91,6 +98,12 @@ AllegroFlare::ModelBin* BoardRenderer::get_model_bin() const
 Tracko::Board* BoardRenderer::get_board() const
 {
    return board;
+}
+
+
+std::string BoardRenderer::get_train_icon_bitmap_identifier() const
+{
+   return train_icon_bitmap_identifier;
 }
 
 
@@ -305,7 +318,8 @@ void BoardRenderer::render()
          piece_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
          piece_placement.start_transform();
          piece_renderer.render();
-         if (train_is_on_this_piece)
+         bool render_train_on_piece = false;
+         if (train_is_on_this_piece && render_train_on_piece)
          {
             al_draw_filled_circle(train_position.x, train_position.y, 6, ALLEGRO_COLOR{1.0, 0.8, 0.5, 1.0});
          }
@@ -342,10 +356,32 @@ void BoardRenderer::render()
    // Draw the train
    if (train_is_on_board)
    {
+      ALLEGRO_BITMAP *train_icon_bitmap = bitmap_bin->auto_get(train_icon_bitmap_identifier);
       float train_x = train_tile_xy.x * column_width + train_position.x;
       float train_y = train_tile_xy.y * row_height + train_position.y;
-      ALLEGRO_COLOR train_color = ALLEGRO_COLOR{ 1, 0, 1, 1 };
-      al_draw_circle(train_x, train_y, 8, train_color, 2.0);
+      if (!train_icon_bitmap)
+      {
+         //float train_x = train_tile_xy.x * column_width + train_position.x;
+         //float train_y = train_tile_xy.y * row_height + train_position.y;
+         ALLEGRO_COLOR train_color = ALLEGRO_COLOR{ 1, 0, 1, 1 };
+         al_draw_circle(train_x, train_y, 8, train_color, 2.0);
+      }
+      else
+      {
+         AllegroFlare::Placement2D train_icon_placement;
+         train_icon_placement.scale = { 0.34, 0.34 };
+         train_icon_placement.position = { train_x, train_y };
+         train_icon_placement.size = {
+               (float)al_get_bitmap_width(train_icon_bitmap),
+               (float)al_get_bitmap_height(train_icon_bitmap)
+            };
+         train_icon_placement.start_transform();
+         al_draw_bitmap(train_icon_bitmap, 0, 0, 0);
+         train_icon_placement.restore_transform();
+      }
+
+      //ALLEGRO_BITMAP *bitmap = train_icon_bitmap_identifier
+
    }
 
    // Draw the position of the cursor

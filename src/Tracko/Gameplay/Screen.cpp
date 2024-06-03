@@ -39,6 +39,7 @@ Screen::Screen()
    , current_board(nullptr)
    , current_board_current_filling_piece(nullptr)
    , current_board_current_filling_piece_coordinates({})
+   , train_icon_bitmap_identifier("[unset-train_icon_bitmap_identifier]")
    , game_started(false)
    , level_won(false)
    , fast_train_mode_activated(false)
@@ -105,6 +106,12 @@ void Screen::set_game_configuration(Tracko::GameConfigurations::Main* game_confi
 }
 
 
+void Screen::set_train_icon_bitmap_identifier(std::string train_icon_bitmap_identifier)
+{
+   this->train_icon_bitmap_identifier = train_icon_bitmap_identifier;
+}
+
+
 std::string Screen::get_data_folder_path() const
 {
    return data_folder_path;
@@ -120,6 +127,12 @@ AllegroFlare::EventEmitter* Screen::get_event_emitter() const
 Tracko::GameConfigurations::Main* Screen::get_game_configuration() const
 {
    return game_configuration;
+}
+
+
+std::string Screen::get_train_icon_bitmap_identifier() const
+{
+   return train_icon_bitmap_identifier;
 }
 
 
@@ -471,6 +484,7 @@ void Screen::render()
    //
 
    Tracko::BoardRenderer board_renderer(bitmap_bin, font_bin, model_bin, current_board);
+   board_renderer.set_train_icon_bitmap_identifier(train_icon_bitmap_identifier);
    current_board_placement.size = { board_renderer.infer_width(), board_renderer.infer_height() }; // ??
    current_board_placement.scale = { 0.0075, -0.0075 };
 
@@ -565,6 +579,10 @@ void Screen::game_event_func(AllegroFlare::GameEvent* game_event)
       error_message << "[Screen::game_event_func]: error: guard \"game_event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::game_event_func: error: guard \"game_event\" not met");
+   }
+   if (game_event->get_type() == "set_train_icon_bitmap_identifier")
+   {
+      //train_icon_bitmap_identifier = "something";
    }
    // game_configuration->handle_game_event(game_event);
    return;

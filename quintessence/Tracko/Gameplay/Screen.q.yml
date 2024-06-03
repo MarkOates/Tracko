@@ -76,6 +76,12 @@ properties:
     type: AllegroFlare::Int2D
     init_with: '{}'
 
+  - name: train_icon_bitmap_identifier
+    type: std::string
+    init_with: '"[unset-train_icon_bitmap_identifier]"'
+    getter: true
+    setter: true
+
   - name: game_started
     type: bool
     init_with: false
@@ -408,6 +414,7 @@ methods:
       //
 
       Tracko::BoardRenderer board_renderer(bitmap_bin, font_bin, model_bin, current_board);
+      board_renderer.set_train_icon_bitmap_identifier(train_icon_bitmap_identifier);
       current_board_placement.size = { board_renderer.infer_width(), board_renderer.infer_height() }; // ??
       current_board_placement.scale = { 0.0075, -0.0075 };
 
@@ -507,6 +514,10 @@ methods:
         default_argument: nullptr
     guards: [ game_event ]
     body: |
+      if (game_event->get_type() == "set_train_icon_bitmap_identifier")
+      {
+         //train_icon_bitmap_identifier = "something";
+      }
       // game_configuration->handle_game_event(game_event);
       return;
 

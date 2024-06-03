@@ -123,6 +123,9 @@ AllegroFlare::Screens::Gameplay* Main::create_primary_gameplay_screen(AllegroFla
    result->set_background(shared_background);
    result->set_foreground(shared_foreground);
 
+   result->set_train_icon_bitmap_identifier("train-icon-01.png");
+
+
    primary_gameplay_screen = result;
 
    result->initialize();
