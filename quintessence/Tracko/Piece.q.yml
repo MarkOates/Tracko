@@ -109,7 +109,7 @@ methods:
 
       bool entrance_reverses_path = infer_entrance_reverses_path(tile_type, entrance_connecting_position);
 
-      double denormalized_distance = (entrance_reverses_path ? fill_counter : 1.0 - fill_counter) * path.length();
+      double denormalized_distance = (entrance_reverses_path ? 1.0 - fill_counter : fill_counter) * path.length();
       return { true, path.coordinate_at(denormalized_distance) };
 
 
