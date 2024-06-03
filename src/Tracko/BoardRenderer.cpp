@@ -338,8 +338,12 @@ void BoardRenderer::render()
    AllegroFlare::Vec2D start_tile_connecting_offset = start_tile_connecting_delta * row_height * 0.5;
    float start_tile_entrance_x = entrance_tile_center_x + start_tile_connecting_offset.x;
    float start_tile_entrance_y = entrance_tile_center_y + start_tile_connecting_offset.y;
-   al_draw_filled_circle(start_tile_entrance_x, start_tile_entrance_y, 9, al_color_name("aliceblue"));
 
+   bool draw_entrance_circle = false;
+   if (draw_entrance_circle)
+   {
+      al_draw_filled_circle(start_tile_entrance_x, start_tile_entrance_y, 9, al_color_name("aliceblue"));
+   }
 
    // Draw the start icon
    ///*
@@ -375,7 +379,12 @@ void BoardRenderer::render()
    AllegroFlare::Vec2D exit_tile_connecting_offset = exit_tile_connecting_delta * row_height * 0.5;
    float exit_tile_exit_x = exit_tile_center_x + exit_tile_connecting_offset.x;
    float exit_tile_exit_y = exit_tile_center_y + exit_tile_connecting_offset.y;
-   al_draw_filled_circle(exit_tile_exit_x, exit_tile_exit_y, 9, al_color_name("aliceblue"));
+
+   bool draw_exit_circle = false;
+   if (draw_exit_circle)
+   {
+      al_draw_filled_circle(exit_tile_exit_x, exit_tile_exit_y, 9, al_color_name("aliceblue"));
+   }
 
 
    // Draw the end icon
