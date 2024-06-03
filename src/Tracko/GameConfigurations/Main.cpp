@@ -370,6 +370,17 @@ void Main::on_runner_after_initialization_func(AllegroFlare::Runners::Complete* 
    level_select_element->set_selection_box_spacing_y(50);
    level_select_element->disable_drawing_title_text();
    level_select_element->disable_drawing_backfill_and_frame();
+
+   // Tweak the colors on the title screen
+   AllegroFlare::Screens::TitleScreen *title_screen = &runner->get_title_screen_ref();
+   title_screen->set_copyright_text_color(ALLEGRO_COLOR{0, 0, 0, 1});
+   title_screen->set_menu_font_name("Amarante-Regular.ttf");
+
+
+   // HACK
+   //runner->get_router()->
+
+
    return;
 }
 
@@ -425,6 +436,7 @@ std::vector<std::pair<std::string, std::string>> Main::build_title_screen_menu_o
       //{ "Load a Saved Game", "goto_load_a_saved_game_screen" }, // TODO: If game session is saved and valid,
                                                                 // and the game supports save slots
       { "Start New Game",    "start_new_game" },                // TODO: If the game session has not begun
+      //{ "Start New Game",    "customize_your_train" },                // TODO: If the game session has not begun
       //{ "Achievements",      "goto_achievements_screen" },
       //{ "Settings",          "goto_settings_screen" },
       //{ "Version",           "goto_version_screen" },
