@@ -57,12 +57,14 @@ table td
   <li><a href="#quintessence/Tracko/Board.q.yml">quintessence/Tracko/Board.q.yml</a></li>
   <li><a href="#quintessence/Tracko/BoardFactory.q.yml">quintessence/Tracko/BoardFactory.q.yml</a></li>
   <li><a href="#quintessence/Tracko/BoardRenderer.q.yml">quintessence/Tracko/BoardRenderer.q.yml</a></li>
+  <li><a href="#quintessence/Tracko/Elements/CustomizeYourTrain.q.yml">quintessence/Tracko/Elements/CustomizeYourTrain.q.yml</a></li>
   <li><a href="#quintessence/Tracko/GameConfigurations/Main.q.yml">quintessence/Tracko/GameConfigurations/Main.q.yml</a></li>
   <li><a href="#quintessence/Tracko/GameProgressAndStateInfo.q.yml">quintessence/Tracko/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/Tracko/Gameplay/Level.q.yml">quintessence/Tracko/Gameplay/Level.q.yml</a></li>
   <li><a href="#quintessence/Tracko/Gameplay/Screen.q.yml">quintessence/Tracko/Gameplay/Screen.q.yml</a></li>
   <li><a href="#quintessence/Tracko/Piece.q.yml">quintessence/Tracko/Piece.q.yml</a></li>
   <li><a href="#quintessence/Tracko/PieceRenderer.q.yml">quintessence/Tracko/PieceRenderer.q.yml</a></li>
+  <li><a href="#quintessence/Tracko/Screens/CustomizeYourTrain.q.yml">quintessence/Tracko/Screens/CustomizeYourTrain.q.yml</a></li>
   <li><a href="#quintessence/Tracko/SharedBackground.q.yml">quintessence/Tracko/SharedBackground.q.yml</a></li>
   <li><a href="#quintessence/Tracko/SharedForeground.q.yml">quintessence/Tracko/SharedForeground.q.yml</a></li>
   <li><a href="#quintessence/Tracko/Visuals/TrackPath.q.yml">quintessence/Tracko/Visuals/TrackPath.q.yml</a></li>
@@ -351,6 +353,223 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Tracko/Elements/CustomizeYourTrain.q.yml">quintessence/Tracko/Elements/CustomizeYourTrain.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Make dimension setters (set_selection_box_width, set_selection_box_spacing_y, etc) explicit and require diminensions > 0", "Make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0", "Output a warning when the number of levels is greater than the number of selection boxes", "Consider renaming \"selection_box_\" to something else"]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">levels_list</td>
+  <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func</td>
+  <td class="property">std::function&lt;void(Tracko::Elements::CustomizeYourTrain*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">place</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">cursor_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cursor_y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">selection_box_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">selection_box_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">selection_box_spacing_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">selection_box_spacing_y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">drawing_backfill_and_frame</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">drawing_title_text</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">ignore_on_invalid_selection</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="private_method">ALLEGRO_COLOR</td>
+  <td class="private_method"><b>opaquify</b>(ALLEGRO_COLOR color={0,0,0,0})</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_COLOR</td>
+  <td class="private_method"><b>change_a</b>(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>disable_drawing_backfill_and_frame</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>disable_drawing_title_text</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>enable_drawing_backfill_and_frame</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>enable_drawing_title_text</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_backfill_and_frame</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_level_select_title_text</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_level_select_boxes_and_cursor</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_up</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_down</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_left</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_right</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">bool</td>
+  <td class="private_method"><b>has_valid_size</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>list_is_empty</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_selection_cursor</b>(float x=0.0f, float y=0.0f)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_level_list_item_box</b>(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label=&quot;[unlabeled]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>activate_selected_menu_option</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>infer_current_menu_option_value</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>infer_cursor_position</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>cursor_selection_is_valid</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_title_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_level_label_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;X&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;, &quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::interpolator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SELECT_LEVEL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Elements::CustomizeYourTrain&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Elements/CustomizeYourTrain.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1234,6 +1453,165 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/Tracko/Screens/CustomizeYourTrain.q.yml">quintessence/Tracko/Screens/CustomizeYourTrain.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">level_select_element</td>
+  <td class="property">AllegroFlare::Elements::LevelSelect</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func</td>
+  <td class="property">std::function&lt;void(Tracko::Screens::CustomizeYourTrain*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_event_emitter</b>(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_bitmap_bin</b>(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_font_bin</b>(AllegroFlare::FontBin* font_bin=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_levels_list</b>(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; levels_list={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_activate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_deactivate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>activate_selected_menu_option</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>infer_current_menu_option_value</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_timer_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>joy_button_down_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>joy_axis_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_up_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_down_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_axis_change_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::LevelSelect&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/LevelSelect.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Tracko::Screens::CustomizeYourTrain&quot;, &quot;headers&quot;=&gt;[&quot;Tracko/Screens/CustomizeYourTrain.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/Tracko/SharedBackground.q.yml">quintessence/Tracko/SharedBackground.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -1629,9 +2007,11 @@ table td
   ],
   "AllegroFlare/Logger": [
     "Tracko/Board",
+    "Tracko/Elements/CustomizeYourTrain",
     "Tracko/Gameplay/Screen",
     "Tracko/Piece",
     "Tracko/PieceRenderer",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/Visuals/TrackPath"
   ],
   "AllegroFlare/Int2D": [
@@ -1648,19 +2028,23 @@ table td
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
   ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
+    "Tracko/Elements/CustomizeYourTrain",
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/SharedBackground",
     "Tracko/SharedForeground",
     "Tracko/Visuals/TrackPath"
   ],
   "ALLEGRO_FONT": [
     "Tracko/BoardRenderer",
+    "Tracko/Elements/CustomizeYourTrain",
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
@@ -1687,6 +2071,7 @@ table td
   ],
   "AllegroFlare/Placement2D": [
     "Tracko/BoardRenderer",
+    "Tracko/Elements/CustomizeYourTrain",
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer"
   ],
@@ -1707,7 +2092,38 @@ table td
   "AllegroFlare/ModelBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Screens/CustomizeYourTrain"
+  ],
+  "ALLEGRO_COLOR": [
+    "Tracko/Elements/CustomizeYourTrain",
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
+  ],
+  "X": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "AllegroFlare/Color": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "AllegroFlare/interpolator": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "fmod": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "Tracko/Elements/CustomizeYourTrain",
+    "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain",
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
+  ],
+  "Tracko/Elements/CustomizeYourTrain": [
+    "Tracko/Elements/CustomizeYourTrain"
   ],
   "Tracko/Gameplay/Screen": [
     "Tracko/GameConfigurations/Main",
@@ -1803,6 +2219,7 @@ table td
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
     "Tracko/GameConfigurations/Main",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
   ],
@@ -1810,26 +2227,26 @@ table td
     "Tracko/GameProgressAndStateInfo"
   ],
   "ALLEGRO_EVENT": [
-    "Tracko/Gameplay/Screen"
-  ],
-  "AllegroFlare/EventEmitter": [
     "Tracko/Gameplay/Screen",
-    "Tracko/SharedBackground",
-    "Tracko/SharedForeground"
+    "Tracko/Screens/CustomizeYourTrain"
   ],
   "al_is_primitives_addon_initialized": [
     "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
   ],
   "AllegroFlare/Player": [
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain"
   ],
   "AllegroFlare/VirtualControllers/Base": [
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain"
   ],
   "AllegroFlare/VirtualControllers/GenericController": [
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain"
   ],
   "Tracko/GameConfigurations/Main": [
     "Tracko/Gameplay/Screen"
@@ -1867,6 +2284,15 @@ table td
   "AllegroFlare/Model3D": [
     "Tracko/PieceRenderer"
   ],
+  "AllegroFlare/Screens/Base": [
+    "Tracko/Screens/CustomizeYourTrain"
+  ],
+  "AllegroFlare/Elements/LevelSelect": [
+    "Tracko/Screens/CustomizeYourTrain"
+  ],
+  "Tracko/Screens/CustomizeYourTrain": [
+    "Tracko/Screens/CustomizeYourTrain"
+  ],
   "al_is_font_addon_initialized": [
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
@@ -1875,10 +2301,6 @@ table td
     "Tracko/SharedBackground"
   ],
   "al_draw_filled_rectangle": [
-    "Tracko/SharedBackground",
-    "Tracko/SharedForeground"
-  ],
-  "ALLEGRO_COLOR": [
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
   ],

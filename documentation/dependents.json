@@ -16,9 +16,11 @@
   ],
   "AllegroFlare/Logger": [
     "Tracko/Board",
+    "Tracko/Elements/CustomizeYourTrain",
     "Tracko/Gameplay/Screen",
     "Tracko/Piece",
     "Tracko/PieceRenderer",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/Visuals/TrackPath"
   ],
   "AllegroFlare/Int2D": [
@@ -35,19 +37,23 @@
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
   ],
   "AllegroFlare/FontBin": [
     "Tracko/BoardRenderer",
+    "Tracko/Elements/CustomizeYourTrain",
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/SharedBackground",
     "Tracko/SharedForeground",
     "Tracko/Visuals/TrackPath"
   ],
   "ALLEGRO_FONT": [
     "Tracko/BoardRenderer",
+    "Tracko/Elements/CustomizeYourTrain",
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
@@ -74,6 +80,7 @@
   ],
   "AllegroFlare/Placement2D": [
     "Tracko/BoardRenderer",
+    "Tracko/Elements/CustomizeYourTrain",
     "Tracko/Gameplay/Screen",
     "Tracko/PieceRenderer"
   ],
@@ -94,7 +101,38 @@
   "AllegroFlare/ModelBin": [
     "Tracko/BoardRenderer",
     "Tracko/Gameplay/Screen",
-    "Tracko/PieceRenderer"
+    "Tracko/PieceRenderer",
+    "Tracko/Screens/CustomizeYourTrain"
+  ],
+  "ALLEGRO_COLOR": [
+    "Tracko/Elements/CustomizeYourTrain",
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
+  ],
+  "X": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "AllegroFlare/Color": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "AllegroFlare/interpolator": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "fmod": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
+    "Tracko/Elements/CustomizeYourTrain"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "Tracko/Elements/CustomizeYourTrain",
+    "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain",
+    "Tracko/SharedBackground",
+    "Tracko/SharedForeground"
+  ],
+  "Tracko/Elements/CustomizeYourTrain": [
+    "Tracko/Elements/CustomizeYourTrain"
   ],
   "Tracko/Gameplay/Screen": [
     "Tracko/GameConfigurations/Main",
@@ -190,6 +228,7 @@
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
     "Tracko/GameConfigurations/Main",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
   ],
@@ -197,26 +236,26 @@
     "Tracko/GameProgressAndStateInfo"
   ],
   "ALLEGRO_EVENT": [
-    "Tracko/Gameplay/Screen"
-  ],
-  "AllegroFlare/EventEmitter": [
     "Tracko/Gameplay/Screen",
-    "Tracko/SharedBackground",
-    "Tracko/SharedForeground"
+    "Tracko/Screens/CustomizeYourTrain"
   ],
   "al_is_primitives_addon_initialized": [
     "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain",
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
   ],
   "AllegroFlare/Player": [
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain"
   ],
   "AllegroFlare/VirtualControllers/Base": [
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain"
   ],
   "AllegroFlare/VirtualControllers/GenericController": [
-    "Tracko/Gameplay/Screen"
+    "Tracko/Gameplay/Screen",
+    "Tracko/Screens/CustomizeYourTrain"
   ],
   "Tracko/GameConfigurations/Main": [
     "Tracko/Gameplay/Screen"
@@ -254,6 +293,15 @@
   "AllegroFlare/Model3D": [
     "Tracko/PieceRenderer"
   ],
+  "AllegroFlare/Screens/Base": [
+    "Tracko/Screens/CustomizeYourTrain"
+  ],
+  "AllegroFlare/Elements/LevelSelect": [
+    "Tracko/Screens/CustomizeYourTrain"
+  ],
+  "Tracko/Screens/CustomizeYourTrain": [
+    "Tracko/Screens/CustomizeYourTrain"
+  ],
   "al_is_font_addon_initialized": [
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
@@ -262,10 +310,6 @@
     "Tracko/SharedBackground"
   ],
   "al_draw_filled_rectangle": [
-    "Tracko/SharedBackground",
-    "Tracko/SharedForeground"
-  ],
-  "ALLEGRO_COLOR": [
     "Tracko/SharedBackground",
     "Tracko/SharedForeground"
   ],
