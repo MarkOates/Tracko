@@ -351,8 +351,9 @@ void SharedBackground::swap_to_gameplay()
 void SharedBackground::swap_to_unknown()
 {
    clear_all_usings();
-   set_using_clear_color(true);
-   set_clear_color(ALLEGRO_COLOR{0.2, 0.2, 0.21, 1.0});
+   clear_all_usings();
+   set_using_fill_image(true);
+   set_fill_image_identifier("level-select-bg.jpg");
 }
 
 

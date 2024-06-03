@@ -113,7 +113,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
       }},
       { "level_9", [](){ return create_board(
             7, 4,
-            { 1, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
             { 6, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_MEDIUM_PLUS_PLUS,
             321 // denied: 7
@@ -141,8 +141,8 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
       }},
       { "level_12", [](){ return create_board(
             7, 5,
-            { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
-            { 6, 3 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+            { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
+            { 6, 4 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
             UPDATE_RATE_DENOMINATOR_ULTRA_HARD,
             -1
          );
