@@ -241,6 +241,9 @@ void BoardRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("BoardRenderer::render: error: guard \"board\" not met");
    }
+   AllegroFlare::Vec2D train_position;
+   //get_path_pos
+
    int num_rows = board->get_num_rows();
    int num_columns = board->get_num_columns();
    ALLEGRO_COLOR grid_color = ALLEGRO_COLOR{0.2, 0.21, 0.22, 0.22};
@@ -271,9 +274,22 @@ void BoardRenderer::render()
    {
       for (int y=0; y<num_rows; y++)
       {
+         bool train_is_on_this_piece = false;
+
          Tracko::Piece* piece = board->get_piece(x, y);
          float center_x = x * column_width + column_width * 0.5;
          float center_y = y * row_height + row_height * 0.5;
+
+         if (piece->is_state(Piece::STATE_FILLING))
+         {
+            // Train is on this piece
+            train_is_on_this_piece = true;
+            bool is_on_path = false;
+            AllegroFlare::Vec2D path_pos = { 0, 0 };
+            std::tie(is_on_path, path_pos) = piece->get_path_pos();
+            train_position.x = path_pos.x * column_width;
+            train_position.y = path_pos.y * row_height;
+         }
 
          Tracko::PieceRenderer piece_renderer;//(font_bin, model_bin, piece);
          piece_renderer.set_bitmap_bin(bitmap_bin);
@@ -285,6 +301,10 @@ void BoardRenderer::render()
          piece_placement.size = { piece_renderer.get_width(), piece_renderer.get_height() };
          piece_placement.start_transform();
          piece_renderer.render();
+         if (train_is_on_this_piece)
+         {
+            al_draw_filled_circle(train_position.x, train_position.y, 6, ALLEGRO_COLOR{1.0, 0.8, 0.5, 1.0});
+         }
          piece_placement.restore_transform();
       }
    }
