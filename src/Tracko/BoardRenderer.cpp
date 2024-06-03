@@ -340,6 +340,30 @@ void BoardRenderer::render()
    float start_tile_entrance_y = entrance_tile_center_y + start_tile_connecting_offset.y;
    al_draw_filled_circle(start_tile_entrance_x, start_tile_entrance_y, 9, al_color_name("aliceblue"));
 
+
+   // Draw the start icon
+   ///*
+   {
+      ALLEGRO_BITMAP *start_icon_bitmap = bitmap_bin->auto_get("start-tile-01.jpg");
+      AllegroFlare::Placement2D start_icon_placement;
+      start_icon_placement.scale = { 0.2, 0.2 };
+      start_icon_placement.align = { 1.0, 0.5 };
+      start_icon_placement.position = { start_tile_entrance_x, start_tile_entrance_y };
+      start_icon_placement.size = {
+            (float)al_get_bitmap_width(start_icon_bitmap),
+            (float)al_get_bitmap_height(start_icon_bitmap)
+         };
+      start_icon_placement.start_transform();
+      //al_draw_bitmap(train_icon_bitmap, 0, 0, 0);
+      al_draw_bitmap(start_icon_bitmap, 0, 0, 0);
+      start_icon_placement.restore_transform();
+
+      //ALLEGRO_BITMAP *start_icon_bitmap = bitmap_bin->auto_get("start-tile-01.jpg");
+      //al_draw_bitmap(start_icon_bitmap, start_tile_entrance_x, start_tile_entrance_y, 0);
+   }
+
+   //al_draw_bitmap();
+
    // Draw the exit
    AllegroFlare::Int2D exit_tile_coordinates = board->get_exit_tile_coordinates();
    Tracko::Piece::ConnectingPosition exit_tile_exit_connecting_position = 
@@ -352,6 +376,28 @@ void BoardRenderer::render()
    float exit_tile_exit_x = exit_tile_center_x + exit_tile_connecting_offset.x;
    float exit_tile_exit_y = exit_tile_center_y + exit_tile_connecting_offset.y;
    al_draw_filled_circle(exit_tile_exit_x, exit_tile_exit_y, 9, al_color_name("aliceblue"));
+
+
+   // Draw the end icon
+   {
+      ALLEGRO_BITMAP *end_icon_bitmap = bitmap_bin->auto_get("end-tile-01.jpg");
+      AllegroFlare::Placement2D end_icon_placement;
+      end_icon_placement.scale = { 0.2, 0.2 };
+      end_icon_placement.align = { 0.0, 0.5 };
+      end_icon_placement.position = { exit_tile_exit_x, exit_tile_exit_y };
+      end_icon_placement.size = {
+            (float)al_get_bitmap_width(end_icon_bitmap),
+            (float)al_get_bitmap_height(end_icon_bitmap)
+         };
+      end_icon_placement.start_transform();
+      //al_draw_bitmap(train_icon_bitmap, 0, 0, 0);
+      al_draw_bitmap(end_icon_bitmap, 0, 0, 0);
+      end_icon_placement.restore_transform();
+
+      //ALLEGRO_BITMAP *start_icon_bitmap = bitmap_bin->auto_get("start-tile-01.jpg");
+      //al_draw_bitmap(start_icon_bitmap, start_tile_entrance_x, start_tile_entrance_y, 0);
+   }
+   //*/
 
    // Draw the train
    if (train_is_on_board)
