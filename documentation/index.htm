@@ -1009,6 +1009,14 @@ table td
   <td class="method"><b>initialize</b>()</td>
 </tr>
 <tr>
+  <td class="method">std::pair&lt;bool, AllegroFlare::Vec2D&gt;</td>
+  <td class="method"><b>get_path_pos</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>infer_entrance_reverses_path</b>(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF, Tracko::Piece::ConnectingPosition entrance_connecting_position=CONNECTING_POSITION_UNDEF)</td>
+</tr>
+<tr>
   <td class="method">bool</td>
   <td class="method"><b>infer_can_swap</b>()</td>
 </tr>
@@ -1108,6 +1116,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Path2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Path2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1685,6 +1696,7 @@ table td
   ],
   "AllegroFlare/Vec2D": [
     "Tracko/BoardRenderer",
+    "Tracko/Piece",
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
   ],

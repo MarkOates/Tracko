@@ -83,6 +83,7 @@
   ],
   "AllegroFlare/Vec2D": [
     "Tracko/BoardRenderer",
+    "Tracko/Piece",
     "Tracko/PieceRenderer",
     "Tracko/Visuals/TrackPath"
   ],

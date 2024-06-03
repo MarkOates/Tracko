@@ -103,6 +103,51 @@ void Piece::initialize()
    return;
 }
 
+std::pair<bool, AllegroFlare::Vec2D> Piece::get_path_pos()
+{
+   if (!is_state(STATE_FILLING)) return { false, { 0, 0 } };
+
+   bool entrance_reverses_path = infer_entrance_reverses_path(tile_type, entrance_connecting_position);
+
+   double denormalized_distance = (entrance_reverses_path ? fill_counter : 1.0 - fill_counter) * path.length();
+   return { true, path.coordinate_at(denormalized_distance) };
+}
+
+bool Piece::infer_entrance_reverses_path(Tracko::Piece::TileType tile_type, Tracko::Piece::ConnectingPosition entrance_connecting_position)
+{
+   if (!((tile_type != TILE_TYPE_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::infer_entrance_reverses_path]: error: guard \"(tile_type != TILE_TYPE_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::infer_entrance_reverses_path: error: guard \"(tile_type != TILE_TYPE_UNDEF)\" not met");
+   }
+   if (!((entrance_connecting_position != CONNECTING_POSITION_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[Piece::infer_entrance_reverses_path]: error: guard \"(entrance_connecting_position != CONNECTING_POSITION_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Piece::infer_entrance_reverses_path: error: guard \"(entrance_connecting_position != CONNECTING_POSITION_UNDEF)\" not met");
+   }
+   std::set<std::pair<TileType, ConnectingPosition>> backward_path_tile_type_entrance_connecting_positions = {
+      { TILE_TYPE_HORIZONTAL_BAR, CONNECTING_POSITION_LEFT },
+      { TILE_TYPE_VERTICAL_BAR, CONNECTING_POSITION_BOTTOM },
+      { TILE_TYPE_TOP_RIGHT_CURVE, CONNECTING_POSITION_RIGHT },
+      { TILE_TYPE_RIGHT_BOTTOM_CURVE, CONNECTING_POSITION_BOTTOM },
+      { TILE_TYPE_BOTTOM_LEFT_CURVE, CONNECTING_POSITION_LEFT },
+      { TILE_TYPE_LEFT_TOP_CURVE, CONNECTING_POSITION_TOP },
+   };
+
+   auto &map = backward_path_tile_type_entrance_connecting_positions;
+
+   std::pair<TileType, ConnectingPosition> tile_type_entrance_connecting_position_to_check(
+         tile_type,
+         entrance_connecting_position
+      );
+
+   return map.find(tile_type_entrance_connecting_position_to_check) != map.end();
+}
+
 bool Piece::infer_can_swap()
 {
    // TODO: Test this

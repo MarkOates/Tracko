@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Path2D.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <Tracko/Piece.hpp>
 #include <allegro5/allegro.h>
 #include <cstdint>
@@ -67,6 +68,8 @@ namespace Tracko
       bool get_initialized() const;
       AllegroFlare::Path2D &get_path_ref();
       void initialize();
+      std::pair<bool, AllegroFlare::Vec2D> get_path_pos();
+      static bool infer_entrance_reverses_path(Tracko::Piece::TileType tile_type=TILE_TYPE_UNDEF, Tracko::Piece::ConnectingPosition entrance_connecting_position=CONNECTING_POSITION_UNDEF);
       bool infer_can_swap();
       bool infer_can_fill();
       bool infer_can_reveal();
