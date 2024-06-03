@@ -28,7 +28,8 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
 
    static float UPDATE_RATE_DENOMINATOR_ULTRA_EASY = 9.0f;
    static float UPDATE_RATE_DENOMINATOR_EASY = 8.5f;
-   static float UPDATE_RATE_DENOMINATOR_MEDIUM = 6.0f;
+   static float UPDATE_RATE_DENOMINATOR_MEDIUM = 6.75f;
+   static float UPDATE_RATE_DENOMINATOR_MEDIUM_PLUS = 6.00f;
    static float UPDATE_RATE_DENOMINATOR_HARD = 2.5f;
    static float UPDATE_RATE_DENOMINATOR_ULTRA_HARD = 2.0f;
 
@@ -85,7 +86,7 @@ Tracko::Board* BoardFactory::create_board_by_identifier(std::string board_identi
             7, 3,
             { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_TOP,
             { 6, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_BOTTOM,
-            UPDATE_RATE_DENOMINATOR_MEDIUM,
+            UPDATE_RATE_DENOMINATOR_MEDIUM_PLUS,
             63 // denied: 7, 654, 64
          );
       }},
