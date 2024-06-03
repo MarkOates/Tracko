@@ -373,7 +373,10 @@ void Main::on_runner_after_initialization_func(AllegroFlare::Runners::Complete* 
 
    // Tweak the colors on the title screen
    AllegroFlare::Screens::TitleScreen *title_screen = &runner->get_title_screen_ref();
-   title_screen->set_copyright_text_color(ALLEGRO_COLOR{0, 0, 0, 1});
+   title_screen->set_copyright_text_color(ALLEGRO_COLOR{0, 0, 0, 0.8});
+   title_screen->set_copyright_font_size(18);
+   title_screen->set_copyright_font_name("Amarante-Regular.ttf");
+
    title_screen->set_menu_font_name("Amarante-Regular.ttf");
 
 
