@@ -54,7 +54,8 @@ TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture, CAPTURE__render_
 }
 
 
-TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture, CAPTURE__build_points_for_all_tile_types__will_return_\
+TEST_F(Tracko_Visuals_TrackPathTestWithAllegroRenderingFixture,
+   FOCUS__CAPTURE__build_points_for_all_tile_types__will_return_\
 the_expected_points_for_the_path_shape)
 {
    AllegroFlare::Camera2D camera;
@@ -72,8 +73,8 @@ the_expected_points_for_the_path_shape)
 
    camera.start_reverse_transform();
 
-   float spacing = 200.0f;
-   float scale = 180.0f;
+   float spacing = 300.0f;
+   float scale = 280.0f;
    ALLEGRO_COLOR frame_color = ALLEGRO_COLOR{0.4, 0.41, 0.42, 0.42};
 
    int num_subjects = tile_types_to_render.size();
@@ -89,6 +90,7 @@ the_expected_points_for_the_path_shape)
       {
          path.add_point(point.x, point.y);
       }
+      path.refresh_segment_info();
 
       //track_path.reverse_points(); // NOTE: Can uncomment to see reversed paths
 

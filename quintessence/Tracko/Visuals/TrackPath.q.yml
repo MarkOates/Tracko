@@ -76,6 +76,24 @@ methods:
          },
       };
 
+      
+      AllegroFlare::Path2D path;
+      path.add_point(0.5, 0.0, false);
+      //path.add_point(0.5, 0.5*0.3333333, false);
+      path.add_arc(1.0, 0.0, 0.5, 0.5, 0.5 * ALLEGRO_PI * 2, -0.25 * ALLEGRO_PI * 2, 24, false);
+      path.refresh_segment_info();
+      return path.point;
+
+      //path_coordinates[TILE_TYPE_TOP_RIGHT_CURVE] = {};
+      //path_coordinates.add_point({ 0.5, 0.0 });
+      //path_coordinates.push_back({ 0.5, 0.5 * 0.3333333 });
+      //path_coordinates.push_back({ 0.5, 0.5 * 0.3333333 });
+
+      //Path2D &add_arc(float center_x, float center_y, float radius_x, float radius_y, float start_theta,
+      //float delta_theta, int num_segments, bool refresh=true);
+
+
+
 
       if (path_coordinates.find(tile_type) == path_coordinates.end())
       {
