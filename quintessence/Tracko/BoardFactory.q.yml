@@ -12,10 +12,10 @@ methods:
       auto &identifier = board_identifier;
 
       static float UPDATE_RATE_DENOMINATOR_ULTRA_EASY = 9.0f;
-      static float UPDATE_RATE_DENOMINATOR_EASY = 8.0f;
-      static float UPDATE_RATE_DENOMINATOR_MEDIUM = 4.0f;
-      static float UPDATE_RATE_DENOMINATOR_HARD = 2.0f;
-      static float UPDATE_RATE_DENOMINATOR_ULTRA_HARD = 1.5f;
+      static float UPDATE_RATE_DENOMINATOR_EASY = 8.5f;
+      static float UPDATE_RATE_DENOMINATOR_MEDIUM = 6.0f;
+      static float UPDATE_RATE_DENOMINATOR_HARD = 2.5f;
+      static float UPDATE_RATE_DENOMINATOR_ULTRA_HARD = 2.0f;
 
       // TODO: Add board names
       std::map<std::string, std::function<Tracko::Board*()>> factory = {
@@ -48,35 +48,35 @@ methods:
          }},
 
 
-         // Levels 4-6 (Easy)
+         // Levels 4-6 (Medium)
 
          { "level_4", [](){ return create_board(
                6, 4,
                { 0, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
-               { 4, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+               { 5, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
                UPDATE_RATE_DENOMINATOR_MEDIUM,
                5 // 1 approved
             );
          }},
          { "level_5", [](){ return create_board(
-               6, 4,
+               7, 4,
                { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
-               { 4, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+               { 6, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
                UPDATE_RATE_DENOMINATOR_MEDIUM,
-               6
+               8910 // ooh really good.
             );
          }},
          { "level_6", [](){ return create_board(
-               6, 4,
-               { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
-               { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
+               7, 3,
+               { 0, 0 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_TOP,
+               { 6, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_BOTTOM,
                UPDATE_RATE_DENOMINATOR_MEDIUM,
-               7
+               63 // denied: 7, 654, 64
             );
          }},
 
 
-         // Levels 7-9 (Easy)
+         // Levels 7-9 (Hard)
 
          { "level_7", [](){ return create_board(
                6, 4,
@@ -99,12 +99,12 @@ methods:
                { 0, 2 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_LEFT,
                { 5, 1 }, Tracko::Piece::ConnectingPosition::CONNECTING_POSITION_RIGHT,
                UPDATE_RATE_DENOMINATOR_MEDIUM,
-               7
+               321 // denied: 7
             );
          }},
 
 
-         // Levels 10-12 (Hardest, consider making them random)
+         // Levels 10-12 (Hardest, actually random)
 
          { "level_10", [](){ return create_board(
                7, 5,

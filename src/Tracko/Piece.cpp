@@ -130,7 +130,7 @@ bool Piece::infer_entrance_reverses_path(Tracko::Piece::TileType tile_type, Trac
       throw std::runtime_error("Piece::infer_entrance_reverses_path: error: guard \"(entrance_connecting_position != CONNECTING_POSITION_UNDEF)\" not met");
    }
    std::set<std::pair<TileType, ConnectingPosition>> backward_path_tile_type_entrance_connecting_positions = {
-      { TILE_TYPE_HORIZONTAL_BAR, CONNECTING_POSITION_LEFT },
+      { TILE_TYPE_HORIZONTAL_BAR, CONNECTING_POSITION_RIGHT },
       { TILE_TYPE_VERTICAL_BAR, CONNECTING_POSITION_BOTTOM },
       { TILE_TYPE_TOP_RIGHT_CURVE, CONNECTING_POSITION_RIGHT },
       { TILE_TYPE_RIGHT_BOTTOM_CURVE, CONNECTING_POSITION_BOTTOM },
