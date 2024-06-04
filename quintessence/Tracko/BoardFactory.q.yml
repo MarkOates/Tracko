@@ -190,6 +190,7 @@ methods:
       return nullptr;
     body_dependency_symbols:
       - std::map
+      - std::function
 
 
   - name: create_board
