@@ -423,7 +423,56 @@ methods:
       //camera3.stepout += 0.1;
       camera3.stepout = AllegroFlare::Vec3D(0, -0.1, 10);
       camera3.zoom = 2.0;
-      camera3.setup_projection_on(al_get_target_bitmap()); // ???
+      //camera3.setup_projection_on(al_get_target_bitmap()); // ???
+      {
+            ALLEGRO_BITMAP *surface = al_get_target_bitmap();
+
+            float &near_plane = camera3.near_plane;
+            float &far_plane = camera3.far_plane;
+            float &zoom = camera3.zoom;
+
+
+            if (!surface) throw std::runtime_error("BBb");
+
+
+            // Build up our transform
+
+            ALLEGRO_TRANSFORM t;
+
+            //reverse_position_transform(&t);
+            {
+                  AllegroFlare::Vec3D &position = camera3.position;
+                  AllegroFlare::Vec3D &stepout = camera3.stepout;
+                  float &tilt = camera3.tilt;
+                  float &spin = camera3.spin;
+                  float &roll = camera3.roll;
+                  // note: this is EXACTLY the same as position transform, except the
+                  // order of transformations is reversed, and the values are negated
+                  al_identity_transform(&t);
+
+                  al_translate_transform_3d(&t, -position.x, -position.y, -position.z);
+                  al_rotate_transform_3d(&t, 0, 0, 1, roll);
+                  al_rotate_transform_3d(&t, 0, 1, 0, spin);
+                  al_rotate_transform_3d(&t, 1, 0, 0, tilt);
+                  al_translate_transform_3d(&t, -stepout.x, -stepout.y, -stepout.z);
+            }
+
+            float mul = near_plane / zoom;
+            float aspect_ratio = (float)al_get_bitmap_height(surface) / al_get_bitmap_width(surface);
+            al_perspective_transform(&t, -1 * mul, aspect_ratio * mul, near_plane, 1 * mul, -aspect_ratio * mul, far_plane);
+
+
+            // set the target bitmap
+            al_set_target_bitmap(surface);
+
+            // setup the render settings
+            al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+            al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+            al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this
+
+            al_use_projection_transform(&t);
+      }
+
       //AllegroFlare::Model3D *model = model_bin->auto_get("centered_unit_cube-02.obj");
       //ALLEGRO_BITMAP *texture = bitmap_bin->auto_get("tiles_4x3-01-horizontal-01.png");
       //AllegroFlare::Model3D *model = model_bin->auto_get("tiles_4x3-01-horizontal-01.obj");
