@@ -536,9 +536,9 @@ void Screen::render()
          al_set_target_bitmap(surface);
 
          // setup the render settings
-         al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-         al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-         al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this
+         //al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+         //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+         //al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this
 
          al_use_projection_transform(&t);
    }
